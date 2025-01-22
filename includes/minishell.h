@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/21 21:34:06 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:34:42 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
 
-// pwd.c
-char	*ft_pwd(void);
+// functions in pwd.c
+char		*ft_pwd(void);
+
+// functions in pars_utils.c
+char		*ft_get_from_env(char *env_var, char **envp);
 
 #endif

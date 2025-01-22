@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 10:29:40 by qupollet          #+#    #+#              #
-#    Updated: 2025/01/21 21:35:42 by qupollet         ###   ########.fr        #
+#    Updated: 2025/01/22 17:34:00 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ LIBFT_DIR = libft
 
 SRC =	minishell.c \
 		builtin/pwd.c \
+		parsing/pars_utils.c \
 
 SRCS = ${addprefix ${SRC_DIR}/, ${SRC}}
 OBJECTS = ${addprefix ${OBJ_DIR}/, ${SRC:.c=.o}}
@@ -59,12 +60,16 @@ ${OBJ_DIR}:
 	@echo "${YELLOW}📂 Creating directory ${OBJ_DIR}...${NC}"
 	@mkdir -p ${OBJ_DIR}
 	@mkdir -p ${OBJ_DIR}/builtin
+	@mkdir -p ${OBJ_DIR}/signal
+	@mkdir -p ${OBJ_DIR}/parsing
 
 # Cleaning obj files and remove obj directory
 clean:
 	@echo "${RED}🧹 Cleaning minishell object directory...${NC}"
 	@rm -rf ${OBJ_DIR}
 	@rm -rf ${OBJ_DIR}/builtin
+	@rm -rf ${OBJ_DIR}/signal
+	@rm -rf ${OBJ_DIR}/parsing
 	@make clean --no-print-directory -C ${LIBFT_DIR} 
 
 # Clean all
