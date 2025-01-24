@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 20:25:00 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 05:37:59 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 05:51:42 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ int         le_assing_synbols(t_lexer *lexer, char *string, int index)
     else if (string[index] == '|')
             curr = le_conditional_assing(curr, string[index], PIPE, end_index - index);
     return (end_index);
+}
+
+int         le_assing_env(t_lexer *lexer, char *string, int index)
+{
+    
 }
 
 static t_tokenization     *le_conditional_assing(t_tokenization *curr, char *str, t_token_type type, int length)
