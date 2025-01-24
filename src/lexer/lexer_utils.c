@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/23 23:06:36 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 02:12:06 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,25 @@ t_tokenization    *ft_init_tolken(t_tokenization *token)
     return(node);
 }
 
-t_lexer    *ft_add_token(t_lexer *lexer, char *string)
+t_lexer    *ft_add_token(t_lexer *lexer)
 {
     t_lexer            *current;
     t_tokenization     *new_node;
     
-    current = lexer;
-    while (current->header != NULL)
-        current->header = current->header->next;
+    current = le_last_node(lexer);
     new_node = ft_init_tolken(new_node);
     if(new_node = NULL)
         return (NULL);
-    new_node->type = ft_strdup(string);
-    if(new_node->type == NULL)
-    {
-        free(new_node);
-        return(NULL);
-    }
     current->header->next = new_node;
     lexer->size++;
     return (lexer);
+}
+
+t_tokenization   *le_last_node(t_lexer *lexer)
+{
+    t_lexer    *current;
+    current = lexer;
+    while (current->header != NULL)
+        current->header = current->header->next;
+    return (current->header);
 }

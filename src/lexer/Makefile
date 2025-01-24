@@ -6,7 +6,7 @@
 #    By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/19 09:18:13 by bchallat          #+#    #+#              #
-#    Updated: 2025/01/23 19:27:56 by unbuntu          ###   ########.fr        #
+#    Updated: 2025/01/24 00:12:15 by unbuntu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ RESET     = \033[0m
 #						sources								#
 #===========================================================#
 
-SRC	=	main.c mini_loop.c tokenization.c
+SRC	=	main.c 
+#mini_loop.c tokenization.c
 
 #PREFIX_SOURCES = $(addprefix source/, $(SRC))
 

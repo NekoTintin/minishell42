@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/23 22:45:01 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 02:00:45 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,29 @@ typedef struct s_tokenization
 
 }   t_tokenization;
 
-int    mini_loop(t_tools *tools);
+//===================== mini_loop.c =================*/
+
+int                 mini_loop(t_tools *tools);
+
+//======================================================/
+
+//==================== lexer_utils.c ==================*/
+
+void                ft_free_lexer(t_lexer *lexer);
+t_lexer             *ft_init_lexer(t_lexer *lexer);
+t_lexer             *ft_add_token(t_lexer *lexer);
+t_tokenization      *ft_init_tolken(t_tokenization *token);
+t_tokenization      *le_last_node(t_lexer *lexer);
+
+//======================================================/
+
+//================== tokenization_utils.c ==============*/
+
+int    le_isspace(const char *c);
+int    le_find_word(char *string, int index_of_word);
+int    le_variable_env(char *string, int index_of_dollar);
+int    le_identify_synbols(char *string, int index_synbols);
+int    le_handle_quotes(char *string, int index_of_quotes);
+
+
+//=======================================================*/
