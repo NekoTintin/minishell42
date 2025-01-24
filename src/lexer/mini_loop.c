@@ -6,11 +6,11 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:25 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/23 19:24:40 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 06:47:52 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "lexer.h"
 
 int    mini_loop(t_tools *tools);
 int    reset_mini_loop(t_tools *tools);

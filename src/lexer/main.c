@@ -6,12 +6,12 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 00:13:28 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 10:05:33 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-//#include "lexer.h"
+#include "lexer.h"
 #include <linux/limits.h>
 
 /*int main(int argc, char **argv)//, char **envp)
@@ -34,14 +34,34 @@
 
 int     main(int argc, char **argv)
 {
-    char    **split;
+    t_lexer   *lexer;
+    t_tokenization *curr;
 
-    if (argc == 1)
-        return(EXIT_FAILURE);
-    split = ft_split(argv[1], ' ');
-    for(int i = 0; split[i] != NULL; i++)
-        printf("%s\n", split[i]);
-    return(EXIT_SUCCESS);
+    lexer = ft_init_lexer(lexer);
+    if(lexer == NULL)
+        printf("ERORR inti lexer \n");    
+    printf("init ok size: %d \n", lexer->size);
+    
+
+    lexer = ft_add_token(lexer);
+    if (lexer == NULL)
+        printf("ERROR \n");
+    printf("add token ok size: %d \n", lexer->size);
+    curr = le_last_node(lexer);
+    curr->value = ft_strdup("salut");
+
+
+
+    lexer = ft_add_token(lexer);
+    if (lexer == NULL)
+        printf("ERROR \n");
+    printf("add token ok size: %d \n", lexer->size);
+    curr = lexer->header;
+    curr->value = ft_strdup("ca va");
+
+    printf("%s \n", lexer->header->value);
+    printf("%s \n", lexer->header->next->value);
+    ft_free_lexer(lexer);
 }
 
 

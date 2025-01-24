@@ -6,16 +6,16 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 03:57:57 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 06:02:50 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 07:04:31 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 static void      le_error_index(t_lexer *lexer);
-static int         le_assing_space(t_lexer *lexer, int index);
+static int       le_assing_space(t_lexer *lexer, int index);
 
-t_lexer    *le_tolkenization(const char *string_readline, t_lexer *lexer)
+t_lexer    *le_tolkenization(char *string_readline, t_lexer *lexer)
 {
     int     index;
 
@@ -49,9 +49,12 @@ int        le_assing_type(t_lexer *lexer, char *string, int index)
 static int         le_assing_space(t_lexer *lexer, int index)
 {
     t_tokenization  *curr;
+    char            *space;
+
+    *space = 32;
     lexer = ft_add_token(lexer);
     curr = le_last_node(lexer);
-    curr->value = 32;
+    curr->value = ft_strdup(space);
     curr->type = WHITESPACE;
     return (index + 1);
 }

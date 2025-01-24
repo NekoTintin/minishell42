@@ -6,13 +6,13 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 01:12:26 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 01:38:54 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 06:37:33 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int      le_isspace(const char *c)
+int      le_isspace(char c)
 {
     if (c == 32)
         return (1);

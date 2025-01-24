@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 02:12:06 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 10:04:42 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void    ft_free_lexer(t_lexer *lexer)
     free(lexer);
 }
 
-t_tokenization    *ft_init_tolken(t_tokenization *token)
-{
-    t_tokenization  *node;
-    int             size;
+t_tokenization    *ft_init_tolken(t_tokenization *node)
+{   
     node = (t_tokenization *)malloc(sizeof(t_tokenization));
     if (node == NULL)
         return (NULL);
@@ -50,23 +48,25 @@ t_tokenization    *ft_init_tolken(t_tokenization *token)
 
 t_lexer    *ft_add_token(t_lexer *lexer)
 {
-    t_lexer            *current;
-    t_tokenization     *new_node;
+    t_tokenization     *curr;
+    t_tokenization     *node;
     
-    current = le_last_node(lexer);
-    new_node = ft_init_tolken(new_node);
-    if(new_node = NULL)
-        return (NULL);
-    current->header->next = new_node;
-    lexer->size++;
+    node = ft_init_tolken(node);
+    node->next = lexer->header;
+    lexer->header = node;
+    lexer->size += 1;
     return (lexer);
+
 }
 
 t_tokenization   *le_last_node(t_lexer *lexer)
 {
-    t_lexer    *current;
-    current = lexer;
-    while (current->header != NULL)
-        current->header = current->header->next;
-    return (current->header);
+    t_tokenization    *current;
+    
+    current = lexer->header;
+    if(current == NULL)
+        return (current);
+    while (current->next != NULL)
+        current = current->next;
+    return (current);
 }

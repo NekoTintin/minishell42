@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 20:25:00 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 05:51:42 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 07:03:36 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int         le_assing_word(t_lexer *lexer, char *string, int index)
     length = end_index - index;
     lexer = ft_add_token(lexer);
     curr = le_last_node(lexer);
-    curr = le_conditional_assing(curr, string[index], WORD, length);
+    curr = le_conditional_assing(curr, string, WORD, length);
     return(end_index + 1);
 }
 
@@ -35,11 +35,11 @@ int         le_assing_quotes(t_lexer *lexer, char *string, int index)
     int     length;
     t_tokenization  *curr;
 
-    end_index = le_find_word(string, index);
+    end_index = le_handle_quotes(string, index);
     length = end_index - index;
     lexer = ft_add_token(lexer);
     curr = le_last_node(lexer);
-    curr = le_conditional_assing(curr, string[index], QUOTES, length);
+    curr = le_conditional_assing(curr, string, QUOTES, length);
     return(end_index + 1);
 }
 
@@ -54,27 +54,27 @@ int         le_assing_synbols(t_lexer *lexer, char *string, int index)
     if (end_index - index == 2)
     {
         if (string[index] == '<')
-            curr = le_conditional_assing(curr, string[index], REDIRECT_IN, end_index - index);
+            curr = le_conditional_assing(curr, string, REDIRECT_IN, end_index - index);
         if (string[index] == '>')
-            curr = le_conditional_assing(curr, string[index], REDIRECT_OUT, end_index - index);
+            curr = le_conditional_assing(curr, string, REDIRECT_OUT, end_index - index);
     }
     else if (string[index] == '<')
-            curr = le_conditional_assing(curr, string[index], HEREDOC, end_index - index);
+            curr = le_conditional_assing(curr, string, HEREDOC, end_index - index);
     else if (string[index] == '>')
-            curr = le_conditional_assing(curr, string[index], APPEND, end_index - index);
+            curr = le_conditional_assing(curr, string, APPEND, end_index - index);
     else if (string[index] == '|')
-            curr = le_conditional_assing(curr, string[index], PIPE, end_index - index);
+            curr = le_conditional_assing(curr, string, PIPE, end_index - index);
     return (end_index);
 }
 
 int         le_assing_env(t_lexer *lexer, char *string, int index)
 {
-    
+    return (-1);
 }
 
 static t_tokenization     *le_conditional_assing(t_tokenization *curr, char *str, t_token_type type, int length)
 {
-        curr->value = ft_strdnup(str, length);
+        curr->value = ft_strndup(str, length);
         if (curr->value != NULL)
             return(NULL);
         curr->type = type;

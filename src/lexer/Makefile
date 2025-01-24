@@ -6,7 +6,7 @@
 #    By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/19 09:18:13 by bchallat          #+#    #+#              #
-#    Updated: 2025/01/24 00:12:15 by unbuntu          ###   ########.fr        #
+#    Updated: 2025/01/24 07:24:11 by unbuntu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,12 @@ RESET     = \033[0m
 #						sources								#
 #===========================================================#
 
-SRC	=	main.c 
-#mini_loop.c tokenization.c
+SRC	=	main.c \
+		lexer_utils.c \
+		lexer.c \
+		tokenization.c \
+		tokenization_utils.c \
+		mini_loop.c
 
 #PREFIX_SOURCES = $(addprefix source/, $(SRC))
 
@@ -40,7 +44,7 @@ LIBS = -lreadline
 #															#
 #===========================================================#
 
-CCFLAG = cc -Wall -Wextra -Werror
+CCFLAG = cc -Wall -Wextra -Werror -g3
 
 RMF = rm -f
 
@@ -67,6 +71,6 @@ fclean:
 	@echo "$(RED) Delete	all	file obj P_S"
 	@$(RMF) $(OBJS) $(NAME)
 
-re: fclean all
+re: all
 
 .PHONY: all clean fclean re
