@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 02:00:45 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 04:30:51 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 typedef enum e_token_type {
     WORD,
+    QUOTES,
     PIPE,
     REDIRECT_IN,
     REDIRECT_OUT,
@@ -68,5 +69,20 @@ int    le_variable_env(char *string, int index_of_dollar);
 int    le_identify_synbols(char *string, int index_synbols);
 int    le_handle_quotes(char *string, int index_of_quotes);
 
+
+//=======================================================*/
+
+//======================== lexer.c ======================*/
+
+t_lexer    *le_tolkenization(const char *string_readline, t_lexer *lexer);
+int        le_assing_type(t_lexer *lexer, char *string, int index);
+
+//=======================================================*/
+
+//================== tokenization_utils.c ==============*/
+
+int         le_assing_quotes(t_lexer *lexer, char *string, int index);
+int         le_assing_word(t_lexer *lexer, char *string, int index);
+int         le_assing_synbols(t_lexer *lexer, char *string, int index);
 
 //=======================================================*/
