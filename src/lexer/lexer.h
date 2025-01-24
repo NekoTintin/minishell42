@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 04:30:51 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/24 04:53:20 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int        le_assing_type(t_lexer *lexer, char *string, int index);
 
 //=======================================================*/
 
-//================== tokenization_utils.c ==============*/
+//==================== tokenization.c ===================*/
 
 int         le_assing_quotes(t_lexer *lexer, char *string, int index);
 int         le_assing_word(t_lexer *lexer, char *string, int index);
