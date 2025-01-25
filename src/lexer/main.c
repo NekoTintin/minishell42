@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 10:05:33 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/25 10:44:53 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,31 @@
     mini_loop(&tools);
     return (EXIT_SUCCESS);
 }*/
+static void     print_chain(t_lexer *lexer);
 
 int     main(int argc, char **argv)
 {
-    t_lexer   *lexer;
-    t_tokenization *curr;
+    t_lexer     *lexer = ll_init_lexer(lexer);
+    t_token     *p_node;
 
-    lexer = ft_init_lexer(lexer);
-    if(lexer == NULL)
-        printf("ERORR inti lexer \n");    
-    printf("init ok size: %d \n", lexer->size);
-    
+    lexer = ll_add_token(lexer);
+    lexer = ll_add_token(lexer);
 
-    lexer = ft_add_token(lexer);
-    if (lexer == NULL)
-        printf("ERROR \n");
-    printf("add token ok size: %d \n", lexer->size);
-    curr = le_last_node(lexer);
-    curr->value = ft_strdup("salut");
-
-
-
-    lexer = ft_add_token(lexer);
-    if (lexer == NULL)
-        printf("ERROR \n");
-    printf("add token ok size: %d \n", lexer->size);
-    curr = lexer->header;
-    curr->value = ft_strdup("ca va");
-
-    printf("%s \n", lexer->header->value);
-    printf("%s \n", lexer->header->next->value);
-    ft_free_lexer(lexer);
+    print_chain(lexer);
+    ll_free_lexer(lexer);
+    return (EXIT_SUCCESS);
 }
 
+static void    print_chain(t_lexer *lexer)
+{
+    t_token *node = lexer->header;
 
+    while (node != NULL)
+    {
+        printf("-> valeur node: %s \n", node->value);
+        printf("-> type   node: %d \n", node->type);
+        node = node->next;
+    }
+}
 
 /*  test pour le fichier lexer_utils.c */

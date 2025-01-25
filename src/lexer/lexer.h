@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 06:38:40 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/25 09:58:50 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../../includes/minishell.h"
 
 // Déclaration anticipée de `t_tokenization`
-typedef struct s_tokenization t_tokenization;
+typedef struct s_token t_token;
 
 typedef enum e_token_type {
     WORD,
@@ -30,18 +30,19 @@ typedef enum e_token_type {
     UNKNOWN
 } t_token_type;
 
-typedef struct s_tokenization
+typedef struct s_token
 {
-    char            *value;  // La valeur du token
+    char            *value;   // La valeur du token
     t_token_type     type;    // Type du token (mot, symbole, ect) (voir macro)
-    t_tokenization  *next;   // on lie les token dans l ordre
+    t_token  *next;           // on lie les token dans l ordre
 
-}   t_tokenization;
+}   t_token;
 
 typedef struct s_lexer
 {
-    t_tokenization *header;
     int             size;
+    t_token      *header;
+
 }   t_lexer;
 
 typedef struct s_tools
@@ -51,6 +52,16 @@ typedef struct s_tools
     
 } t_tools;
 
+//==================== chain_list.c =====================*/
+
+t_lexer             *ll_init_lexer(t_lexer *lexer);
+t_token             *ll_init_tolken(t_token *token);
+t_lexer             *ll_add_token(t_lexer *lexer);
+t_token             *ll_last_node(t_lexer *lexer);
+void                ll_free_lexer(t_lexer *lexer);
+
+//=======================================================*/
+
 //===================== mini_loop.c =================*/
 
 int                 mini_loop(t_tools *tools);
@@ -58,12 +69,6 @@ int                 mini_loop(t_tools *tools);
 //======================================================/
 
 //==================== lexer_utils.c ==================*/
-
-void                ft_free_lexer(t_lexer *lexer);
-t_lexer             *ft_init_lexer(t_lexer *lexer);
-t_lexer             *ft_add_token(t_lexer *lexer);
-t_tokenization      *ft_init_tolken(t_tokenization *token);
-t_tokenization      *le_last_node(t_lexer *lexer);
 
 //======================================================/
 
