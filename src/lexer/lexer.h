@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/25 09:58:50 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/25 12:30:04 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #ifndef LEXER_H
 # define LEXER_H
 #include "../../includes/minishell.h"
+#include <linux/limits.h>
 
 // Déclaration anticipée de `t_tokenization`
 typedef struct s_token t_token;
@@ -45,30 +46,20 @@ typedef struct s_lexer
 
 }   t_lexer;
 
-typedef struct s_tools
-{
-    const char  *prompt;
-    t_lexer     *lexer;
-    
-} t_tools;
-
 //==================== chain_list.c =====================*/
 
 t_lexer             *ll_init_lexer(t_lexer *lexer);
 t_token             *ll_init_tolken(t_token *token);
 t_lexer             *ll_add_token(t_lexer *lexer);
-t_token             *ll_last_node(t_lexer *lexer);
+t_token             *ll_last_token(t_lexer *lexer);
 void                ll_free_lexer(t_lexer *lexer);
 
 //=======================================================*/
 
-//===================== mini_loop.c =================*/
-
-int                 mini_loop(t_tools *tools);
-
-//======================================================/
-
 //==================== lexer_utils.c ==================*/
+
+ int     lx_space_token(int index, t_lexer *lexer);
+ int     lx_value_node(int index, char *string, t_lexer *lexer);
 
 //======================================================/
 
@@ -85,8 +76,10 @@ int    le_handle_quotes(char *string, int index_of_quotes);
 
 //======================== lexer.c ======================*/
 
-t_lexer    *le_tolkenization(char *string_readline, t_lexer *lexer);
-int        le_assing_type(t_lexer *lexer, char *string, int index);
+t_lexer     *mi_make_lexer(char *readline_string);
+t_lexer     *lx_value_chain(char *string, t_lexer *lexer);
+t_lexer     *lx_tolkenization(t_lexer *lexer);
+int         lx_assing_type(t_lexer *lexer, char *string, int index);
 
 //=======================================================*/
 

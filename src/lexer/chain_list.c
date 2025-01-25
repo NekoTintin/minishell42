@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 08:53:05 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/25 10:43:25 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/25 12:38:46 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_lexer    *ll_add_token(t_lexer *lexer)
     t_token     *last;
     
     node = ll_init_tolken(node);
+    if (node == NULL)
+        return (ll_free_lexer,NULL);
     if(lexer->header == NULL)
     {
         lexer->header = node;
@@ -47,7 +49,7 @@ t_lexer    *ll_add_token(t_lexer *lexer)
     }
     else
     {
-        last = ll_last_node(lexer);
+        last = ll_last_token(lexer);
         last->next = node;
         lexer->size += 1;
     }
@@ -55,7 +57,7 @@ t_lexer    *ll_add_token(t_lexer *lexer)
 
 }
 
-t_token   *ll_last_node(t_lexer *lexer)
+t_token   *ll_last_token(t_lexer *lexer)
 {
     t_token    *current;
     

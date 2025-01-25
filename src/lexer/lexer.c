@@ -6,49 +6,77 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 03:57:57 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 07:04:31 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/25 18:02:13 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static void      le_error_index(t_lexer *lexer);
-static int       le_assing_space(t_lexer *lexer, int index);
-
-t_lexer    *le_tolkenization(char *string_readline, t_lexer *lexer)
+t_lexer     *mi_make_lexer(char *readline_string)
 {
-    int     index;
-
-    index = 0;
-    while (string_readline[index] != '\0')
-    {
-        if (!le_isspace(string_readline[index]))
-            index = le_assing_type(lexer, string_readline, index);
-        else if(le_isspace(string_readline[index]))
-            index = le_assing_space(lexer, index);
-        else if(index == -1)
-           return(le_error_index(lexer), NULL);
-        else
-            break;
-    }
+    t_lexer     *lexer;
+    
+    lexer = ll_init_lexer(lexer);
+    if (lexer == NULL || readline_string == NULL)
+        return(ll_free_lexer(lexer), NULL);
+    lexer = lx_value_chain(readline_string, lexer);
+    if(lexer == NULL)
+        return (NULL);
+    lexer = lx_tolkenization(lexer);
+    return (lexer);
 }
 
-int        le_assing_type(t_lexer *lexer, char *string, int index)
+t_lexer     *lx_value_chain(char *string, t_lexer *lexer)
+{
+    int         index;
+    t_token     *node;
+
+    index = 0;
+    while (string[index] != '\0')
+    {
+        if(string[index] == 32)
+            index = lx_space_token(index, lexer);
+        else
+            index = lx_value_node(index, string, lexer);
+        if(index == -1)
+           return (NULL);
+    }
+    return (lexer);
+}
+
+t_lexer    *lx_tolkenization(t_lexer *lexer)
+{
+    // renvoyer le lexer avec les node tokeniser.
+    return (lexer);
+}
+
+
+
+
+
+
+
+/*static void      le_error_index(t_lexer *lexer);
+static int       le_assing_space(t_lexer *lexer, int index);
+
+
+int        lx_assing_type(t_lexer *lexer, char *string)
 {
     if (string[index] == '<' || string[index] == '>' || string[index] == '|')
-        return (le_assing_synbols(lexer, string, index));
+        
     else if (string[index] == 39 || string[index] == 34)
-        return (le_assing_quotes(lexer, string, index));
+       
     else if (string[index] == '$')
-        return (le_assing_env(lexer, string, index));
+        
     else if (string[index] != '\0')
-        return (le_assing_word(lexer, string, index));    
+         
     return (-1); 
 }
 
+
 static int         le_assing_space(t_lexer *lexer, int index)
 {
-    t_tokenization  *curr;
+    t_token  *curr;
     char            *space;
 
     *space = 32;
@@ -62,4 +90,4 @@ static int         le_assing_space(t_lexer *lexer, int index)
 static void      le_error_index(t_lexer *lexer)
 {
     ft_free_lexer(lexer);
-}
+}*/

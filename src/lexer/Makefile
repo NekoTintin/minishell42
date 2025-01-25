@@ -6,7 +6,7 @@
 #    By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/19 09:18:13 by bchallat          #+#    #+#              #
-#    Updated: 2025/01/25 09:04:37 by unbuntu          ###   ########.fr        #
+#    Updated: 2025/01/25 16:39:35 by unbuntu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,10 @@ RESET     = \033[0m
 #===========================================================#
 
 SRC	=	main.c \
-		chain_list.c
-#lexer_utils.c \
+		chain_list.c \
 		lexer.c \
-		tokenization.c \
+		lexer_utils.c \
+#		tokenization.c \
 		tokenization_utils.c \
 		mini_loop.c \
 
