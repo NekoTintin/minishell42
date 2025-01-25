@@ -6,11 +6,15 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 03:57:57 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/25 18:02:13 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/25 20:22:34 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+static t_lexer     *lx_value_chain(char *string, t_lexer *lexer);
+static t_lexer    *lx_tolkenization(t_lexer *lexer);
+static int        lx_assing_type(t_token *node);
 
 t_lexer     *mi_make_lexer(char *readline_string)
 {
@@ -26,7 +30,7 @@ t_lexer     *mi_make_lexer(char *readline_string)
     return (lexer);
 }
 
-t_lexer     *lx_value_chain(char *string, t_lexer *lexer)
+static t_lexer     *lx_value_chain(char *string, t_lexer *lexer)
 {
     int         index;
     t_token     *node;
@@ -44,50 +48,30 @@ t_lexer     *lx_value_chain(char *string, t_lexer *lexer)
     return (lexer);
 }
 
-t_lexer    *lx_tolkenization(t_lexer *lexer)
+static t_lexer    *lx_tolkenization(t_lexer *lexer)
 {
-    // renvoyer le lexer avec les node tokeniser.
+    t_token     *curr;
+    int         error_code;
+
+    curr = lexer->header;
+    while (curr != NULL)
+    {
+        if(curr->type != WHITESPACE)
+            error_code = lx_assing_type(curr);
+        curr = curr->next;
+    }    
     return (lexer);
 }
 
-
-
-
-
-
-
-/*static void      le_error_index(t_lexer *lexer);
-static int       le_assing_space(t_lexer *lexer, int index);
-
-
-int        lx_assing_type(t_lexer *lexer, char *string)
+static int        lx_assing_type(t_token *node)
 {
-    if (string[index] == '<' || string[index] == '>' || string[index] == '|')
-        
-    else if (string[index] == 39 || string[index] == 34)
-       
-    else if (string[index] == '$')
-        
-    else if (string[index] != '\0')
-         
+    if (node->value[0] == '<' || node->value[0] == '>' || node->value[0] == '|')
+        return (-1);
+    else if (node->value[0] == '$')
+        return (-1);
+    else if (node->value[0] == 34 || node->value[0] == 39)
+        return (-1);
+    else if (ft_isascii(node->value[0]))
+        return (-1);
     return (-1); 
 }
-
-
-static int         le_assing_space(t_lexer *lexer, int index)
-{
-    t_token  *curr;
-    char            *space;
-
-    *space = 32;
-    lexer = ft_add_token(lexer);
-    curr = le_last_node(lexer);
-    curr->value = ft_strdup(space);
-    curr->type = WHITESPACE;
-    return (index + 1);
-}
-
-static void      le_error_index(t_lexer *lexer)
-{
-    ft_free_lexer(lexer);
-}*/

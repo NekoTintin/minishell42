@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/25 12:30:04 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/25 20:26:03 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_lexer
 
 }   t_lexer;
 
+t_lexer     *mi_make_lexer(char *readline_string);
+
 //==================== chain_list.c =====================*/
 
 t_lexer             *ll_init_lexer(t_lexer *lexer);
@@ -63,26 +65,6 @@ void                ll_free_lexer(t_lexer *lexer);
 
 //======================================================/
 
-//================== tokenization_utils.c ==============*/
-
-int    le_isspace(char c);
-int    le_find_word(char *string, int index_of_word);
-int    le_variable_env(char *string, int index_of_dollar);
-int    le_identify_synbols(char *string, int index_synbols);
-int    le_handle_quotes(char *string, int index_of_quotes);
-
-
-//=======================================================*/
-
-//======================== lexer.c ======================*/
-
-t_lexer     *mi_make_lexer(char *readline_string);
-t_lexer     *lx_value_chain(char *string, t_lexer *lexer);
-t_lexer     *lx_tolkenization(t_lexer *lexer);
-int         lx_assing_type(t_lexer *lexer, char *string, int index);
-
-//=======================================================*/
-
 //==================== tokenization.c ===================*/
 
 int         le_assing_quotes(t_lexer *lexer, char *string, int index);
@@ -92,3 +74,11 @@ int         le_assing_env(t_lexer *lexer, char *string, int index);
 
 //=======================================================*/
 #endif
+
+/*
+
+int    le_isspace(char c);
+int    le_find_word(char *string, int index_of_word);
+int    le_variable_env(char *string, int index_of_dollar);
+int    le_identify_synbols(char *string, int index_synbols);
+int    le_handle_quotes(char *string, int index_of_quotes);*/
