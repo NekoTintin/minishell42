@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 03:57:57 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/25 20:22:34 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/27 08:38:43 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,16 @@ static t_lexer    *lx_tolkenization(t_lexer *lexer)
 
 static int        lx_assing_type(t_token *node)
 {
+    int     error_code;
+
+    error_code = 0;
     if (node->value[0] == '<' || node->value[0] == '>' || node->value[0] == '|')
-        return (-1);
+        return (error_code = lx_assing_synbols(node));
     else if (node->value[0] == '$')
-        return (-1);
+        return (error_code = lx_assing_env(node));
     else if (node->value[0] == 34 || node->value[0] == 39)
-        return (-1);
+        return (error_code = lx_assing_quotes(node));
     else if (ft_isascii(node->value[0]))
-        return (-1);
+        return (error_code = lx_assing_word(node));
     return (-1); 
 }

@@ -6,7 +6,7 @@
 #    By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/19 09:18:13 by bchallat          #+#    #+#              #
-#    Updated: 2025/01/25 16:39:35 by unbuntu          ###   ########.fr        #
+#    Updated: 2025/01/27 08:14:41 by unbuntu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ SRC	=	main.c \
 		chain_list.c \
 		lexer.c \
 		lexer_utils.c \
-#		tokenization.c \
-		tokenization_utils.c \
+		tokenization.c \
+#		tokenization_utils.c \
 		mini_loop.c \
 
 #PREFIX_SOURCES = $(addprefix source/, $(SRC))

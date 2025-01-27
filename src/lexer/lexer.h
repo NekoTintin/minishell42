@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/25 20:26:03 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/27 08:39:04 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ typedef struct s_token t_token;
 
 typedef enum e_token_type {
     WORD,
-    QUOTES,
+    S_QUOTES,
+    D_QUOTES,
     PIPE,
     REDIRECT_IN,
     REDIRECT_OUT,
@@ -67,10 +68,10 @@ void                ll_free_lexer(t_lexer *lexer);
 
 //==================== tokenization.c ===================*/
 
-int         le_assing_quotes(t_lexer *lexer, char *string, int index);
-int         le_assing_word(t_lexer *lexer, char *string, int index);
-int         le_assing_synbols(t_lexer *lexer, char *string, int index);
-int         le_assing_env(t_lexer *lexer, char *string, int index);
+int         lx_assing_quotes(t_token *node);
+int         lx_assing_word(t_token *node);
+int         lx_assing_synbols(t_token *node);
+int         lx_assing_env(t_token *node);
 
 //=======================================================*/
 #endif
