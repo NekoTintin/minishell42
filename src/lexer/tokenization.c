@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 20:25:00 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/27 08:37:17 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/27 11:42:01 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int         lx_assing_synbols(t_token *node)
 
 int         lx_assing_env(t_token *node)
 {
-    node->type = WORD; 
+    node->type = VAR_ENV; 
     return (0);
 }
 

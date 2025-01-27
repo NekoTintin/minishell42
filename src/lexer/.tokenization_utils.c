@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenization_utils.c                               :+:      :+:    :+:   */
+/*   .tokenization_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 01:12:26 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/24 06:37:33 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/27 10:32:15 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+int    le_isspace(char c);
+int    le_find_word(char *string, int index_of_word);
+int    le_variable_env(char *string, int index_of_dollar);
+int    le_identify_synbols(char *string, int index_synbols);
+int    le_handle_quotes(char *string, int index_of_quotes);
 
 int      le_isspace(char c)
 {
