@@ -6,11 +6,11 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/27 12:42:58 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/01/27 14:45:24 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../includes/lexer.h"
 
 static void     print_chain(t_lexer *lexer);
 static char     print_enum(int nb);
@@ -27,7 +27,7 @@ int     main(int argc, char **argv)
 
 static void    print_chain(t_lexer *lexer)
 {
-    int     index = 0;
+    int     index = 1;
     t_token *node = lexer->header;
 
     while (node != NULL)
@@ -37,6 +37,7 @@ static void    print_chain(t_lexer *lexer)
         printf("-> type   node:");
         print_enum(node->type);
         node = node->next;
+        index++;
     }
 }
 

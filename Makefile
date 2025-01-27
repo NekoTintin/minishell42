@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
+#    By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 10:29:40 by qupollet          #+#    #+#              #
-#    Updated: 2025/01/22 17:34:00 by qupollet         ###   ########.fr        #
+#    Updated: 2025/01/27 15:02:17 by unbuntu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ LIBFT_DIR = libft
 SRC =	minishell.c \
 		builtin/pwd.c \
 		parsing/pars_utils.c \
+		lexer/chain_list.c \
+		lexer/lexer.c \
+		lexer/lexer_utils.c \
+		lexer/tokenization.c \
 
 SRCS = ${addprefix ${SRC_DIR}/, ${SRC}}
 OBJECTS = ${addprefix ${OBJ_DIR}/, ${SRC:.c=.o}}
@@ -62,6 +66,7 @@ ${OBJ_DIR}:
 	@mkdir -p ${OBJ_DIR}/builtin
 	@mkdir -p ${OBJ_DIR}/signal
 	@mkdir -p ${OBJ_DIR}/parsing
+	@mkdir -p ${OBJ_DIR}/lexer
 
 # Cleaning obj files and remove obj directory
 clean:
@@ -70,6 +75,7 @@ clean:
 	@rm -rf ${OBJ_DIR}/builtin
 	@rm -rf ${OBJ_DIR}/signal
 	@rm -rf ${OBJ_DIR}/parsing
+	@rm -rf ${OBJ_DIR}/lexer
 	@make clean --no-print-directory -C ${LIBFT_DIR} 
 
 # Clean all
