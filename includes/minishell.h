@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/22 17:34:42 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:44:55 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "lexer.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
