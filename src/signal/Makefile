@@ -19,7 +19,7 @@ RESET     = \033[0m
 #===========================================================#
 
 SRC	=	main.c \
-
+		signal_utils.c
 #PREFIX_SOURCES = $(addprefix source/, $(SRC))
 
 OBJS = $(SRC:.c=.o)

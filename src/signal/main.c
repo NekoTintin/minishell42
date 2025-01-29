@@ -1,11 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 10:08:41 by unbuntu           #+#    #+#             */
+/*   Updated: 2025/01/29 10:47:47 by unbuntu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "signal.h"
 
-int main (void)
+int	main(void)
 {
-	//setup_signal
+	sig_setup_signal();
 	while (42)
 	{
 		ft_printf("Minishell");
-		sleep(1);
+		sleep(3);
 	}
+	return (EXIT_SUCCESS);
 }
