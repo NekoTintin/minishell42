@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/29 12:50:04 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:45:11 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PARSING_H
 # include "../../includes/minishell.h"
 # include <linux/limits.h>
+# include "parsing.h"
+# include "lexer.h"
 
 typedef struct s_cmd	t_cmd;
 
@@ -37,5 +39,8 @@ t_parser			*ft_init_parser(void);
 t_cmd				*ft_parser_last(t_parser *parser);
 int					ft_init_command(t_parser *parser);
 void				ft_free_parser(t_parser *parser);
+
+// pars_utils.c
+int					ft_command_counter(t_lexer *lexer);
 
 #endif
