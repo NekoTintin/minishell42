@@ -6,10 +6,12 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:32:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/22 18:02:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:02:13 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lexer.h"
+#include "parsing.h"
 #include "../../includes/minishell.h"
 
 // Return the value of the specified environment variable 
@@ -38,4 +40,23 @@ char	*ft_get_from_env(char *env_var, char **envp)
 		idx++;
 	}
 	return (NULL);
+}
+
+// Count the number of pipes + 1 because of the first cmd
+int	ft_command_counter(t_lexer *lexer)
+{
+	int			nb_command;
+	t_token		*token;
+
+	if (!lexer || !lexer->header)
+		return (-1);
+	token = lexer->header;
+	while (token)
+	{
+		if (token->type == PIPE)
+			nb_command++;
+		token = token->next;
+	}
+	nb_command++;
+	return (nb_command);
 }
