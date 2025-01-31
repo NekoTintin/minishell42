@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:16:05 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/31 18:10:51 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:40:56 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,21 @@ int	ft_token_analyzer(t_token *token, t_cmd *cmd)
 
 	if (!cmd || !token)
 		return (-1);
-	if (token->type == REDIRECT_IN)
-		cmd->infile = token->next->value;
-	else if (token->type == REDIRECT_OUT)
-		cmd->outfile = token->next->value;
-	else if (token->type == APPEND)
+	if (redirect_mode != 0)
 	{
-		cmd->append = 1;
+		if (token->type == REDIRECT_IN)
+			cmd->infile = token->next;
+		else if (token->type == REDIRECT_OUT)
+			cmd->outfile = token->next;
+		else if (token->type == APPEND)
+		{
+			cmd->append = 1;
+			cmd->outfile = token->next;
+		}
+		else
+			return (0);
 	}
 	else
-		return (0);
+		redirect_mode = ft_is_symbol(token, cmd);
 	return (1);
-	return (0);
 }
