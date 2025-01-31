@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:45:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/31 17:24:50 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:05:49 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,24 @@ int	ft_parsing_loop(t_lexer *lexer, t_parser *parser)
 {
 	t_token			*token;
 	t_cmd			*cmd;
-	int				to_indent;
 
-	if (!lexer || !parser)
+	if (!lexer || !lexer->header || !parser || !parser->top)
 		return (-1);
 	token = lexer->header;
 	cmd = parser->top;
 	while (token)
 	{
-		
+		if (token->type == PIPE)
+		{
+			cmd = cmd->next;
+			if (!cmd)
+				break ;
+		}
+		else
+			ft_token_analyzer(token, cmd);
+		token = token->next;
 	}
+	return (0);
 }
 
 t_parser	*parsing(t_lexer *lexer)

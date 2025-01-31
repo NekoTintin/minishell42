@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:38:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/31 16:43:05 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:38:29 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ t_cmd	*ft_parser_last(t_parser *parser)
 	return (cur);
 }
 
+char	**ft_init_tab(t_parser *parser)
+{
+	char	**tab;
+
+	tab = ft_calloc(2, sizeof(char *));
+	if (!tab)
+		return (NULL);
+	return (tab);
+}
+
 int	ft_init_command(t_parser *parser)
 {
 	t_cmd	*command;
@@ -47,7 +57,9 @@ int	ft_init_command(t_parser *parser)
 	if (!command)
 		return (-1);
 	command->append = -1;
-	command->args = NULL;
+	command->args = ft_init_tab(parser);
+	if (!command->args)
+		return (-1);
 	command->infile = NULL;
 	command->outfile = NULL;
 	command->next = NULL;
