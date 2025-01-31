@@ -6,12 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/29 20:45:11 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:11:54 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
+
 # include "../../includes/minishell.h"
 # include <linux/limits.h>
 # include "parsing.h"
@@ -25,6 +26,7 @@ typedef struct s_cmd
 	char		*infile;
 	char		*outfile;
 	int			append;
+	int			is_builtin;
 	t_cmd		*next;
 }				t_cmd;
 
@@ -34,13 +36,14 @@ typedef struct s_parser
 	t_cmd		*top;
 }				t_parser;
 
-// t_command_util functions
+//==================== init_parser.c =====================*/
 t_parser			*ft_init_parser(void);
 t_cmd				*ft_parser_last(t_parser *parser);
 int					ft_init_command(t_parser *parser);
 void				ft_free_parser(t_parser *parser);
 
-// pars_utils.c
+//==================== pars_utils.c =====================*/
 int					ft_command_counter(t_lexer *lexer);
+char				*ft_get_from_env(char *env_var, char **envp);
 
 #endif
