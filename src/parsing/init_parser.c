@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_command_utils.c                                  :+:      :+:    :+:   */
+/*   init_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:38:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/29 20:04:29 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:43:05 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	ft_init_command(t_parser *parser)
 	command->infile = NULL;
 	command->outfile = NULL;
 	command->next = NULL;
+	command->is_builtin = -1;
 	if (!parser->top)
 		parser->top = command;
 	else
