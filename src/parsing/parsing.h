@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/31 17:11:54 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:22:39 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ void				ft_free_parser(t_parser *parser);
 //==================== pars_utils.c =====================*/
 int					ft_command_counter(t_lexer *lexer);
 char				*ft_get_from_env(char *env_var, char **envp);
+
+//==================== parser_handle.c ===================*/
+int					ft_get_symbol(t_token *token);
 
 #endif

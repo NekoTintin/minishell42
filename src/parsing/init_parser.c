@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:38:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/31 18:38:29 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:43:10 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,6 @@ t_cmd	*ft_parser_last(t_parser *parser)
 	return (cur);
 }
 
-char	**ft_init_tab(t_parser *parser)
-{
-	char	**tab;
-
-	tab = ft_calloc(2, sizeof(char *));
-	if (!tab)
-		return (NULL);
-	return (tab);
-}
-
 int	ft_init_command(t_parser *parser)
 {
 	t_cmd	*command;
@@ -57,9 +47,7 @@ int	ft_init_command(t_parser *parser)
 	if (!command)
 		return (-1);
 	command->append = -1;
-	command->args = ft_init_tab(parser);
-	if (!command->args)
-		return (-1);
+	command->args = NULL;
 	command->infile = NULL;
 	command->outfile = NULL;
 	command->next = NULL;
@@ -75,7 +63,7 @@ int	ft_init_command(t_parser *parser)
 	return (0);
 }
 
-void	ft_free_parser(t_parser *parser)
+void	ft_free_parser(t_parser *parser, t_lexer *lexer)
 {
 	t_cmd		*cur;
 	t_cmd		*next;
@@ -86,8 +74,6 @@ void	ft_free_parser(t_parser *parser)
 	cur = parser->top;
 	while (cur)
 	{
-		next = cur->next;
-		free(cur->next);
 		if (cur->infile)
 			free(cur->infile);
 		if (cur->outfile)
@@ -98,6 +84,8 @@ void	ft_free_parser(t_parser *parser)
 			while (cur->args[++i])
 				free(cur->args[i]);
 		}
+		next = cur->next;
+		free(cur->next);
 		free(cur);
 		cur = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:45:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/31 18:05:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:24:26 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ int	ft_parsing_loop(t_lexer *lexer, t_parser *parser)
 		{
 			cmd = cmd->next;
 			if (!cmd)
-				break ;
+				return (-1);
 		}
-		else
-			ft_token_analyzer(token, cmd);
+		else if (ft_get_symbol(token))
+			ft_handle_symbols(token, cmd);
+		else if (token->type == WORD)
+			ft_handle_words(token, cmd);
 		token = token->next;
 	}
 	return (0);
@@ -63,9 +65,6 @@ t_parser	*parsing(t_lexer *lexer)
 	if (ft_create_commands(lexer, parser) == -1)
 		return (ft_free_parser(parser), NULL);
 	if (ft_parser_loop(lexer, parsing) == -1)
-	{
-		ft_free_parser(parser);
-		return (NULL);
-	}
+		return (ft_free_parser(parser), NULL);
 	return (parser);
 }
