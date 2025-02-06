@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:38:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/03 16:43:10 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/06 01:10:04 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_init_command(t_parser *parser)
 	command = ft_calloc(1, sizeof(t_cmd));
 	if (!command)
 		return (-1);
-	command->append = -1;
+	command->append = NULL;
 	command->args = NULL;
 	command->infile = NULL;
 	command->outfile = NULL;
