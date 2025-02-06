@@ -6,13 +6,32 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:16:05 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/03 17:24:42 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/06 01:08:37 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "lexer.h"
 #include "parsing.h"
+
+int	ft_is_builtin(const char *str)
+{
+	if (ft_strncmp(str, "echo", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "cd", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "pwd", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "export", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "unset", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "env", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "exit", ft_strlen(str)) == 0)
+		return (1);
+	return (0);
+}
 
 // Reallocate and add an string to the cmd->args
 int	ft_add_arg(t_cmd *cmd, char *arg)
@@ -40,20 +59,20 @@ int	ft_add_arg(t_cmd *cmd, char *arg)
 	return (0);
 }
 
-int	ft_get_symbol(t_token *token)
+int	ft_handle_symbol(t_token *token, t_cmd *cmd)
 {
-	if (token->type == REDIRECT_IN)
-		return (1);
-	else if (token->type == REDIRECT_OUT)
-		return (2);
-	else if (token->type == APPEND)
-		return (3);
-	else if (token->type == HEREDOC)
-		return (4);
-	return (0);
+	if (token->type == REDIRECT_OUT)
+	{
+		cmd->outfile = token->next->value;
+		if (!cmd->outfile)
+			return (-1);
+		cmd->append
+	}
 }
 
-void	ft_handle_words(t_token *token, t_cmd *cmd)
+int	ft_handle_words(t_token *token, t_cmd *cmd)
 {
-	
+	cmd->is_builtin = ft_is_builtin(token->value);
+	if (ft_add_args(cmd, token->value) == -1)
+		return (-1);
 }

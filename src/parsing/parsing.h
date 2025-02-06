@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/03 17:22:39 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/06 01:09:12 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef struct s_cmd	t_cmd;
 typedef struct s_cmd
 {
 	char		**args;
-	char		*infile;
-	char		*outfile;
-	int			append;
+	char		**infile;
+	char		**outfile;
+	int			*append;
 	int			is_builtin;
 	t_cmd		*next;
 }				t_cmd;
@@ -46,7 +46,8 @@ void				ft_free_parser(t_parser *parser);
 int					ft_command_counter(t_lexer *lexer);
 char				*ft_get_from_env(char *env_var, char **envp);
 
-//==================== parser_handle.c ===================*/
 int					ft_get_symbol(t_token *token);
+
+//==================== parser_handle.c ===================*/
 
 #endif

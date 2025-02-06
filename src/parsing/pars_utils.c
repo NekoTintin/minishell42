@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:32:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/31 17:22:15 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/06 00:43:26 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,17 @@ int	ft_command_counter(t_lexer *lexer)
 	}
 	nb_command++;
 	return (nb_command);
+}
+
+int	ft_get_symbol(t_token *token)
+{
+	if (token->type == REDIRECT_IN)
+		return (1);
+	else if (token->type == REDIRECT_OUT)
+		return (2);
+	else if (token->type == APPEND)
+		return (3);
+	else if (token->type == HEREDOC)
+		return (4);
+	return (0);
 }
