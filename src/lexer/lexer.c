@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 03:57:57 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/12 15:39:50 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/20 20:10:29 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_lexer	*mi_make_lexer(char *readline_string)
 	lexer = NULL;
 	lexer = ll_init_lexer(lexer);
 	if (lexer == NULL || readline_string == NULL)
-		return (NULL);
+		return (ll_free_lexer(lexer), NULL);
 	lexer = lx_value_chain(readline_string, lexer);
 	if (lexer == NULL)
 		return (NULL);

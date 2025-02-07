@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:32:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/06 00:43:26 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:18:27 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,24 @@ int	ft_get_symbol(t_token *token)
 		return (3);
 	else if (token->type == HEREDOC)
 		return (4);
+	return (0);
+}
+
+int	ft_is_builtin(const char *str)
+{
+	if (ft_strncmp(str, "echo", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "cd", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "pwd", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "export", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "unset", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "env", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "exit", ft_strlen(str)) == 0)
+		return (1);
 	return (0);
 }

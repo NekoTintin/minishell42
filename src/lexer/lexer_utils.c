@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/19 18:18:05 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:10:24 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
 static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer);
-static int		lx_test_c(char *c);
 static int		lx_find_length(char *string, int index, int length);
 
 int	lx_space_token(int index, t_lexer *lexer)
@@ -58,18 +57,11 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 	t_token	*node;
 
 	lexer = ll_add_token(lexer);
+	node = ll_last_token(lexer);
 	if (lexer == NULL)
 		return (NULL);
-	node = ll_last_token(lexer);
 	node->value = dup_str;
 	return (lexer);
-}
-
-static int	lx_test_c(char *c)
-{
-	if (*c == '>' || *c == '|' || *c == '<' || *c == 32 || *c == 36)
-		return (1);
-	return (0);
 }
 
 static int	lx_find_length(char *str, int index, int length)
@@ -83,18 +75,11 @@ static int	lx_find_length(char *str, int index, int length)
 	else if (str[index] == 39 || str[index] == 34)
 	{
 		length = 1;
-		while (str[index + length] != str[index] && str[index + length] != '\0')
+		while (str[index + length] != str[index])
 			length++;
 		return (length + 1);
 	}
-	else if (str[index] == 36)
-	{
-		length = 1;
-		while (!lx_test_c(&str[index + length]) && str[index + length] != '\0')
-			length++;
-		return (length);
-	}
-	while (str[index + length] != '\0' && !lx_test_c(&str[index + length]))
+	while (str[index + length] != '\0' && str[index + length] != 32)
 		length++;
 	return (length);
 }
