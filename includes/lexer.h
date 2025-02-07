@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/31 16:41:21 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:45:43 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+# include "minishell.h"
 # include <linux/limits.h>
 
-// Déclaration anticipée de `t_token`
+// Déclaration anticipée de `t_tokenization`
 typedef struct s_token	t_token;
 
 typedef enum e_token_type
