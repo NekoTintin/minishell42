@@ -6,13 +6,14 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/27 14:42:52 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:34:05 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
 static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer);
+static int		lx_is_end_word(char *c);
 static int		lx_find_length(char *string, int index, int length);
 
 int	lx_space_token(int index, t_lexer *lexer)
@@ -64,6 +65,13 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 	return (lexer);
 }
 
+static int	lx_is_end_word(char *c)
+{
+	if (*c == '>' || *c == '|' || *c == '<' || *c == 32 || *c == '$')
+		return (1);
+	return (0);
+}
+
 static int	lx_find_length(char *str, int index, int length)
 {
 	if (str[index] == '<' || str[index] == '>' || str[index] == '|')
@@ -79,7 +87,7 @@ static int	lx_find_length(char *str, int index, int length)
 			length++;
 		return (length + 1);
 	}
-	while (str[index + length] != '\0' && str[index + length] != 32)
+	while (str[index + length] != '\0' && !lx_is_end_word(&str[index + length]))
 		length++;
 	return (length);
 }
