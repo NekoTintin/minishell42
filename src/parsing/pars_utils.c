@@ -6,11 +6,10 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:32:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/07 18:18:27 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/12 01:20:34 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include "parsing.h"
 #include "../../includes/minishell.h"
 
@@ -50,6 +49,7 @@ int	ft_command_counter(t_lexer *lexer)
 
 	if (!lexer || !lexer->header)
 		return (-1);
+	nb_command = 0;
 	token = lexer->header;
 	while (token)
 	{

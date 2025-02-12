@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/07 19:07:07 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/12 01:05:55 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../../includes/minishell.h"
 # include <linux/limits.h>
 # include "parsing.h"
-# include "lexer.h"
 
 typedef struct s_cmd	t_cmd;
 
@@ -51,5 +50,12 @@ char				*ft_get_from_env(char *env_var, char **envp);
 int					ft_get_symbol(t_token *token);
 
 //==================== parser_handle.c ===================*/
+int					ft_add_arg(char ***table, char *arg);
+int					ft_add_to_append(int **table, int value);
+int					ft_handle_symbol(t_token *token, t_cmd *cmd);
+int					ft_handle_word(t_token *token, t_cmd *cmd);
+
+//==================== parser_utils.c ===================*/
+int					ft_is_builtin(const char *str);
 
 #endif
