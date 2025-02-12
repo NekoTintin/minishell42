@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/12 14:34:05 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:40:26 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 	t_token	*node;
 
 	lexer = ll_add_token(lexer);
-	node = ll_last_token(lexer);
 	if (lexer == NULL)
 		return (NULL);
+	node = ll_last_token(lexer);
 	node->value = dup_str;
 	return (lexer);
 }
