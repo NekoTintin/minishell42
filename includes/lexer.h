@@ -6,7 +6,7 @@
 /*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/27 14:45:43 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/14 18:38:43 by unbuntu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ int			lx_assing_quotes(t_token *node);
 int			lx_assing_word(t_token *node);
 int			lx_assing_synbols(t_token *node);
 int			lx_assing_env(t_token *node);
+
+//=======================================================*/
+
+//=======================================================*/
+
+t_lexer		*lx_clean_lexer(t_lexer *lexer);
 
 //=======================================================*/
 #endif
