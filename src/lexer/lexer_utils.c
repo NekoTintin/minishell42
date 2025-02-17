@@ -6,13 +6,14 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/20 20:10:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:11:42 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
 static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer);
+static int		lx_is_end_word(char *c);
 static int		lx_find_length(char *string, int index, int length);
 
 int	lx_space_token(int index, t_lexer *lexer)
@@ -57,11 +58,18 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 	t_token	*node;
 
 	lexer = ll_add_token(lexer);
-	node = ll_last_token(lexer);
 	if (lexer == NULL)
 		return (NULL);
+	node = ll_last_token(lexer);
 	node->value = dup_str;
 	return (lexer);
+}
+
+static int	lx_is_end_word(char *c)
+{
+	if (*c == '>' || *c == '|' || *c == '<' || *c == 32 || *c == '$')
+		return (1);
+	return (0);
 }
 
 static int	lx_find_length(char *str, int index, int length)
@@ -79,7 +87,7 @@ static int	lx_find_length(char *str, int index, int length)
 			length++;
 		return (length + 1);
 	}
-	while (str[index + length] != '\0' && str[index + length] != 32)
+	while (str[index + length] != '\0' && !lx_is_end_word(&str[index + length]))
 		length++;
 	return (length);
 }

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:38:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/12 03:00:07 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:12:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ t_cmd	*ft_parser_last(t_parser *parser)
 
 	cur = parser->top;
 	while (cur && cur->next)
-	{
-		printf("cur: %p, cur->next: %p\n", cur, cur->next);
 		cur = cur->next;
-	}
 	return (cur);
 }
 

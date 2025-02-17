@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:45:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/12 02:27:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:27:23 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ int	ft_parsing_loop(t_token *token, t_cmd *cmd)
 		}
 		else if (ft_get_symbol(token) > 0)
 		{
-			if (token->next == NULL && token->next->next == NULL)
+			if (token->next == NULL)
 				return (-3);
 			if (ft_handle_symbol(token, cmd) == -1)
 				return (-1);
-			token = token->next->next;
+			token = token->next;
 		}
-		else if (token->type == WORD)
+		else if (token->type == WORD || token->type == D_QUOTES
+			|| token->type == S_QUOTES)
 			if (ft_handle_word(token, cmd) == -1)
 				return (-1);
 		token = token->next;
@@ -80,6 +81,7 @@ t_parser	*parsing(t_lexer *lexer)
 	parser = ft_init_parser();
 	if (!parser)
 		return (NULL);
+	lx_clean_lexer(lexer);
 	if (ft_create_commands(lexer, parser) == -1)
 		return (ft_free_parser(parser), NULL);
 	if (ft_parser_start(lexer, parser) == -1)
