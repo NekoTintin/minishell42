@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:32:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/12 01:20:34 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:27:50 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,25 @@ int	ft_is_builtin(const char *str)
 		return (1);
 	else if (ft_strncmp(str, "exit", ft_strlen(str)) == 0)
 		return (1);
+	return (0);
+}
+
+int	remove_quotes(t_token *token)
+{
+	int		lenght;
+	char	*new_value;
+
+	if (token->type == S_QUOTES || token->type == D_QUOTES)
+	{
+		lenght = ft_strlen(token->value);
+		new_value = ft_substr(token->value, 1, lenght - 2);
+		if (new_value)
+		{
+			free(token->value);
+			token->value = new_value;
+			return (0);
+		}
+		return (-1);
+	}
 	return (0);
 }

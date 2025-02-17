@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   lx_clean_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 10:53:19 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/17 13:15:30 by qupollet         ###   ########.fr       */
+/*   Created: 2025/02/12 19:16:44 by benoitchall       #+#    #+#             */
+/*   Updated: 2025/02/17 13:10:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/lexer.h"
 
-char	*ft_strdup(const char *s)
+t_lexer	*lx_clean_lexer(t_lexer *lexer)
 {
-	size_t	idx;
-	size_t	len;
-	char	*nstr;
+	t_token	*curr;
+	t_token	*free_node;
 
-	if (!s)
-		return (NULL);
-	idx = 0;
-	len = ft_strlen(s);
-	nstr = malloc(sizeof(char) * (len + 1));
-	if (!nstr)
-		return (NULL);
-	while (idx < len && s[idx])
+	curr = lexer->header;
+	free_node = NULL;
+	while (curr->next != NULL)
 	{
-		nstr[idx] = s[idx];
-		idx++;
+		if (curr->next->type == WHITESPACE)
+		{
+			free_node = curr->next;
+			curr->next = curr->next->next;
+			free(free_node->value);
+			free(free_node);
+			lexer->size -= 1;
+		}
+		else
+			curr = curr->next;
 	}
-	nstr[idx] = 0;
-	return (nstr);
+	return (lexer);
 }

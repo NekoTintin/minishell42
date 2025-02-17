@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:16:05 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/12 02:35:53 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:25:48 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,20 @@ int	ft_add_to_append(int **table, int value)
 	return (0);
 }
 
+int	ft_heredoc_case(t_token *token, t_cmd *cmd)
+{
+	(void)token;
+	(void)cmd;
+	return (0);
+}
+
 int	ft_handle_symbol(t_token *token, t_cmd *cmd)
 {
 	int		temp_value;
 
 	if (token->type == REDIRECT_OUT || token->type == APPEND)
 	{
-		if (ft_add_arg(&cmd->outfile, token->next->next->value) == -1)
+		if (ft_add_arg(&cmd->outfile, token->next->value) == -1)
 			return (-1);
 		if (token->type == REDIRECT_OUT)
 			temp_value = 0;
@@ -88,7 +95,12 @@ int	ft_handle_symbol(t_token *token, t_cmd *cmd)
 	}
 	else if (token->type == REDIRECT_IN)
 	{
-		if (ft_add_arg(&cmd->infile, token->next->next->value) == -1)
+		if (ft_add_arg(&cmd->infile, token->next->value) == -1)
+			return (-1);
+	}
+	else if (token->type == HEREDOC)
+	{
+		if (ft_heredoc_case(token, cmd) == -1)
 			return (-1);
 	}
 	return (0);
