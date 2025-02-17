@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/01/27 14:44:55 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/17 18:29:14 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "lexer.h"
+# include "builtin.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -33,9 +34,7 @@
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
 
-// functions in pwd.c
-char		*ft_pwd(void);
-
+int    mini_loop(void);
 // functions in pars_utils.c
 char		*ft_get_from_env(char *env_var, char **envp);
 

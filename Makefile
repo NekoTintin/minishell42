@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+         #
+#    By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 10:29:40 by qupollet          #+#    #+#              #
-#    Updated: 2025/01/27 15:02:17 by unbuntu          ###   ########.fr        #
+#    Updated: 2025/02/17 18:32:38 by bchallat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,13 @@ OBJ_DIR = objs
 LIBFT_DIR = libft
 
 SRC =	minishell.c \
-		builtin/pwd.c \
 		parsing/pars_utils.c \
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
+		builtin/mini_pwd.c \
+		utils/mini_loop.c
 
 SRCS = ${addprefix ${SRC_DIR}/, ${SRC}}
 OBJECTS = ${addprefix ${OBJ_DIR}/, ${SRC:.c=.o}}
@@ -67,6 +68,7 @@ ${OBJ_DIR}:
 	@mkdir -p ${OBJ_DIR}/signal
 	@mkdir -p ${OBJ_DIR}/parsing
 	@mkdir -p ${OBJ_DIR}/lexer
+	@mkdir -p ${OBJ_DIR}/utils
 
 # Cleaning obj files and remove obj directory
 clean:
