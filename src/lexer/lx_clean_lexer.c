@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lx_clean_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:16:44 by benoitchall       #+#    #+#             */
-/*   Updated: 2025/02/14 18:27:31 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/18 21:25:04 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../includes/lexer.h"
 
 t_lexer	*lx_clean_lexer(t_lexer *lexer)
 {

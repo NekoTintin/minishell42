@@ -6,11 +6,11 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 09:37:24 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/18 18:00:23 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/18 21:10:54 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "../../includes/testeur.h"
 #include "../../includes/minishell.h"
 
 static int execut_command(t_cmd *cmd);

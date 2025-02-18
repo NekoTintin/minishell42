@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/14 18:38:43 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/18 21:32:10 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
-# include "minishell.h"
-# include <linux/limits.h>
 
-// Déclaration anticipée de `t_tokenization`
+# include "minishell.h"
+
 typedef struct s_token	t_token;
 
 typedef enum e_token_type
@@ -74,7 +73,7 @@ int			lx_assing_env(t_token *node);
 
 //=======================================================*/
 
-//=======================================================*/
+//=================== lx_clean_lexer.c ==================*/
 
 t_lexer		*lx_clean_lexer(t_lexer *lexer);
 
