@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:25 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/17 18:42:13 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:29:40 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int    mini_loop(void)
     getcwd(buffer, sizeof(buffer));
     ft_printf("%s-> ", buffer);
     string = readline("");
-    lexer = mi_make_lexer(string);
     if (string == NULL)
-        return (ll_free_lexer(lexer), EXIT_SUCCESS);
-    
+        return (EXIT_SUCCESS);
+    printf("Test : %s\n", string);
+    if (lexer == NULL)
+        return (ll_free_lexer(lexer),EXIT_SUCCESS);
+    print_chain(lexer);
     ll_free_lexer(lexer);
     return (1);
 }
-
