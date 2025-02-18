@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:07:42 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/17 18:37:37 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:23:29 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(void)//, char **envp)
 {
-	mini_loop();
+    mini_loop();
     return (EXIT_SUCCESS);
 }

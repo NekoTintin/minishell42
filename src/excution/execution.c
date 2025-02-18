@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 09:37:24 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/18 15:28:32 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:00:23 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int mi_execution(t_parser *parser)
         execut_command(c_cmd);
         c_cmd = c_cmd->next;
     }
-    return (0);
+    return (0);// <-TO DO fonction free parser.
 }
 
 static int execut_command(t_cmd *cmd)
@@ -48,19 +48,19 @@ static int execut_builtin(t_cmd *cmd)
     if (!ft_strncmp(cmd->args[0], "cd", ft_strlen(cmd->args[0])))
         printf("cd\n");
     else if (!ft_strncmp(cmd->args[0], "exit", ft_strlen(cmd->args[0])))
-        printf("exit");
+        printf("exit\n");
     else if (!ft_strncmp(cmd->args[0], "export", ft_strlen(cmd->args[0])))
-        printf("export");
+        printf("export\n");
     else if (!ft_strncmp(cmd->args[0], "unset", ft_strlen(cmd->args[0])))
-        printf("unset");
+        printf("unset\n");
     else if (!ft_strncmp(cmd->args[0], "env", ft_strlen(cmd->args[0])))
-        printf("env");
+        printf("env\n");
     return (0);
 }
 
 static int execut_external(t_cmd *cmd)
 {
-    int pid;
+    pid_t pid;
     // Préparer les redirections
     setup_redirections(cmd->infile, cmd->outfile, cmd->append);
 
@@ -70,34 +70,31 @@ static int execut_external(t_cmd *cmd)
     if (pid == 0)
     {
         // Dans le processus enfant
-        execvp(cmd->args[0], cmd->args);
+        execvp(cmd->args[0], cmd->args);//execve(const char *pathname, char *const argv[], char *const envp[])
         // Si execvp échoue
         perror("Execution failed");
         exit(EXIT_FAILURE);
     }
     else
-    {
-        waitpid(pid, NULL, 0);
-        // Dans le processus parent
-    }
+        waitpid(pid, NULL, 0);// Dans le processus parent
     return(0);
 }
 
-static int execut_setup_redirections(infile, outfile, append)
+static int execut_setup_redirections(t_cmd *cmd)
 {
-    if ('infile is not null')
+    if (cmd->infile != NULL)
     {
         // Rediriger lentrée standard
-        open(infile, O_RDONLY);
+        open(cmd->infile, O_RDONLY);
         dup2("file_descriptor", STDIN_FILENO);
     }
-    else if ("outfile is not null")
+    else if (cmd->outfile != NULL)
     {
         // Rediriger la sortie standard
-        if (append)
-            open(outfile, O_WRONLY | O_APPEND | O_CREAT);
+        if (cmd->append)//Veriefier la condition 
+            open(cmd->outfile, O_WRONLY | O_APPEND | O_CREAT);
         else
-            open(outfile, O_WRONLY | O_TRUNC | O_CREAT);
+            open(cmd->outfile, O_WRONLY | O_TRUNC | O_CREAT);
         dup2('file_descriptor', STDOUT_FILENO);
     }
 }
