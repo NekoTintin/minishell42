@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/12 15:40:26 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:17:03 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 
 static int	lx_is_end_word(char *c)
 {
-	if (*c == '>' || *c == '|' || *c == '<' || *c == 32 || *c == '$')
+	if (*c == '>' || *c == '|' || *c == '<' || *c == 32)
 		return (1);
 	return (0);
 }
@@ -83,7 +83,7 @@ static int	lx_find_length(char *str, int index, int length)
 	else if (str[index] == 39 || str[index] == 34)
 	{
 		length = 1;
-		while (str[index + length] != str[index])
+		while (str[index + length] != str[index] && str[index + length] != '\0')
 			length++;
 		return (length + 1);
 	}
