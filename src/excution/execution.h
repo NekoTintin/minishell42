@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 09:37:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/17 10:46:23 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:43:23 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_parser
 
 /*===================== execution.c ====================*/
 
-int     mi_execution(t_parser *parser);
+int mi_execution(t_parser *parser);
 
 /*======================================================*/
 #endif
