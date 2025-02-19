@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:16:44 by benoitchall       #+#    #+#             */
-/*   Updated: 2025/02/18 21:25:04 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:54:32 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_lexer	*lx_clean_lexer(t_lexer *lexer)
 	t_token	*curr;
 	t_token	*free_node;
 
+	if (lexer == NULL || lexer->header == NULL)
+		return (NULL);
 	curr = lexer->header;
 	free_node = NULL;
 	while (curr->next != NULL)

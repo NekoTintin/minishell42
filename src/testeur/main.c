@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/18 21:28:20 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:11:29 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,35 @@
 
 static void     print_chain(t_lexer *lexer);
 static void     print_enum(int nb);
+static int      test_mi_loop(char *string);
 
 int     main(void)//int argc, char **argv)
 {
-    char *string;
-    string = readline("");
+    char    *string = NULL;
+
+    while (string == NULL)
+    {
+        string = readline("");
+        if (*string != '\0')
+            test_mi_loop(string);
+        string = NULL;
+    }
+    return (free(string), EXIT_SUCCESS);
+}
+
+static int     test_mi_loop(char *string)
+{
     t_lexer     *lexer = mi_make_lexer(string);
     if (lexer == NULL || string == NULL)
-        return (EXIT_FAILURE);
-    
+        return (free(string), ll_free_lexer(lexer), 1);
 
     lexer = lx_clean_lexer(lexer);
-    print_chain(lexer);
-    printf("\n lexer size -> %d \n", lexer->size);
+    if (lexer == NULL || lexer->header == NULL)
+        return (free(string), ll_free_lexer(lexer), 1);
 
-    return (ll_free_lexer(lexer), free(string), EXIT_SUCCESS);
+    print_chain(lexer);
+    ll_free_lexer(lexer);
+    return (0);
 }
 
 static void    print_chain(t_lexer *lexer)
