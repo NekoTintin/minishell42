@@ -6,14 +6,14 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/18 13:17:03 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:46:02 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
 static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer);
-static int		lx_is_end_word(char *c);
+static int		lx_test_c(char *c);
 static int		lx_find_length(char *string, int index, int length);
 
 int	lx_space_token(int index, t_lexer *lexer)
@@ -65,9 +65,9 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 	return (lexer);
 }
 
-static int	lx_is_end_word(char *c)
+static int	lx_test_c(char *c)
 {
-	if (*c == '>' || *c == '|' || *c == '<' || *c == 32)
+	if (*c == '>' || *c == '|' || *c == '<' || *c == 32 || *c == 36)
 		return (1);
 	return (0);
 }
@@ -87,7 +87,14 @@ static int	lx_find_length(char *str, int index, int length)
 			length++;
 		return (length + 1);
 	}
-	while (str[index + length] != '\0' && !lx_is_end_word(&str[index + length]))
+	else if (str[index] == 36)
+	{
+		length = 1;
+		while (!lx_test_c(&str[index + length]) && str[index + length] != '\0')
+			length++;
+		return (length);
+	}
+	while (str[index + length] != '\0' && !lx_test_c(&str[index + length]))
 		length++;
 	return (length);
 }
