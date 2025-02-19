@@ -6,24 +6,23 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 09:37:24 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/18 21:10:54 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:39:22 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/testeur.h"
-#include "../../includes/minishell.h"
 
 static int execut_command(t_cmd *cmd);
 static int execut_builtin(t_cmd *cmd);
 static int execut_external(t_cmd *cmd);
-static int execut_setup_redirections(infile, outfile, append);
+static int execut_setup_redirections(t_cmd *cmd);
 
 int mi_execution(t_parser *parser)
 {
     t_cmd *c_cmd;
 
-    if(parser == NULL)
-        return (0);
+    if(parser == NULL || parser->top == NULL)
+        return (1);
     c_cmd = parser->top;
     while (c_cmd != NULL)
     {
@@ -44,7 +43,8 @@ static int execut_command(t_cmd *cmd)
 
 static int execut_builtin(t_cmd *cmd)
 {
-    // !! comportement indefini si la cmd existe pas !!
+    if (!cmd->args || !cmd->args[0])
+        return (1);
     if (!ft_strncmp(cmd->args[0], "cd", ft_strlen(cmd->args[0])))
         printf("cd\n");
     else if (!ft_strncmp(cmd->args[0], "exit", ft_strlen(cmd->args[0])))
@@ -61,19 +61,16 @@ static int execut_builtin(t_cmd *cmd)
 static int execut_external(t_cmd *cmd)
 {
     pid_t pid;
-    // Préparer les redirections
-    setup_redirections(cmd->infile, cmd->outfile, cmd->append);
 
-    // Créer un nouveau processus pour exécuter la commande
-    pid = fork();
-
+    if (!execut_setup_redirections(cmd) != 0)
+        return (1);
+    pid = fork();// Créer un nouveau processus pour exécuter la commande
+    if(pid == -1)
+        return(perror("forck failed"), 1);
     if (pid == 0)
     {
-        // Dans le processus enfant
         execvp(cmd->args[0], cmd->args);//execve(const char *pathname, char *const argv[], char *const envp[])
-        // Si execvp échoue
-        perror("Execution failed");
-        exit(EXIT_FAILURE);
+        return(perror(cmd->args[0]), 1);//display error
     }
     else
         waitpid(pid, NULL, 0);// Dans le processus parent
@@ -82,19 +79,26 @@ static int execut_external(t_cmd *cmd)
 
 static int execut_setup_redirections(t_cmd *cmd)
 {
+    int     fd;
+    
     if (cmd->infile != NULL)
     {
-        // Rediriger lentrée standard
-        open(cmd->infile, O_RDONLY);
-        dup2("file_descriptor", STDIN_FILENO);
+        fd = open(cmd->infile, O_RDONLY);
+        if(fd == -1)
+            return (perror("open infile failed"), 1);
+        dup2(fd, STDIN_FILENO);
+        close (fd);
     }
     else if (cmd->outfile != NULL)
     {
-        // Rediriger la sortie standard
-        if (cmd->append)//Veriefier la condition 
-            open(cmd->outfile, O_WRONLY | O_APPEND | O_CREAT);
+        if (cmd->append)
+            fd = open(cmd->outfile, O_WRONLY | O_APPEND | O_CREAT);
         else
-            open(cmd->outfile, O_WRONLY | O_TRUNC | O_CREAT);
-        dup2('file_descriptor', STDOUT_FILENO);
+            fd = open(cmd->outfile, O_WRONLY | O_TRUNC | O_CREAT);
+        if(fd == -1)
+            return (perror("open outfile failed"), 1);
+        dup2(fd, STDOUT_FILENO);
+        close (fd);
     }
+    return (0);
 }
