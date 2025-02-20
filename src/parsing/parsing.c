@@ -6,12 +6,11 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:45:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 19:40:43 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:59:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "parsing.h"
 
 int	ft_create_commands(t_lexer *lexer, t_parser *parser)
 {

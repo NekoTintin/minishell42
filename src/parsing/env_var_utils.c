@@ -6,11 +6,10 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 00:55:28 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 01:28:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:58:38 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "../../includes/minishell.h"
 
 int	ft_custom_strlen(char *str)

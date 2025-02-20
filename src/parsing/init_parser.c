@@ -6,11 +6,10 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:38:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 18:40:06 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:58:46 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "../../includes/minishell.h"
 
 t_parser	*ft_init_parser(void)

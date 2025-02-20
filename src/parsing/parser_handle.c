@@ -6,12 +6,11 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:16:05 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 19:51:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:58:56 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "parsing.h"
 
 // Reallocate and add an string to the cmd->args
 int	ft_add_arg(char ***table, char *arg)
