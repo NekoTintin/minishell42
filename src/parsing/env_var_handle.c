@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:01:06 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 19:58:34 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:29:28 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	ft_replace_env(t_token *token, char **envp)
 	int		final_size;
 	char	*new_str;
 
-	printf("%s\n", token->value);
 	final_size = get_size(token->value, envp);
 	if (final_size == -1)
 		return (-1);

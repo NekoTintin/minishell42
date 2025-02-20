@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   chain_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 08:53:05 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/27 14:42:26 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/20 20:19:15 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/minishell.h"
 
 t_lexer	*ll_init_lexer(t_lexer *lexer)
 {

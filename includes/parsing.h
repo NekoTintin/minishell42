@@ -6,16 +6,14 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 18:39:36 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:17:58 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "../../includes/minishell.h"
-# include <linux/limits.h>
-# include "parsing.h"
+# include "minishell.h"
 
 typedef struct s_cmd	t_cmd;
 

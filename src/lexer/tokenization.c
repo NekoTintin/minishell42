@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 20:25:00 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/27 14:42:48 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/20 20:19:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/minishell.h"
 
 int	lx_assing_word(t_token *node)
 {

@@ -6,11 +6,11 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/20 20:12:12 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:19:07 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/minishell.h"
 
 static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer);
 static int		lx_test_c(char *c);

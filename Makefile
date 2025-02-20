@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+         #
+#    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 10:29:40 by qupollet          #+#    #+#              #
-#    Updated: 2025/01/27 15:02:17 by unbuntu          ###   ########.fr        #
+#    Updated: 2025/02/20 20:28:32 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,20 @@ OBJ_DIR = objs
 LIBFT_DIR = libft
 
 SRC =	minishell.c \
-		builtin/pwd.c \
 		parsing/pars_utils.c \
+		parsing/env_var_handle.c \
+		parsing/env_var_utils.c \
+		parsing/free_things.c \
+		parsing/init_parser.c \
+		parsing/parser_handle.c \
+		parsing/parsing.c \
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
+		lexer/lx_clean_lexer.c \
+
+		
 
 SRCS = ${addprefix ${SRC_DIR}/, ${SRC}}
 OBJECTS = ${addprefix ${OBJ_DIR}/, ${SRC:.c=.o}}

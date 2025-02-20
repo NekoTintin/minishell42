@@ -6,11 +6,11 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:16:44 by benoitchall       #+#    #+#             */
-/*   Updated: 2025/02/20 20:12:18 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:19:14 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/minishell.h"
 
 t_lexer	*lx_clean_lexer(t_lexer *lexer)
 {
