@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 19:16:44 by benoitchall       #+#    #+#             */
-/*   Updated: 2025/02/20 20:11:51 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:12:18 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_lexer	*lx_clean_lexer(t_lexer *lexer)
 	t_token	*curr;
 	t_token	*free_node;
 
+	if (lexer == NULL || lexer->header == NULL)
+		return (NULL);
 	curr = lexer->header;
 	free_node = NULL;
 	while (curr->next != NULL)
