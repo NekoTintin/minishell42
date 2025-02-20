@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 02:58:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/12 03:02:27 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:40:35 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	ft_free_all_tabs(t_cmd *cur)
 	}
 	if (cur->append)
 		free(cur->append);
+	if (cur->delimiter)
+		free(cur->delimiter);
 }
 
 void	ft_free_parser(t_parser *parser)

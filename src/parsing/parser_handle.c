@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:16:05 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 01:56:30 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:51:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,23 @@ int	ft_add_to_append(int **table, int value)
 
 int	ft_heredoc_case(t_token *token, t_cmd *cmd)
 {
-	(void) token;
-	(void) cmd;
+	if (!token->next)
+		return (-1);
+	if (ft_strncmp(token->next->value, "-", 1) == 0
+		&& token->next->value[1] == '\0')
+	{
+		cmd->delete_tabs = 1;
+		cmd->delimiter = ft_strdup(token->next->next->value);
+		if (!cmd->delimiter)
+			return (-1);
+	}
+	else
+	{
+		cmd->delete_tabs = 0;
+		cmd->delimiter = ft_strdup(token->next->value);
+		if (!cmd->delimiter)
+			return (-1);
+	}
 	return (0);
 }
 
