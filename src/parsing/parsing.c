@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:45:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 00:32:22 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:40:43 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int	ft_parsing_loop(t_token *token, t_cmd *cmd, char **envp)
 		{
 			if (ft_handle_symbol(token, cmd) == -1)
 				return (-1);
-			token = token->next;
-			if (token->type == HEREDOC)
+			if (token->next && token->next->value[0] == '-')
+				token = token->next;
+			if (token->next)
 				token = token->next;
 		}
 		else if (token->type == WORD || token->type == D_QUOTES

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:38:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/17 13:12:01 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:40:06 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	ft_init_command(t_parser *parser)
 	command->args = NULL;
 	command->infile = NULL;
 	command->outfile = NULL;
+	command->delimiter = NULL;
+	command->delete_tabs = 0;
 	command->next = NULL;
 	command->is_builtin = -1;
 	if (!parser->top)
