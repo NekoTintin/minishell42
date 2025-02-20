@@ -6,11 +6,10 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 23:01:06 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 02:36:32 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:58:34 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "../../includes/minishell.h"
 
 char	*check_if_exist(char *env, char **envp)

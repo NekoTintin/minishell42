@@ -6,11 +6,10 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:32:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/18 23:01:05 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:58:50 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "../../includes/minishell.h"
 
 // Count the number of pipes + 1 because of the first cmd

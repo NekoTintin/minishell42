@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 20:08:57 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:13:03 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "lexer.h"
+# include "parsing.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>

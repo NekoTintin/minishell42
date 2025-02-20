@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   tester.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:07:42 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 20:12:50 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:13:06 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <linux/limits.h>
-#include "parsing/parsing.h"
 
 void	ft_print_parser(t_parser *parser)
 {

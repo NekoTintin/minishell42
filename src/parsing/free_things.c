@@ -6,11 +6,10 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 02:58:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 18:40:35 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:58:42 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "../../includes/minishell.h"
 
 void	ft_free_table(char **table)
