@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 09:37:24 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/19 11:39:22 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:05:15 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int execut_external(t_cmd *cmd)
     if (!execut_setup_redirections(cmd) != 0)
         return (1);
     pid = fork();// Créer un nouveau processus pour exécuter la commande
-    if(pid == -1)
+    if (pid == -1)
         return(perror("forck failed"), 1);
     if (pid == 0)
     {

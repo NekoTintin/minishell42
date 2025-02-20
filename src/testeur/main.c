@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/19 13:11:29 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:21:44 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void     print_chain(t_lexer *lexer);
 static void     print_enum(int nb);
 static int      test_mi_loop(char *string);
+static int      test_process(void);
 
 int     main(void)//int argc, char **argv)
 {
@@ -23,10 +24,12 @@ int     main(void)//int argc, char **argv)
     while (string == NULL)
     {
         string = readline("");
-        if (*string != '\0')
-            test_mi_loop(string);
+        if (*string == '\0')
+            return (EXIT_SUCCESS);
+        test_process();
         string = NULL;
     }
+    test_mi_loop(string);
     return (free(string), EXIT_SUCCESS);
 }
 
@@ -42,6 +45,26 @@ static int     test_mi_loop(char *string)
 
     print_chain(lexer);
     ll_free_lexer(lexer);
+    return (0);
+}
+
+static int      test_process(void)
+{
+    pid_t   pid = fork();
+    if (pid < 0)
+        perror("fail process");
+    if (pid == 0) 
+    { // Processus enfant
+        char *args[] = {"ls", "-l", NULL};  // Tableau d'arguments (NULL à la fin)
+        execvp(args[0], args);
+        perror("execvp failed");  // Si execvp échoue
+        exit(EXIT_FAILURE);
+    } 
+    else 
+    { // Processus parent
+        wait(NULL);  // Attend la fin de l'enfant
+        printf("Parent : enfant terminé.\n");
+    }
     return (0);
 }
 
