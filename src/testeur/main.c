@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/20 20:21:44 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:02:43 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,49 @@
 
 static void     print_chain(t_lexer *lexer);
 static void     print_enum(int nb);
-static int      test_mi_loop(char *string);
-static int      test_process(void);
+static t_lexer  *test_mi_lexer(char *string, t_lexer *lexer);
+static void	    ft_print_parser(t_parser *parser);
+int      test_process(void);
 
-int     main(void)//int argc, char **argv)
+int     main(int argc, char **argv, char **envp)
 {
-    char    *string = NULL;
+    char        *string = NULL;
+    t_lexer     *lexer = NULL;
+    t_parser    *parser = NULL;
+    
+    if (argc != 1 && argv != NULL)
+        return (EXIT_FAILURE);
 
     while (string == NULL)
     {
         string = readline("");
-        if (*string == '\0')
-            return (EXIT_SUCCESS);
-        test_process();
+        if (*string != '\0')
+        {
+            lexer = test_mi_lexer(string, lexer);
+            if (lexer == NULL)
+                return (EXIT_FAILURE);
+            parser = parsing(lexer, envp);
+            if (parser != NULL)
+            {
+                ft_print_parser(parser);
+                ft_printf("nomber of command (%d)\n", parser->size);
+            }
+        }
         string = NULL;
     }
-    test_mi_loop(string);
     return (free(string), EXIT_SUCCESS);
 }
 
-static int     test_mi_loop(char *string)
+static t_lexer     *test_mi_lexer(char *string, t_lexer *lexer)
 {
-    t_lexer     *lexer = mi_make_lexer(string);
+    lexer = mi_make_lexer(string);
     if (lexer == NULL || string == NULL)
-        return (free(string), ll_free_lexer(lexer), 1);
-
-    lexer = lx_clean_lexer(lexer);
-    if (lexer == NULL || lexer->header == NULL)
-        return (free(string), ll_free_lexer(lexer), 1);
-
+        return (free(string), ll_free_lexer(lexer), NULL);
     print_chain(lexer);
-    ll_free_lexer(lexer);
-    return (0);
+    return (lexer);
 }
 
-static int      test_process(void)
+int      test_process(void)
 {
     pid_t   pid = fork();
     if (pid < 0)
@@ -107,4 +115,51 @@ static void     print_enum(int nb)
         printf("WHITESPACE\n");
     if (nb == 10)
        printf("UNKNOWN\n");
+}
+
+static void	ft_print_parser(t_parser *parser)
+{
+	t_cmd	*cmd;
+	int		i;
+
+	cmd = parser->top;
+	while (cmd != NULL)
+	{
+		printf("\nNouvelle Commande\n");
+		i = -1;
+		printf("Args:\n");
+		if (cmd->args)
+			while (cmd->args[++i])
+				printf(" - %s\n", cmd->args[i]);
+		i = -1;
+		printf("infile:\n");
+		if (cmd->infile)
+			while (cmd->infile[++i])
+				printf(" - %s\n", cmd->infile[i]);
+		else
+			printf(" - (null)\n");
+		i = -1;
+		printf("outfile:\n");
+		if (cmd->outfile)
+			while (cmd->outfile[++i])
+				printf(" - %s\n", cmd->outfile[i]);
+		else
+			printf(" - (null)\n");
+		i = -1;
+		printf("append:\n");
+		if (cmd->append)
+			while (cmd->append[++i] != -1)
+				printf(" - outfile %d is append: %d\n", i, cmd->append[i]);
+		else
+			printf(" - (null)\n");
+		printf("delimiter:\n");
+		if (cmd->delimiter)
+		{
+			printf(" - %s\n", cmd->delimiter);
+			printf(" - Delete tabs ? %d\n", cmd->delete_tabs);
+		}
+		else
+			printf(" - (null)\n");
+		cmd = cmd->next;
+	}
 }

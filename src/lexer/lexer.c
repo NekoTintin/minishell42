@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 03:57:57 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/12 15:39:50 by unbuntu          ###   ########.fr       */
+/*   Updated: 2025/02/21 11:34:53 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/minishell.h"
 
 static t_lexer	*lx_value_chain(char *string, t_lexer *lexer);
 static t_lexer	*lx_tolkenization(t_lexer *lexer);

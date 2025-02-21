@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 09:37:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/18 21:16:35 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:49:33 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,7 @@
 #   define TESTEUR_H
 
 # include "minishell.h"
-
-typedef struct s_cmd	t_cmd;
-typedef	struct s_parser		t_parser;
-
-typedef struct s_cmd
-{
-	char		**args;
-	char		**infile;
-	char		**outfile;
-	int			*append;
-	int			is_builtin;
-	t_cmd		*next;
-}				t_cmd;
-
-typedef struct s_parser
-{
-	int			size;
-	t_cmd		*top;
-}				t_parser;
+# include "parsing.h"
 
 /*===================== execution.c ====================*/
 

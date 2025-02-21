@@ -6,7 +6,7 @@
 #    By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/02/18 20:46:39 by bchallat         ###   ########.fr        #
+#    Updated: 2025/02/21 11:30:41 by bchallat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJDIR = object
 LIBFT = libft/libft.a
 LIBS = -lreadline
 
-CCFLAG = cc -Wall -Wextra -Werror -g3
+CCFLAG = cc -Wall -Wextra -Werror -g3 -I includes/
 RMF = rm -rf
 NAME = minishell_test
 
@@ -39,6 +39,13 @@ SRC	=	testeur/main.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
 		lexer/lx_clean_lexer.c \
+		parsing/env_var_handle.c \
+		parsing/env_var_utils.c \
+		parsing/free_things.c \
+		parsing/init_parser.c \
+		parsing/pars_utils.c \
+		parsing/parser_handle.c \
+		parsing/parsing.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
