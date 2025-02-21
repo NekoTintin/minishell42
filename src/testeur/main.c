@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/21 12:02:43 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:05:16 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,16 @@ static t_lexer  *test_mi_lexer(char *string, t_lexer *lexer);
 static void	    ft_print_parser(t_parser *parser);
 int      test_process(void);
 
+void handle_sigint(int sig) {
+    (void)sig;
+    printf("\nMinishell$ ");
+    fflush(stdout);
+}
+
 int     main(int argc, char **argv, char **envp)
 {
+    signal(SIGINT, handle_sigint);
+
     char        *string = NULL;
     t_lexer     *lexer = NULL;
     t_parser    *parser = NULL;
@@ -29,8 +37,10 @@ int     main(int argc, char **argv, char **envp)
 
     while (string == NULL)
     {
-        string = readline("");
-        if (*string != '\0')
+        string = readline("Minishell$ ");
+        if (string == NULL)
+            return (EXIT_SUCCESS);
+        else if (*string != '\0' || string != NULL)
         {
             lexer = test_mi_lexer(string, lexer);
             if (lexer == NULL)
@@ -40,6 +50,7 @@ int     main(int argc, char **argv, char **envp)
             {
                 ft_print_parser(parser);
                 ft_printf("nomber of command (%d)\n", parser->size);
+                ft_free_parser(parser);
             }
         }
         string = NULL;
