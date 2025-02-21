@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/21 13:05:16 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:42:53 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void     print_chain(t_lexer *lexer);
 static void     print_enum(int nb);
-static t_lexer  *test_mi_lexer(char *string, t_lexer *lexer);
-static void	    ft_print_parser(t_parser *parser);
+t_lexer  *test_mi_lexer(char *string, t_lexer *lexer);
+void	    ft_print_parser(t_parser *parser);
 int      test_process(void);
 
 void handle_sigint(int sig) {
@@ -27,42 +27,46 @@ void handle_sigint(int sig) {
 int     main(int argc, char **argv, char **envp)
 {
     signal(SIGINT, handle_sigint);
+    
+    if (argc != 1 && argv != NULL)
+        return (EXIT_FAILURE);
 
     char        *string = NULL;
     t_lexer     *lexer = NULL;
     t_parser    *parser = NULL;
-    
-    if (argc != 1 && argv != NULL)
-        return (EXIT_FAILURE);
 
     while (string == NULL)
     {
         string = readline("Minishell$ ");
         if (string == NULL)
-            return (EXIT_SUCCESS);
-        else if (*string != '\0' || string != NULL)
+            return (free(string), EXIT_SUCCESS);
+        else if (*string == '\0')
+            free(string);
+        else
         {
             lexer = test_mi_lexer(string, lexer);
             if (lexer == NULL)
-                return (EXIT_FAILURE);
+                return (free(lexer),EXIT_FAILURE);
+            
             parser = parsing(lexer, envp);
-            if (parser != NULL)
-            {
-                ft_print_parser(parser);
-                ft_printf("nomber of command (%d)\n", parser->size);
-                ft_free_parser(parser);
-            }
+            if (parser == NULL)
+                return (free(lexer), free(parser), EXIT_FAILURE);
+            
+            ft_print_parser(parser);
+            ft_printf("nomber of command (%d)\n", parser->size);
+            ft_free_parser(parser);
+            
         }
         string = NULL;
     }
     return (free(string), EXIT_SUCCESS);
 }
 
-static t_lexer     *test_mi_lexer(char *string, t_lexer *lexer)
+t_lexer     *test_mi_lexer(char *string, t_lexer *lexer)
 {
     lexer = mi_make_lexer(string);
     if (lexer == NULL || string == NULL)
-        return (free(string), ll_free_lexer(lexer), NULL);
+        return (NULL);
     print_chain(lexer);
     return (lexer);
 }
@@ -128,7 +132,7 @@ static void     print_enum(int nb)
        printf("UNKNOWN\n");
 }
 
-static void	ft_print_parser(t_parser *parser)
+void	ft_print_parser(t_parser *parser)
 {
 	t_cmd	*cmd;
 	int		i;
