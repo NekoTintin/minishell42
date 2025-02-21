@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 00:45:21 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 19:59:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:15:46 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_parser	*parsing(t_lexer *lexer, char **envp)
 	lx_clean_lexer(lexer);
 	if (ft_create_commands(lexer, parser) == -1)
 		return (ft_free_parser(parser), NULL);
-	if (ft_parser_start(lexer, parser, envp) == -1)
+	if (ft_parser_start(lexer, parser, envp) < 0)
 		return (ft_free_parser(parser), NULL);
 	return (parser);
 }
