@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/20 20:19:07 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:32:38 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	lx_test_c(char *c)
 
 static int	lx_find_length(char *str, int index, int length)
 {
-	if (str[index] == '<' || str[index] == '>' || str[index] == '|')
+	if (str[index] == '<' || str[index] == '>')
 	{
 		while (str[index + length] == str[index])
 			length++;
@@ -87,7 +87,7 @@ static int	lx_find_length(char *str, int index, int length)
 			length++;
 		return (length + 1);
 	}
-	else if (str[index] == 36)
+	else if (str[index] == 36 || str[index] == '|')
 	{
 		length = 1;
 		while (!lx_test_c(&str[index + length]) && str[index + length] != '\0')

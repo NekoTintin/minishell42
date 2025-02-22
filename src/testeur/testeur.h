@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   testeur.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: unbuntu <unbuntu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 18:39:25 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/01/27 14:51:24 by unbuntu          ###   ########.fr       */
+/*   Created: 2025/02/22 14:06:02 by bchallat          #+#    #+#             */
+/*   Updated: 2025/02/22 14:15:51 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef TESTEUR_H
+# define TESTEUR_H
+
 #include "../../includes/minishell.h"
 
-typedef struct s_tools
-{
-    const char  *prompt;
-    
-} t_tools;
+void            print_lexer(t_lexer *lexer);
+char            *print_enum(int nb);
+t_lexer         *test_mi_lexer(char *string, t_lexer *lexer);
 
-int    mini_loop(t_tools *tools);
+#endif
