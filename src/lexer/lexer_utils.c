@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/22 14:32:38 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:58:06 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 
 static int	lx_test_c(char *c)
 {
-	if (*c == '>' || *c == '|' || *c == '<' || *c == 32 || *c == 36)
+	if (*c == '>' || *c == '|' || *c == '<' \
+		|| *c == 32 || *c == 36 || *c == 39 || *c == 34)
 		return (1);
 	return (0);
 }
@@ -83,9 +84,7 @@ static int	lx_find_length(char *str, int index, int length)
 	else if (str[index] == 39 || str[index] == 34)
 	{
 		length = 1;
-		while (str[index + length] != str[index] && str[index + length] != '\0')
-			length++;
-		return (length + 1);
+		return (length);
 	}
 	else if (str[index] == 36 || str[index] == '|')
 	{
