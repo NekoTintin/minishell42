@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/24 11:58:06 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:29:35 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ static int	lx_find_length(char *str, int index, int length)
 			length++;
 		return (length);
 	}
-	else if (str[index] == 39 || str[index] == 34)
+	else if (str[index] == 39 || str[index] == 34  || str[index] == '|')
 	{
 		length = 1;
 		return (length);
 	}
-	else if (str[index] == 36 || str[index] == '|')
+	else if (str[index] == 36)
 	{
 		length = 1;
 		while (!lx_test_c(&str[index + length]) && str[index + length] != '\0')

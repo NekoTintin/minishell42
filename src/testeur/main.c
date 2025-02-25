@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/22 14:08:34 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:39:58 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int     main(int argc, char **argv)//, char **envp)
             lexer = test_mi_lexer(string, lexer);
             if (lexer == NULL)
                 return (free(lexer),EXIT_FAILURE);
+            lexer = parsing_valid_lexer(lexer);
+            if (lexer == NULL)
+                printf("ERROR_GRAM\n");
+            else
+                printf("TEST OK \n");
         }
         string = NULL;
     }

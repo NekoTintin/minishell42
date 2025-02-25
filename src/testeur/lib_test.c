@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:08:38 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/22 14:25:03 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:56:44 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    print_lexer(t_lexer *lexer)
     printf("number of token -> (%d)\n", lexer->size);
     while (node != NULL)
     {
-        printf("[valeur node: %s, %s]  ", node->value, print_enum(node->type));
+        printf("[valeur node: %s, %s]  \n", node->value, print_enum(node->type));
         node = node->next;
     }
     printf("\n-- END LEXER --\n");

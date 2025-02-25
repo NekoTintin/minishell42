@@ -6,7 +6,7 @@
 #    By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/02/24 16:38:57 by bchallat         ###   ########.fr        #
+#    Updated: 2025/02/25 15:42:00 by bchallat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC	=	testeur/main.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
-		parsing/ps_clean_lexer.c \
+		parsing/parsing_valid_lexer.c\
 		
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
