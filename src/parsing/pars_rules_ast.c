@@ -1,15 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .parsing.c                                         :+:      :+:    :+:   */
+/*   pars_rules_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/24 16:30:42 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/26 17:00:07 by bchallat         ###   ########.fr       */
+/*   Created: 2025/02/26 17:04:27 by bchallat          #+#    #+#             */
+/*   Updated: 2025/02/26 17:11:06 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+/*  this file have rules of abstraite sintix tree   */
 
-t_parser    *mi_parsing(t_lexer *lexer);
+/*list of rules
+
+
+
+*/
+
+/*
+
+prototype
+
+*/

@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:02:37 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/25 15:37:12 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:54:41 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ typedef struct s_parser
 //==================== parsing.c =====================*/
 
 t_lexer     *parsing_valid_lexer(t_lexer *lexer);
+
+//====================================================*/
+
+//==================== struct_ast.c =====================*/
+
+t_parser    *pars_make_ast(t_parser *ast);
+t_cmd       *pars_make_cmd(t_cmd *cmd);
+void    	pars_free_ast(t_parser *ast);
+void    	pars_free_cmd(t_cmd *cmd);
+void    	pars_free_arr(char **arr);
 
 //====================================================*/
 
