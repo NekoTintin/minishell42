@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/21 11:26:40 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:44:43 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # include "../libft/libft.h"
 # include "lexer.h"
 # include "parsing.h"
-# include "testeur.h"
-
-
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <linux/limits.h>
@@ -37,7 +34,7 @@
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
 
-int    mini_loop(void);
+int			mini_loop(void);
 // functions in pars_utils.c
 char		*ft_get_from_env(char *env_var, char **envp);
 
