@@ -29,7 +29,7 @@ redirection  → REDIRECT_IN WORD
              | HEREDOC WORD
 
 
----		gestion des varibles et citation	---
+--	-	gestion des varibles et citation	---
 
 WORD         → WORD_PART { WORD_PART }
 WORD_PART    → ALPHA | DIGIT | VAR_ENV | S_QUOTES | D_QUOTES
