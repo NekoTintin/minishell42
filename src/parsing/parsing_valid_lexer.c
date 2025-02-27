@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_valid_lexer.c                               :+:      :+:    :+:   */
+/*   parsing_valid_lexer.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchallat <benoitchallat@student.42.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:38:35 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/25 15:41:17 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:45:27 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 # include "../../includes/minishell.h"
 
-static int      valid_quote(t_lexer *lexer);
-static int      valid_pipe(t_lexer *lexer);
+static int	valid_quote(t_lexer *lexer);
+static int	valid_pipe(t_lexer *lexer);
 
-t_lexer     *parsing_valid_lexer(t_lexer *lexer)
+t_lexer	*parsing_valid_lexer(t_lexer *lexer)
 {
     if (valid_quote(lexer) || valid_pipe(lexer))
         return (ll_free_lexer(lexer), NULL);
     return (lexer);
 }
 
-static int      valid_quote(t_lexer *lexer)
+static int valid_quote(t_lexer *lexer)
 {
-    t_token     *curr;
-    int         d_quote;
-    int         s_quote;
+    t_token	*curr;
+    int		d_quote;
+    int		s_quote;
 
     curr = lexer->header;
     d_quote = 0;
@@ -57,15 +57,12 @@ static int      valid_pipe(t_lexer *lexer)
 
     prev = NULL;
     curr = lexer->header;
-    printf("start loop\n");
     while (curr != NULL)
     {
         if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
             return (1);
-        printf("int loop\n");
         prev = curr;
         curr = curr->next;
     }
-    printf("end loop\n");
     return (0);
 }
