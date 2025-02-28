@@ -12,14 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-t_parser    *pars_make_ast(t_parser *ast)
+t_parser    *pars_make_parser(t_parser *parser)
 {
-    ast = (t_parser *)malloc(sizeof(t_parser));
-    if (ast == NULL)
+    parser = (t_parser *)malloc(sizeof(t_parser));
+    if (parser == NULL)
         return (NULL);
-    ast->top = NULL;
-    ast->size = 0;
-    return (ast);
+    parser->top = NULL;
+    parser->size = 0;
+    return (parser);
 }
 
 t_cmd       *pars_make_cmd(t_cmd *cmd)
@@ -38,19 +38,19 @@ t_cmd       *pars_make_cmd(t_cmd *cmd)
     return (cmd);
 }
 
-void    pars_free_ast(t_parser *ast)
+void    pars_free_parser(t_parser *parser)
 {
     t_cmd   *curr;
     t_cmd   *c_free;
 
-    curr = ast->top;
+    curr = parser->top;
     while (curr != NULL)
     {
         c_free = curr;
         curr = curr->next;
         pars_free_cmd(c_free);
     }
-    free(ast);
+    free(parser);
 }
 
 void    pars_free_cmd(t_cmd *cmd)
