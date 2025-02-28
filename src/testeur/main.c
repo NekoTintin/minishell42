@@ -21,7 +21,7 @@ void handle_sigint(int sig) {
 
 int     main(int argc, char **argv)//, char **envp)
 {
-    signal(SIGINT, handle_sigint);
+//    signal(SIGINT, handle_sigint);
     
     if (argc != 1 && argv != NULL)
         return (EXIT_FAILURE);
@@ -38,21 +38,16 @@ int     main(int argc, char **argv)//, char **envp)
             free(string);
         else
         {
-            lexer = test_mi_lexer(string, lexer);
-            if (lexer == NULL)
-                return (free(lexer),EXIT_FAILURE);
-            lexer = parsing_valid_lexer(lexer);
-            if (lexer == NULL)
-                printf("ERROR_GRAM\n");
-            else
-                printf("TEST OK \n");
-            
-            if (pars_quote(lexer))
-                printf("in condition \n");
-            else 
-                printf("out condition \n");
-            print_lexer(lexer);
-        
+		lexer = test_mi_lexer(string, lexer);
+		if (lexer == NULL)
+			return (free(lexer),EXIT_FAILURE);
+		lexer = parsing_valid_lexer(lexer);
+		if (lexer == NULL || pars_quote(lexer))
+			return (EXIT_FAILURE);
+		print_lexer(lexer);
+		if (parse_cmd_list(lexer->header) == NULL)
+			printf("AST is end \n");
+        		
         }
         string = NULL;
     }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 /*
 	CommandList -> Command | Command '|' CommandList
@@ -20,26 +20,58 @@
 	Redirection -> '<' WORD | '>' WORD | '>>' WORD | ...
 */
 
-int	parse_command_list();
-int	parse_command();
-int	parse_simple_command();
-int	parse_redirection_list();
-int	parse_redirection();
-
-int	parse_commande_list(t_lexer *lexer)
+t_token	*parse_simple_cmd(t_token *node)
 {
-	if (lexer == NULL || lexer->header == NULL)
-		return (-1);
-	while (/*condition*/)
-	{
-		/* instruction*/
-	}
-	return (0);
+	printf("cmd : %s \n", node->value);
+	node = node->next;
+	if (node == NULL)
+		return (NULL);
+	return (node);
 }
 
-int	parse_commande(t_lexer *lexer)
+t_token	*parse_cmd_list(t_token *node)
 {
-	if (lexer == NULL || lexer->header == NULL)
-		return (-1);
-	if ()
+	while (node->type != PIPE)
+	{
+		node = parse_commande(node);
+		if (node == NULL)
+			return (NULL);
+	}
+	return (node);
+}
+
+t_token	*parse_commande(t_token *node)
+{
+	while (node->type != PIPE)
+	{
+		if (node->type == WORD)
+			node = parse_simple_cmd(node);
+		else if (node->type == REDIRECT_IN \
+			|| node->type == REDIRECT_OUT \
+			|| node->type == APPEND \
+			|| node->type == HEREDOC)
+			node = parse_redirection_list(node);
+		else
+			node = node->next;
+		if (node == NULL)
+			return (NULL);
+		printf("test: %s\n", node->value);
+	}
+	return (node);
+}
+
+t_token	*parse_redirection_list(t_token *node)
+{
+	if (node->type == REDIRECT_IN)
+		printf("is redirect int\n");
+	else if (node->type == REDIRECT_OUT)
+		printf("is redirection out\n");
+	else if (node->type == APPEND)
+		printf("append\n");
+	else if (node->type == HEREDOC)
+		printf("is heredoc\n");
+	node = node->next;
+	if (node == NULL)
+		return (NULL);
+	return (node);
 }

@@ -41,7 +41,7 @@ SRC	=	testeur/main.c \
 		lexer/tokenization.c \
 		parsing/parsing_valid_lexer.c\
 		parsing/pars_quote.c\
-		
+		parsing/pars_rules_grammar.c
 		
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}

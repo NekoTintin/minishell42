@@ -52,4 +52,14 @@ void    	pars_free_arr(char **arr);
 
 //====================================================*/
 
+
+//================ rules_gramar.c ====================*/
+
+t_token	*parse_simple_cmd(t_token *node);
+t_token	*parse_cmd_list(t_token *node);
+t_token	*parse_commande(t_token *node);
+t_token	*parse_redirection_list(t_token *node);
+
+//====================================================*/
+
 #endif
