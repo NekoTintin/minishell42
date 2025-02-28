@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/25 15:39:58 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/28 14:07:44 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ int     main(int argc, char **argv)//, char **envp)
                 printf("ERROR_GRAM\n");
             else
                 printf("TEST OK \n");
+            
+            if (pars_quote(lexer))
+                printf("in condition \n");
+            else 
+                printf("out condition \n");
+            print_lexer(lexer);
+        
         }
         string = NULL;
     }

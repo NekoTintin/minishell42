@@ -13,7 +13,7 @@
 #ifndef LEXER_H
 # define LEXER_H
 # include "minishell.h"
-# include <linux/limits.h>
+//# include <linux/limits.h>
 
 // Déclaration anticipée de `t_tokenization`
 typedef struct s_token	t_token;

@@ -43,7 +43,6 @@ static int valid_quote(t_lexer *lexer)
         else if (curr->type == S_QUOTES && s_quote != 0 && d_quote == 0)
             s_quote -= 1;
         curr = curr->next;
-        //printf("s_quote: %d & d_quote : %d\n", s_quote, d_quote);
     }
     if (d_quote != 0 || s_quote != 0)
         return (1);

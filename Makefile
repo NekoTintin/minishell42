@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+         #
+#    By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/02/25 15:42:00 by bchallat         ###   ########.fr        #
+#    Updated: 2025/02/28 13:53:06 by benoitchallat    ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ SRC	=	testeur/main.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
 		parsing/parsing_valid_lexer.c\
+		parsing/pars_quote.c\
+		
 		
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}

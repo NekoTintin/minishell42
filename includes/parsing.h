@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:02:37 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/26 12:54:41 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:56:49 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_parser
 //==================== parsing.c =====================*/
 
 t_lexer     *parsing_valid_lexer(t_lexer *lexer);
+int	pars_quote(t_lexer *lexer);
 
 //====================================================*/
 
