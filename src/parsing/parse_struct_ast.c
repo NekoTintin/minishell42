@@ -35,20 +35,18 @@ t_cmd       *pars_make_cmd(t_cmd *cmd)
     cmd->append = NULL;
     cmd->is_builtin =-1;
     cmd->next = NULL;
-    return (cmd);
+	return (cmd);
 }
 
 void    pars_free_parser(t_parser *parser)
 {
-    t_cmd   *curr;
     t_cmd   *c_free;
 
-    curr = parser->top;
-    while (curr != NULL)
+    while (parser->top != NULL)
     {
-        c_free = curr;
-        curr = curr->next;
-        pars_free_cmd(c_free);
+        c_free = parser->top;
+        parser->top = parser->top->next;
+	pars_free_cmd(c_free);
     }
     free(parser);
 }

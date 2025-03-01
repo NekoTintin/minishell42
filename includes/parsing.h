@@ -44,11 +44,11 @@ int	pars_quote(t_lexer *lexer);
 
 //==================== struct_ast.c =====================*/
 
-t_parser    *pars_make_ast(t_parser *ast);
-t_cmd       *pars_make_cmd(t_cmd *cmd);
-void    	pars_free_ast(t_parser *ast);
-void    	pars_free_cmd(t_cmd *cmd);
-void    	pars_free_arr(char **arr);
+t_cmd		*pars_make_cmd(t_cmd *cmd);
+t_parser	*pars_make_parser(t_parser *parser);
+void		pars_free_parser(t_parser *ast);
+void		pars_free_cmd(t_cmd *cmd);
+void		pars_free_arr(char **arr);
 
 //====================================================*/
 

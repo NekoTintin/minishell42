@@ -26,8 +26,8 @@ int     main(int argc, char **argv)//, char **envp)
     if (argc != 1 && argv != NULL)
         return (EXIT_FAILURE);
 
-    char        *string = NULL;
-    t_lexer     *lexer = NULL;
+	char		*string = NULL;
+	t_lexer		*lexer = NULL;
 
     while (string == NULL)
     {
