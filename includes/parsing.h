@@ -59,6 +59,7 @@ t_token	*parse_simple_cmd(t_token *node);
 t_token	*parse_cmd_list(t_token *node);
 t_token	*parse_commande(t_token *node);
 t_token	*parse_redirection_list(t_token *node);
+t_token	*parse_redirection(t_token *node);
 
 //====================================================*/
 

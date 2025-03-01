@@ -39,9 +39,9 @@ SRC	=	testeur/main.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
-		parsing/parsing_valid_lexer.c\
-		parsing/pars_quote.c\
-		parsing/pars_rules_grammar.c
+		parsing/parse_valid_lexer.c\
+		parsing/parse_quote.c\
+		parsing/parse_rules_grammar.c
 		
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
