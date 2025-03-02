@@ -41,12 +41,9 @@ int     main(int argc, char **argv)//, char **envp)
 		lexer = test_mi_lexer(string, lexer);
 		if (lexer == NULL)
 			return (free(lexer),EXIT_FAILURE);
-		lexer = parsing_valid_lexer(lexer);
-		if (lexer == NULL || pars_quote(lexer))
-			return (EXIT_FAILURE);
+		parse_make_parseur(lexer);
 		print_lexer(lexer);
-		if (parse_cmd_list(lexer->header) == NULL)
-			printf("AST is end \n");
+
         		
         }
         string = NULL;
