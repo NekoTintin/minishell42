@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 typedef struct s_cmd	t_cmd;
+typedef struct s_redirect	t_redirect;
 
 typedef struct s_redirect
 {
@@ -48,20 +49,15 @@ t_lexer		*parse_index_lexer(t_lexer *lexer);
 
 //==================== struct_ast.c =====================*/
 
-t_cmd		*pars_make_cmd(t_cmd *cmd);
-t_parser	*pars_make_parser(t_parser *parser);
-void		pars_free_parser(t_parser *ast);
-void		pars_free_cmd(t_cmd *cmd);
-void		pars_free_arr(char **arr);
 
 //====================================================*/
 
 
 //================ rules_gramar.c ====================*/
 
-t_token	*parse_simple_cmd(t_token *node, t_cmd *cmd);
-t_token	*parse_cmd_list(t_token *node, t_parser *parse);
-t_token	*parse_commande(t_token *node, t_cmd *cmd);
+t_token	*parse_simple_cmd(t_token *node);
+t_token	*parse_cmd_list(t_token *node);
+t_token	*parse_commande(t_token *node);
 t_token	*parse_redirection_list(t_token *node);
 t_token	*parse_redirection(t_token *node);
 
