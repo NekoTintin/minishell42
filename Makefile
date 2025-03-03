@@ -6,7 +6,7 @@
 #    By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/02/28 13:53:06 by benoitchallat    ###   ########.fr        #
+#    Updated: 2025/03/03 14:23:37 by benoitchallat    ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,6 @@ SRC	=	testeur/main.c \
 		parsing/parse_valid_lexer.c\
 		parsing/parse_quote.c\
 		parsing/parse_rules_grammar.c\
-		parsing/parse_struct_ast.c\
-		parsing/parse_parse.c\
 		parsing/parse_index_lexer.c
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}

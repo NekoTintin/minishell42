@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_parse.c                                      :+:      :+:    :+:   */
+/*   ast_command_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 08:01:21 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/02 08:01:48 by benoitchallat    ###   ########.fr       */
+/*   Created: 2025/03/03 08:24:01 by benoitchallat     #+#    #+#             */
+/*   Updated: 2025/03/03 08:24:54 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_parser	*parse_make_parseur(t_lexer *lexer)
+t_token	*ast_cmd_list(t_token *node)
 {
-	lexer = parsing_valid_lexer(lexer);
-	if (lexer == NULL || pars_quote(lexer))// !! leak memorie
+	node = parse_commande(node);
+	if (node == NULL)
 		return (NULL);
-	return (NULL);
-}	
+	while (node->type == PIPE)
+	{
+		node = node->next;
+		printf("\n");
+		node = parse_commande(node);
+		if (node == NULL)
+			return (NULL);
+	}
+	return (node);
+}

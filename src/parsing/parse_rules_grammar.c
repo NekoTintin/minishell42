@@ -13,14 +13,14 @@
 #include "../../includes/minishell.h"
 
 /*
-	CommandList -> Command | Command '|' CommandList
-	Command -> SimpleCommand RedirectionList
-	SimpleCommand -> WORD SimpleCommand | WORD
-	RedirectionList -> Redirection RedirectionList | ε
-	Redirection -> '<' WORD | '>' WORD | '>>' WORD | ...
+	CommandList -> 		Command | Command '|' CommandList
+	Command -> 		SimpleCommand RedirectionList
+	SimpleCommand -> 	WORD SimpleCommand | WORD
+	RedirectionList -> 	Redirection RedirectionList | ε
+	Redirection -> 		'<' WORD | '>' WORD | '>>' WORD | ...
 */
 
-t_token	*parse_cmd_list(t_token *node)
+t_token	*parse_cmd_list(t_token *node, t_parseur *parse)
 {
 	node = parse_commande(node);
 	if (node == NULL)
@@ -29,19 +29,22 @@ t_token	*parse_cmd_list(t_token *node)
 	{
 		node = node->next;
 		printf("\n");
-		node = parse_commande(node);
+		node = parse_commande(node, parse->top);
 		if (node == NULL)
 			return (NULL);
 	}
 	return (node);
 }
 
-t_token	*parse_commande(t_token *node)
+t_token	*parse_commande(t_token *node,t_cmd *cmd)
 {
 	while (node->type != PIPE)
 	{
-		if (node->type == WORD)
-			node = parse_simple_cmd(node);
+		if (node->type == WORD || node->type == VAR_ENV)
+		{	
+			cmd->args = (char **)malloc(sizeof(char*) * 1);
+			node = parse_simple_cmd(node, cmd);
+		}
 		else if (node->type == REDIRECT_IN \
 			|| node->type == REDIRECT_OUT \
 			|| node->type == APPEND \
@@ -55,15 +58,21 @@ t_token	*parse_commande(t_token *node)
 	return (node);
 }
 
-t_token	*parse_simple_cmd(t_token *node)
+t_token	*parse_simple_cmd(t_token *node, t_cmd *cmd)
 {
-	
-	printf("command: %s ", node->value);
+	if (node->type == WORD)
+	{
+		cmd->args[0] = ft_strdup(node->value);
+		printf("command: %s ", cmd->args[0]);
+	}
+	if (node->type == VAR_ENV)
+		printf("env value = %s", getenv(&node->value[1]));
 	node = node->next;
 	if (node == NULL)
 		return (NULL);
 	return (node);
 }
+
 t_token	*parse_redirection_list(t_token *node)
 {
 	while (node->type == REDIRECT_IN \
