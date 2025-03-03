@@ -54,7 +54,14 @@ t_redirect	*parse_make_redirect(t_redirect *redirect);
 
 //====================================================*/
 
+//=============== free all element ===================*/
 
+void	free_all_parser(t_parser *parser);
+void	free_all_command(t_cmd *cmd);
+void	free_all_redirect(t_redirect *redirect);
+
+//====================================================*/
+	
 //================ rules_gramar.c ====================*/
 
 t_token	*parse_simple_cmd(t_token *node);
