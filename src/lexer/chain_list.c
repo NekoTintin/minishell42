@@ -27,6 +27,7 @@ t_token	*ll_init_tolken(t_token *node)
 	node = (t_token *)malloc(sizeof(t_token));
 	if (node == NULL)
 		return (NULL);
+	node->index = 0;
 	node->value = NULL;
 	node->next = NULL;
 	node->type = UNKNOWN;

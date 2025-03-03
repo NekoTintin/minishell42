@@ -35,9 +35,10 @@ typedef enum e_token_type
 
 typedef struct s_token
 {
-	char			*value;
+	int		index;
+	char		*value;
 	t_token_type	type;
-	t_token			*next;
+	t_token		*next;
 }	t_token;
 
 typedef struct s_lexer

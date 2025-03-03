@@ -37,9 +37,11 @@ typedef struct s_parser
 
 //==================== parsing.c =====================*/
 
-t_lexer     *parsing_valid_lexer(t_lexer *lexer);
-int	pars_quote(t_lexer *lexer);
+t_lexer     	*parsing_valid_lexer(t_lexer *lexer);
+int		pars_quote(t_lexer *lexer);
 t_parser	*parse_make_parseur(t_lexer *lexer);
+t_lexer		*parse_index_lexer(t_lexer *lexer);
+
 //====================================================*/
 
 //==================== struct_ast.c =====================*/

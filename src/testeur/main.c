@@ -41,9 +41,10 @@ int     main(int argc, char **argv)//, char **envp)
 		lexer = test_mi_lexer(string, lexer);
 		if (lexer == NULL)
 			return (free(lexer),EXIT_FAILURE);
-		parse_make_parseur(lexer);
+		//parse_make_parseur(lexer);
+		lexer = parse_index_lexer(lexer);
 		print_lexer(lexer);
-
+		
         		
         }
         string = NULL;

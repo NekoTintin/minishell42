@@ -44,6 +44,7 @@ SRC	=	testeur/main.c \
 		parsing/parse_rules_grammar.c\
 		parsing/parse_struct_ast.c\
 		parsing/parse_parse.c\
+		parsing/parse_index_lexer.c
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}

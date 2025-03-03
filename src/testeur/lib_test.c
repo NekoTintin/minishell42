@@ -36,7 +36,7 @@ void    print_lexer(t_lexer *lexer)
     printf("number of token -> (%d)\n", lexer->size);
     while (node != NULL)
     {
-        printf("[valeur node: %s, %s]  \n", node->value, print_enum(node->type));
+        printf("[valeur node(%d): %s, %s ]  \n",node->index, node->value, print_enum(node->type));
         node = node->next;
     }
     printf("\n-- END LEXER --\n");
