@@ -42,13 +42,15 @@ typedef struct	s_parser
 
 t_lexer     	*parsing_valid_lexer(t_lexer *lexer);
 int		pars_quote(t_lexer *lexer);
-t_parser	*parse_make_parseur(t_lexer *lexer);
 t_lexer		*parse_index_lexer(t_lexer *lexer);
 
 //====================================================*/
 
-//==================== struct_ast.c =====================*/
+//=============== make_element_struct.c ==============*/
 
+t_parser	*parse_make_parser(t_parser *parse);
+t_cmd		*parse_make_command(t_cmd *cmd);
+t_redirect	*parse_make_redirect(t_redirect *redirect);
 
 //====================================================*/
 
