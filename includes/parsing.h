@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/20 20:17:58 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:27:39 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@
 
 typedef struct s_cmd	t_cmd;
 
+typedef struct s_redirect
+{
+	t_token_type	type;
+	char		**file;
+	t_redirect	*next;
+}	t_redirect;
+
 typedef struct s_cmd
 {
-	char		**args;
-	char		**infile;
-	char		**outfile;
-	char		*delimiter;
-	int			delete_tabs;
-	int			*append;
-	int			is_builtin;
+	char		**argument;
+	t_redirect	*redirect;
 	t_cmd		*next;
 }				t_cmd;
 
-typedef struct s_parser
+typedef struct	s_parser
 {
 	int			size;
 	t_cmd		*top;
