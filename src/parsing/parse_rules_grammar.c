@@ -20,7 +20,7 @@
 	Redirection -> 		'<' WORD | '>' WORD | '>>' WORD | ...
 */
 
-t_token	*parse_cmd_list(t_token *node)
+/*t_token	*parse_cmd_list(t_token *node)
 {
 	while (node != NULL)
 	{	
@@ -67,7 +67,7 @@ t_token	*parse_simple_cmd(t_token *node)
 	if (node == NULL)
 		return (NULL);
 	return (node);
-}
+}*/
 
 t_token	*parse_redirection_list(t_token *node)
 {

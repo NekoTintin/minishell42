@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:02:37 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/03 14:25:22 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/04 17:41:22 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,18 @@ void	free_all_redirect(t_redirect *redirect);
 	
 //================ rules_gramar.c ====================*/
 
-t_token	*parse_simple_cmd(t_token *node);
-t_token	*parse_cmd_list(t_token *node);
-t_token	*parse_commande(t_token *node);
-t_token	*parse_redirection_list(t_token *node);
-t_token	*parse_redirection(t_token *node);
+char	*parse_simple_cmd(t_token *node);
+t_parser	*parse_cmd_list(t_token *node, t_parser *parse);
+t_token	*parse_commande(t_token *node, t_cmd *cmd);
+t_token	*parse_redirection_list(t_token *node, t_cmd *cmd);
+t_token	*parse_redirection(t_token *node, t_redirect *redirect);
+t_token	*parse_redirection_argument(t_token *node, t_redirect *redirect);
 
 //====================================================*/
 
+t_parser	*add_command(t_parser *parse);
 t_cmd	*last_command(t_parser *parse);
 int	node_is_redirect(t_token *node);
+int	node_is_ascii(t_token *node);
 int	parse_find_arrlen(t_token *node);
 #endif

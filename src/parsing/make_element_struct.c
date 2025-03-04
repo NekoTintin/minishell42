@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:34 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/03 16:01:00 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/04 16:39:15 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ t_redirect	*parse_make_redirect(t_redirect *redirect)
 	redirect->type = UNKNOWN;
 	redirect->file = NULL;
 	redirect->next = NULL;
-	return (NULL);
+	return (redirect);
 }
