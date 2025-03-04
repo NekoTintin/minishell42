@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/04 17:28:59 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/04 20:17:24 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int     main(int argc, char **argv)//, char **envp)
 
 	char		*string = NULL;
 	t_lexer		*lexer = NULL;
-	t_parser	*parse = NULL;
+	//t_parser	*parse = NULL;
 
     while (string == NULL)
     {
@@ -45,19 +45,21 @@ int     main(int argc, char **argv)//, char **envp)
 		lexer = test_mi_lexer(string, lexer);
 		if (lexer == NULL)
 			return (free(lexer),EXIT_FAILURE);
-		pars_quote(lexer);
-		parse = parse_make_parser(parse);
+		
+		lexer = parse_conc_quote(lexer);
+		print_lexer(lexer);
+		/*parse = parse_make_parser(parse);
 		parse = parse_cmd_list(lexer->header, parse);
 		if (parse == NULL || parse->top == NULL)
 			printf(" -- NULL --\n");
 		printf(" -- END AST -- \n");	
-		print_parse(parse);
+		print_parse(parse);*/
         		
         }
         string = NULL;
 	ll_free_lexer(lexer);
-	free_all_parser(parse);
-	parse = NULL;
+	//free_all_parser(parse);
+	//parse = NULL;
     }
     return (free(string), EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/03/03 14:23:37 by benoitchallat    ###   ########.fr        #
+#    Updated: 2025/03/04 20:41:05 by benoitchallat    ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC	=	testeur/main.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
 		parsing/parse_valid_lexer.c\
-		parsing/parse_quote.c\
+		parsing/parse_conc_quote.c\
 		parsing/make_element_struct.c\
 		parsing/free_element_struct.c \
 		parsing/parse_ast_utils.c \
@@ -62,7 +62,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo  "$(GREEN)[..]       	🛠️ $(YELLOW)MAKE	libft ...$(BLUE)libft/libft.a\n"
 	@make -C libft/ > /dev/null
-	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	loop test$(BLUE)**Test Loop**\n"
+	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	loop test$(BLUE)	**Test Loop**\n"
 	@$(CCFLAG) -g3 $(OBJS) $(LIBFT) $(LIBS) -o $(NAME)
 
 clean:
