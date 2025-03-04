@@ -12,8 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-static int	node_is_redirect(t_token *node);
-
 int	parse_find_arrlen(t_token *node)
 {
 	int	index;
@@ -34,7 +32,7 @@ int	parse_find_arrlen(t_token *node)
 	return (index);
 }
 
-static int	node_is_redirect(t_token *node)
+int	node_is_redirect(t_token *node)
 {
 	t_token_type	type;
 
@@ -43,4 +41,13 @@ static int	node_is_redirect(t_token *node)
 		|| type == APPEND || type == HEREDOC)
 		return (1);
 	return (0);
+}
+
+t_cmd	*last_command(t_parser *parse)
+{
+	while (parse->top != NULL)
+	{
+		parse->top = parse->top->next;
+	}
+	return (parse->top);
 }

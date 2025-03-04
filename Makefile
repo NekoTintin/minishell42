@@ -42,10 +42,9 @@ SRC	=	testeur/main.c \
 		parsing/parse_valid_lexer.c\
 		parsing/parse_quote.c\
 		parsing/parse_rules_grammar.c\
-		parsing/parse_index_lexer.c\
 		parsing/make_element_struct.c\
 		parsing/free_element_struct.c \
-		parsing/parse_arr_utils.c \
+		parsing/parse_ast_utils.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}

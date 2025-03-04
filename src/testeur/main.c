@@ -28,6 +28,8 @@ int     main(int argc, char **argv)//, char **envp)
 
 	char		*string = NULL;
 	t_lexer		*lexer = NULL;
+	t_parser	*parse = NULL;
+	t_cmd		*cmd = NULL;
 
     while (string == NULL)
     {
@@ -42,11 +44,12 @@ int     main(int argc, char **argv)//, char **envp)
 		if (lexer == NULL)
 			return (free(lexer),EXIT_FAILURE);
 		pars_quote(lexer);
+		parse = parse_make_parser(parse);
+		cmd = parse_make_command(cmd);
+		parse->top = cmd;
 		parse_cmd_list(lexer->header);
 		printf("\n -- END AST -- \n");
-		printf("length of array = % d", parse_find_arrlen(lexer->header));
-		//lexer = parse_index_lexer(lexer);
-		//print_lexer(lexer);
+		//printf("length of array = % d", parse_find_arrlen(lexer->header));
 		
         		
         }
