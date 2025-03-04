@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_valid_lexer.c                              :+:      :+:    :+:   */
+/*   parse_valid_lexer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <benoitchallat@student.42.fr>     +#+  +:+       +#+        */
+/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:38:35 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/27 14:45:27 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/04 22:26:09 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 static int	valid_quote(t_lexer *lexer);
 static int	valid_pipe(t_lexer *lexer);
 
-t_lexer	*parsing_valid_lexer(t_lexer *lexer)
+int	parsing_valid_lexer(t_lexer *lexer)
 {
     if (valid_quote(lexer) || valid_pipe(lexer))
-        return (ll_free_lexer(lexer), NULL);
-    return (lexer);
+        return (-1);
+    return (0);
 }
 
 static int valid_quote(t_lexer *lexer)
@@ -58,8 +58,11 @@ static int      valid_pipe(t_lexer *lexer)
     curr = lexer->header;
     while (curr != NULL)
     {
-        if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
+        if (curr->type == PIPE && (prev == NULL || curr->next = NULL))
             return (1);
+        if (curr->type == PIPE && curr->next->type == PIPE)
+            return (1);
+        if ()
         prev = curr;
         curr = curr->next;
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testeur.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:06:02 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/22 14:15:51 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/03/04 21:40:21 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 
 #include "../../includes/minishell.h"
 
-void            print_lexer(t_lexer *lexer);
-char            *print_enum(int nb);
-t_lexer         *test_mi_lexer(char *string, t_lexer *lexer);
+void         print_lexer(t_lexer *lexer);
+char         *print_enum(int nb);
+void         test_mi_lexer(char *string);
+
+void        test_mi_parse(t_lexer *lexer, char *string);
+void	    print_parse(t_parser *parse);
+
 
 #endif

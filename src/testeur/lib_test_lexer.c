@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib_test.c                                         :+:      :+:    :+:   */
+/*   lib_test_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:08:38 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/25 14:56:44 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/03/04 21:40:16 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testeur.h"
 
-t_lexer     *test_mi_lexer(char *string, t_lexer *lexer)
+void     test_mi_lexer(char *string)
 {
+    t_lexer     *lexer;
+    
+    lexer = NULL;
     lexer = mi_make_lexer(NULL);
     if (lexer == NULL)
         printf("test lexer NULL \n");
@@ -23,11 +26,9 @@ t_lexer     *test_mi_lexer(char *string, t_lexer *lexer)
         printf("test lexer void \n");
     
     lexer = mi_make_lexer(string);
-    if (lexer == NULL || string == NULL)
-        return (NULL);
-    
-    print_lexer(lexer);
-    return (lexer);
+    if (lexer != NULL || string != NULL)
+        print_lexer(lexer);
+    ll_free_lexer(lexer);
 }
 
 void    print_lexer(t_lexer *lexer)

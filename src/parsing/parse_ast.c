@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:23:23 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/04 15:39:42 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/04 21:12:46 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ t_token	*parse_redirection_list(t_token *node, t_cmd *cmd)
 	redirect = cmd->redirect;
 	while (node_is_redirect(node) && node != NULL)
 	{
-		//node = parse_redirection(node, redirect);
 		redirect->type = node->type;
 		while (node->type != WORD)
 			node = node->next;

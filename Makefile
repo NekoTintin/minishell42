@@ -6,7 +6,7 @@
 #    By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/03/04 20:41:05 by benoitchallat    ###   ########.fr        #
+#    Updated: 2025/03/04 21:38:32 by benoitchallat    ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ NAME = minishell_test
 #===========================================================#
 
 SRC	=	testeur/main.c \
-		testeur/lib_test.c \
+		testeur/lib_test_lexer.c \
+		testeur/lib_test_parsing.c\
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \

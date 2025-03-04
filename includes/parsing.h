@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:02:37 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/04 20:45:33 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/04 22:07:42 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ typedef struct	s_parser
 
 //==================== parsing.c =====================*/
 
-t_lexer		*parsing_valid_lexer(t_lexer *lexer);
-t_lexer		*parse_index_lexer(t_lexer *lexer);
+int			parsing_valid_lexer(t_lexer *lexer);
 t_lexer		*parse_conc_quote(t_lexer *lexer);
 
 //====================================================*/
@@ -61,7 +60,6 @@ t_parser	*parse_cmd_list(t_token *node, t_parser *parse);
 t_token		*parse_commande(t_token *node, t_cmd *cmd);
 t_token		*parse_redirection_list(t_token *node, t_cmd *cmd);
 t_token		*parse_redirection(t_token *node, t_redirect *redirect);
-t_token		*parse_redirection_argument(t_token *node, t_redirect *redirect);
 
 //====================================================*/
 
