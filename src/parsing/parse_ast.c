@@ -12,14 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/*
-	CommandList -> 		Command | Command '|' CommandList
-	Command -> 		SimpleCommand RedirectionList
-	SimpleCommand -> 	WORD SimpleCommand | WORD
-	RedirectionList -> 	Redirection RedirectionList | ε
-	Redirection -> 		'<' WORD | '>' WORD | '>>' WORD | ...
-*/
-
 t_parser	*parse_cmd_list(t_token *node, t_parser *parse)
 {
 	while (node != NULL)
@@ -90,41 +82,60 @@ t_token	*parse_redirection_list(t_token *node, t_cmd *cmd)
 	redirect = cmd->redirect;
 	while (node_is_redirect(node) && node != NULL)
 	{
-		node = parse_redirection(node, redirect);
+		//node = parse_redirection(node, redirect);
+		redirect->type = node->type;
 		while (node->type != WORD)
 			node = node->next;
-		node = parse_redirection_argument(node, redirect);
+		node = parse_redirection(node, redirect);
 		return (node);
 	}
 	return (node);
 }
 
-t_token	*parse_redirection(t_token *node, t_redirect *redirect)
+int	parse_herdoclen(t_token *node)
 {
-	if (node->type == REDIRECT_IN)
-		redirect->type = REDIRECT_IN;
-	else if (node->type == REDIRECT_OUT)
-		redirect->type = REDIRECT_OUT;
-	else if (node->type == APPEND)
-		redirect->type = APPEND;
-	else if (node->type == HEREDOC)
-		redirect->type = HEREDOC;
-	else
-		redirect->type = UNKNOWN;
-	return (node);
+	int	size;
+
+	size = 0;
+	while (node != NULL)
+	{
+		if (!node_is_ascii(node))
+			return (size);
+		size++;
+		node = node->next;
+	}
+	return (size);
 }
 
-t_token	*parse_redirection_argument(t_token *node, t_redirect *redirect)
+t_token	*parse_redirection(t_token *node, t_redirect *redirect)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	if (redirect->type == HEREDOC)
-		return (node->next);
-	redirect->file = (char **)malloc(sizeof(char *) * 2);
-	if (redirect->type == REDIRECT_IN)
-		redirect->file[0] = ft_strdup(node->value);
-	if (redirect->type == REDIRECT_OUT)
-		redirect->file[0] = ft_strdup(node->value);
-	if (redirect->type == APPEND)
-		redirect->file[0] = ft_strdup(node->value);
+	{
+		i = parse_herdoclen(node);
+		redirect->file = (char **)malloc(sizeof(char *) * i + 1);
+		while (j != i)
+		{
+			redirect->file[j] = ft_strdup(node->value);
+			j++;
+			node = node ->next; 
+		}
+		return (node);
+	}
+	else
+	{
+		redirect->file = (char **)malloc(sizeof(char *) * 2);
+		if (redirect->type == REDIRECT_IN)
+			redirect->file[i] = ft_strdup(node->value);
+		if (redirect->type == REDIRECT_OUT)
+			redirect->file[i] = ft_strdup(node->value);
+		if (redirect->type == APPEND)
+			redirect->file[i] = ft_strdup(node->value);
+	}
 	node = node->next;
 	return (node);
 }
