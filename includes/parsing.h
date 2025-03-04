@@ -72,4 +72,5 @@ t_token	*parse_redirection(t_token *node);
 
 //====================================================*/
 
+int	parse_find_arrlen(t_token *node);
 #endif

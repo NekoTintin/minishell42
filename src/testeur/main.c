@@ -44,6 +44,7 @@ int     main(int argc, char **argv)//, char **envp)
 		pars_quote(lexer);
 		parse_cmd_list(lexer->header);
 		printf("\n -- END AST -- \n");
+		printf("length of array = % d", parse_find_arrlen(lexer->header));
 		//lexer = parse_index_lexer(lexer);
 		//print_lexer(lexer);
 		
