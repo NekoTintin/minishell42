@@ -25,8 +25,6 @@ int	parse_find_arrlen(t_token *node)
 			index++;
 		else if (node->type == PIPE)
 			return (index);
-		else if (node_is_redirect(node))
-			node = node->next->next;
 		node = node->next;
 	}
 	return (index);

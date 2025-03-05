@@ -19,7 +19,7 @@ int  valid_redirect(t_lexer *lexer);
 
 int	parsing_valid_lexer(t_lexer *lexer)
 {
-    if (valid_quote(lexer) || valid_pipe(lexer))// || valid_redirect(lexer))
+    if (valid_quote(lexer) || valid_pipe(lexer) || valid_redirect(lexer))
         return (-1);
     return (0);
 }
