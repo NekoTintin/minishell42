@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:54:05 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/04 22:08:16 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 10:45:11 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ void	print_parse(t_parser *parse)
 	{
 		for (int i = 0; cmd->argument[i] != NULL ; i++)
 			printf("argument(%d)->%s\n", i, cmd->argument[i]);
-		if (cmd->redirect != NULL)
+		while (cmd->redirect != NULL)
 		{
 			printf("redirection : %s\n", print_enum(cmd->redirect->type));
 			for (int i = 0; cmd->redirect->file[i] != NULL ; i++)
 				printf("file(%d)->%s\n", i, cmd->redirect->file[i]);
+			cmd->redirect = cmd->redirect->next;
 		}
 		cmd = cmd->next;
 		printf("== END CMD ==\n");

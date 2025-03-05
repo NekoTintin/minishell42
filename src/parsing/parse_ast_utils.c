@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 09:14:46 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/04 17:54:44 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 09:38:10 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,4 @@ t_parser	*add_command(t_parser *parse)
 		parse->size += 1;
 	}
 	return (parse);
-
-	
 }
