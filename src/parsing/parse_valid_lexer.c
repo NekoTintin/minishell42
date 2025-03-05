@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:38:35 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/05 09:02:04 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 15:18:25 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 static int	valid_quote(t_lexer *lexer);
 static int	valid_pipe(t_lexer *lexer);
+int  valid_redirect(t_lexer *lexer);
 
 int	parsing_valid_lexer(t_lexer *lexer)
 {
-    if (valid_quote(lexer) || valid_pipe(lexer))
+    if (valid_quote(lexer) || valid_pipe(lexer))// || valid_redirect(lexer))
         return (-1);
     return (0);
 }
@@ -66,4 +67,31 @@ static int      valid_pipe(t_lexer *lexer)
         curr = curr->next;
     }
     return (0);
+}
+
+int     valid_redirect(t_lexer *lexer)
+{
+    t_token     *node;
+    
+    node = lexer->header;
+    while (node != NULL)
+    {
+        if (node_is_redirect(node))
+        {
+            if (node->next == NULL)
+                return (1);
+            while (node != NULL)
+            {
+                node = node->next;
+                if (node->type == WORD)
+                    break;
+                if (node == NULL || node_is_redirect(node))
+                    return (1);
+            }
+        }
+        else
+            node = node->next;
+    }
+    printf("help\n");
+    return(0);
 }

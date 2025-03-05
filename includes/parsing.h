@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:02:37 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/04 22:07:42 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 13:50:19 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,10 @@ void		free_all_command(t_cmd *cmd);
 void		free_all_redirect(t_redirect *redirect);
 
 //====================================================*/
+
+int	parse_herdoclen(t_token *node);
+t_redirect	*last_redirect(t_cmd *cmd);
+t_cmd	*parse_add_redirect(t_cmd *cmd);
+t_token	*parse_redirection_herdoc(t_token *node, t_redirect *redirect);
 
 #endif

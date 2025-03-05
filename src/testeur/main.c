@@ -42,6 +42,7 @@ int     main(int argc, char **argv)//, char **envp)
 			{
 				lexer = mi_make_lexer(string);
 				print_lexer(lexer);
+				printf("\n");
 				test_mi_parse(lexer, string);
 			}
 			string = NULL;
