@@ -63,13 +63,13 @@ char	*parse_simple_cmd(t_token *node)
 {
 	char	*args;
 
-	if (node->type == WORD)// || node->type == VAR_ENV)
+	if (node->type == WORD)
 	{
 		args = ft_strdup(node->value);
 		if (args == NULL)
 			return (NULL);
 	}
-	else if(node->type == VAR_ENV)
+	else if (node->type == VAR_ENV)
 	{
 		args = ft_strdup(getenv(&node->value[1]));
 		if (args == NULL)

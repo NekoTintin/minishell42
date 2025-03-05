@@ -43,6 +43,5 @@ t_token	*parse_redirection(t_token *node, t_redirect *redirect)
 	if (redirect->type == APPEND)
 		redirect->file[0] = ft_strdup(node->value);
 	redirect->file[1] = NULL;
-	//node = node->next;
 	return (node);
 }

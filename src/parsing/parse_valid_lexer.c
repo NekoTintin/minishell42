@@ -14,7 +14,7 @@
 
 static int	valid_quote(t_lexer *lexer);
 static int	valid_pipe(t_lexer *lexer);
-int	valid_redirect(t_lexer *lexer);
+int			valid_redirect(t_lexer *lexer);
 
 int	parsing_valid_lexer(t_lexer *lexer)
 {
