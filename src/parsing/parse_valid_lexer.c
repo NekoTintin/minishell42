@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:38:35 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/04 22:26:09 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 09:02:04 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ static int      valid_pipe(t_lexer *lexer)
     curr = lexer->header;
     while (curr != NULL)
     {
-        if (curr->type == PIPE && (prev == NULL || curr->next = NULL))
+        if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
             return (1);
         if (curr->type == PIPE && curr->next->type == PIPE)
             return (1);
-        if ()
         prev = curr;
         curr = curr->next;
     }

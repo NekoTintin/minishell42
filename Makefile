@@ -6,7 +6,7 @@
 #    By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/03/04 21:38:32 by benoitchallat    ###   ########.fr        #
+#    Updated: 2025/03/05 09:15:53 by benoitchallat    ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC	=	testeur/main.c \
 		parsing/make_element_struct.c\
 		parsing/free_element_struct.c \
 		parsing/parse_ast_utils.c \
+		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
