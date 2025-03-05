@@ -37,6 +37,7 @@ static t_token	*make_new_quote(t_token *node)
 {
 	t_token		*q_node;
 	t_token		*new;
+	t_token		*f_node;
 	char		*value;
 
 	if (node->type == node->next->type)
@@ -50,13 +51,16 @@ static t_token	*make_new_quote(t_token *node)
 		value = make_value_in_quote(value, q_node);
 		if (value == NULL)
 			return (NULL);
+		f_node = q_node;
 		q_node = q_node->next;
+		free(f_node->value);
+		free(f_node);
 	}
 	new->value = ft_strdup(value);
 	new->next = q_node;
 	new->type = WORD;
 	node->next = new;
-	return (q_node);
+	return (free(value), q_node);
 }
 
 static char	*make_value_in_quote(char *value, t_token *q_node)
@@ -66,5 +70,5 @@ static char	*make_value_in_quote(char *value, t_token *q_node)
 	if (value == NULL)
 		return (ft_strdup(q_node->value));
 	join = ft_strjoin(value, q_node->value);
-	return (free(value), join);//return (free(value), free(q_node->value), free(q_node), join);
+	return (free(value), join);
 }
