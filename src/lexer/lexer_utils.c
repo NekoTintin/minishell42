@@ -81,7 +81,7 @@ static int	lx_find_length(char *str, int index, int length)
 			length++;
 		return (length);
 	}
-	else if (str[index] == 39 || str[index] == 34  || str[index] == '|')
+	else if (str[index] == 39 || str[index] == 34 || str[index] == '|')
 	{
 		length = 1;
 		return (length);

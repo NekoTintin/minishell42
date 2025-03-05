@@ -12,8 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-static char	*make_value_in_quote(char *value, t_token *q_node);
-static t_token	*make_new_quote(t_token *node);
+static char			*make_value_in_quote(char *value, t_token *q_node);
+static t_token		*make_new_quote(t_token *node);
 
 t_lexer	*parse_conc_quote(t_lexer *lexer)
 {
@@ -38,7 +38,7 @@ static t_token	*make_new_quote(t_token *node)
 	t_token		*q_node;
 	t_token		*new;
 	char		*value;
-	
+
 	if (node->type == node->next->type)
 		return (node->next);
 	q_node = node->next;
@@ -56,13 +56,13 @@ static t_token	*make_new_quote(t_token *node)
 	new->next = q_node;
 	new->type = WORD;
 	node->next = new;
-	return(q_node);
+	return (q_node);
 }
 
 static char	*make_value_in_quote(char *value, t_token *q_node)
 {
 	char	*join;
-	
+
 	if (value == NULL)
 		return (ft_strdup(q_node->value));
 	join = ft_strjoin(value, q_node->value);

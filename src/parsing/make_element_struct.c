@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_parser	*parse_make_parser(t_parser *parse);
 t_cmd		*parse_make_command(t_cmd *cmd);
 t_redirect	*parse_make_redirect(t_redirect *redirect);
-
 
 t_parser	*parse_make_parser(t_parser *parse)
 {
@@ -29,7 +28,7 @@ t_parser	*parse_make_parser(t_parser *parse)
 	return (parse);
 }
 
-t_cmd		*parse_make_command(t_cmd *cmd)
+t_cmd	*parse_make_command(t_cmd *cmd)
 {
 	if (cmd != NULL)
 		return (NULL);

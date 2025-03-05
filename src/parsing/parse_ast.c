@@ -15,7 +15,7 @@
 t_parser	*parse_cmd_list(t_token *node, t_parser *parse)
 {
 	while (node != NULL)
-	{	
+	{
 		parse = add_command(parse);
 		if (parse->top == NULL)
 			return (NULL);
@@ -33,17 +33,18 @@ t_token	*parse_commande(t_token *node, t_cmd *cmd)
 {
 	int	index;
 
-	
 	index = 0;
 	cmd->argument = (char **)malloc(sizeof(char *) * parse_find_arrlen(node) + 1);
+	if (cmd->argument == NULL)
+		return (NULL);
 	while (node->type != PIPE)
 	{
 		if (node->type == WORD || node->type == VAR_ENV)
-		{	
+		{
 			cmd->argument[index] = parse_simple_cmd(node);
 			if (cmd == NULL)
 				return (NULL);
-			index++;	
+			index++;
 		}
 		else if (node_is_redirect(node))
 		{
@@ -58,7 +59,7 @@ t_token	*parse_commande(t_token *node, t_cmd *cmd)
 	return (node);
 }
 
-char 	*parse_simple_cmd(t_token *node)
+char	*parse_simple_cmd(t_token *node)
 {
 	char	*args;
 

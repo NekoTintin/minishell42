@@ -26,12 +26,12 @@ int     main(int argc, char **argv)//, char **envp)
 {
     //signal(SIGINT, handle_sigint);
     
-    if (argc == 1)
+    if (argc != 1 )//|| argv != NULL)
 	{
-		char		*string = NULL;
+		char		*string = argv[1];
 		t_lexer		*lexer = NULL;
 
-		while (string == NULL)
+		/*while (string == NULL)
 		{
 			string = readline("Minishell$ ");
 			if (string == NULL)
@@ -40,15 +40,23 @@ int     main(int argc, char **argv)//, char **envp)
 				free(string);
 			else
 			{
-				lexer = mi_make_lexer(string);
-				print_lexer(lexer);
-				printf("\n");
-				test_mi_parse(lexer, string);
+				//lexer = mi_make_lexer(string);
+				//print_lexer(lexer);
+				//printf("\n");
+				//test_mi_parse(lexer, string);
 			}
+			free(string);
 			string = NULL;
-			ll_free_lexer(lexer);
-		}
+			//ll_free_lexer(lexer);
+		}*/
+		lexer = mi_make_lexer(string);
+		print_lexer(lexer);
+		test_mi_parse(lexer, string);
+		ll_free_lexer(lexer);
 	}
+	return (EXIT_SUCCESS);
+}
+	/*
 	else
 	{
 		char		*string = NULL;
@@ -68,12 +76,6 @@ int     main(int argc, char **argv)//, char **envp)
 			string = get_next_line(fd);
 			if (string == NULL)
 				return (0);
-			/*string = readline("Minishell$ ");
-			if (string == NULL)
-				return (free(string), EXIT_SUCCESS);
-			else if (*string == '\0')
-				free(string);    
-			else*/
 				// -- test_mi_lexer(string); --	
 			lexer = mi_make_lexer(string);
 			if (lexer == NULL)
@@ -88,4 +90,4 @@ int     main(int argc, char **argv)//, char **envp)
 	}
     return (EXIT_SUCCESS);
 }
-
+*/

@@ -26,6 +26,7 @@ int	parse_herdoclen(t_token *node)
 	}
 	return (size);
 }
+
 t_redirect	*last_redirect(t_cmd *cmd)
 {
 	t_redirect	*curr;
@@ -48,7 +49,7 @@ t_cmd	*parse_add_redirect(t_cmd *cmd)
 	if (cmd->redirect == NULL)
 	{
 		cmd->redirect = node;
-		return(cmd);
+		return (cmd);
 	}
 	else
 	{

@@ -1,0 +1,5 @@
+number of token -> (1)
+[valeur node(0): echo, WORD ]  
+
+-- END LEXER --
+test commande --> echo

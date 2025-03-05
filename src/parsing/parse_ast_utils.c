@@ -35,7 +35,7 @@ int	node_is_redirect(t_token *node)
 	t_token_type	type;
 
 	type = node->type;
-	if (type == REDIRECT_IN || type == REDIRECT_OUT\
+	if (type == REDIRECT_IN || type == REDIRECT_OUT \
 		|| type == APPEND || type == HEREDOC)
 		return (1);
 	return (0);
@@ -46,7 +46,7 @@ int	node_is_ascii(t_token *node)
 	t_token_type	type;
 
 	type = node->type;
-	if (type == D_QUOTES || type == S_QUOTES\
+	if (type == D_QUOTES || type == S_QUOTES \
 		|| type == WHITESPACE || type == WORD || type == VAR_ENV)
 		return (1);
 	return (0);

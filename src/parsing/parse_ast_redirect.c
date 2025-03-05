@@ -15,7 +15,7 @@
 t_token	*parse_redirection_list(t_token *node, t_cmd *cmd)
 {
 	t_redirect	*redirect;
-	
+
 	cmd = parse_add_redirect(cmd);
 	redirect = last_redirect(cmd);
 	redirect->type = node->type;
@@ -23,19 +23,17 @@ t_token	*parse_redirection_list(t_token *node, t_cmd *cmd)
 	{
 		node = node->next;
 		if (node == NULL)
-			return(NULL);
+			return (NULL);
 	}
 	printf("word = %s\n", node->value);
 	node = parse_redirection(node, redirect);
 	if (node == NULL)
 		return (NULL);
 	return (node);
-
 }
 
 t_token	*parse_redirection(t_token *node, t_redirect *redirect)
 {
-
 	if (redirect->type == HEREDOC)
 		return (parse_redirection_herdoc(node, redirect));
 	redirect->file = (char **)malloc(sizeof(char *) * 2);
@@ -45,6 +43,7 @@ t_token	*parse_redirection(t_token *node, t_redirect *redirect)
 		redirect->file[0] = ft_strdup(node->value);
 	if (redirect->type == APPEND)
 		redirect->file[0] = ft_strdup(node->value);
+	redirect->file[1] = NULL;
 	node = node->next;
 	return (node);
 }
