@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:02:37 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/05 13:50:19 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 19:43:57 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct	s_parser
 	int			size;
 	t_cmd		*top;
 }				t_parser;
+
+t_parser    *mi_make_parse(t_parser *parse, t_lexer *lexer);
 
 //==================== parsing.c =====================*/
 

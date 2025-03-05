@@ -6,7 +6,7 @@
 #    By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/03/05 13:31:14 by benoitchallat    ###   ########.fr        #
+#    Updated: 2025/03/05 19:45:33 by benoitchallat    ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC	=	testeur/main.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
+		parsing/parser.c \
 		parsing/parse_valid_lexer.c\
 		parsing/parse_conc_quote.c\
 		parsing/make_element_struct.c\

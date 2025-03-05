@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:14:28 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/05 15:16:46 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 19:50:51 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_token	*parse_redirection_list(t_token *node, t_cmd *cmd)
 		if (node == NULL)
 			return (NULL);
 	}
-	printf("word = %s\n", node->value);
 	node = parse_redirection(node, redirect);
 	if (node == NULL)
 		return (NULL);
@@ -44,6 +43,6 @@ t_token	*parse_redirection(t_token *node, t_redirect *redirect)
 	if (redirect->type == APPEND)
 		redirect->file[0] = ft_strdup(node->value);
 	redirect->file[1] = NULL;
-	node = node->next;
+	//node = node->next;
 	return (node);
 }

@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/04 22:19:05 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/03/05 19:46:11 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int     main(int argc, char **argv)//, char **envp)
 	{
 		char		*string = argv[1];
 		t_lexer		*lexer = NULL;
-
+		t_parser	*parse = NULL;
 		/*while (string == NULL)
 		{
 			string = readline("Minishell$ ");
@@ -50,8 +50,10 @@ int     main(int argc, char **argv)//, char **envp)
 			//ll_free_lexer(lexer);
 		}*/
 		lexer = mi_make_lexer(string);
-		print_lexer(lexer);
-		test_mi_parse(lexer, string);
+		//print_lexer(lexer);
+		parse = mi_make_parse(parse, lexer);
+		print_parse(parse);
+		free_all_parser(parse);
 		ll_free_lexer(lexer);
 	}
 	return (EXIT_SUCCESS);
