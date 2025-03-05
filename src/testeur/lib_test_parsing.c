@@ -32,18 +32,20 @@ void     test_mi_parse(t_lexer *lexer, char *string)
 void	print_parse(t_parser *parse)
 {
 	t_cmd	*cmd;
+	t_redirect	*redirect;
 
 	cmd = parse->top;
 	while (cmd != NULL)
 	{
 		for (int i = 0; cmd->argument[i] != NULL ; i++)
 			printf("argument(%d)->%s\n", i, cmd->argument[i]);
-		while (cmd->redirect != NULL)
+		redirect = cmd->redirect;
+		while (redirect != NULL)
 		{
-			printf("redirection : %s\n", print_enum(cmd->redirect->type));
-			for (int i = 0; cmd->redirect->file[i] != NULL ; i++)
-				printf("file(%d)->%s\n", i, cmd->redirect->file[i]);
-			cmd->redirect = cmd->redirect->next;
+			printf("redirection : %s\n", print_enum(redirect->type));
+			for (int i = 0; redirect->file[i] != NULL ; i++)
+				printf("file(%d)->%s\n", i, redirect->file[i]);
+			redirect = redirect->next;
 		}
 		cmd = cmd->next;
 		printf("== END CMD ==\n");

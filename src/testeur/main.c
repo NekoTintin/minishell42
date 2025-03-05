@@ -24,7 +24,7 @@ void handle_sigint(int sig) {
 
 int     main(int argc, char **argv)//, char **envp)
 {
-    signal(SIGINT, handle_sigint);
+    //signal(SIGINT, handle_sigint);
     
     if (argc == 1)
 	{
@@ -87,19 +87,4 @@ int     main(int argc, char **argv)//, char **envp)
 	}
     return (EXIT_SUCCESS);
 }
-
-/*get_next_line (fd);
-	printf ("%s", l);
-	while (*l)
-	{
-		free (l);
-		l = NULL;
-		l = get_next_line(fd);
-		if (l == NULL)
-			return (0);
-		printf ("%s", l);
-	}
-	free (l);
-	l = NULL;
-	close (fd);*/
 

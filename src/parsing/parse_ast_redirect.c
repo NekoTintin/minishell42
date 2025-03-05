@@ -63,7 +63,6 @@ int	parse_herdoclen(t_token *node)
 	size = 0;
 	while (node != NULL)
 	{
-		printf("test lop %s\n", node->value);
 		if (!node_is_ascii(node))
 			return (size);
 		size++;
@@ -125,19 +124,18 @@ t_token	*parse_redirection_herdoc(t_token *node, t_redirect *redirect)
 	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
 	i = parse_herdoclen(node);
-	printf("-- i = %d --\n", i);
 	redirect->file = (char **)malloc(sizeof(char *) * i + 1);
 	while (j < i)
 	{
-
-		printf("-- test(01)-->%s |i =%d, j=%d\n",node->value, i, j);
-		//redirect->file[j] = ft_strdup(node->value);
+		redirect->file[j] = ft_strdup(node->value);
 		j++;
+		if (node->next == NULL)
+			return (NULL);
+		if (!node_is_ascii(node->next))
+			return (node);
 		node = node ->next;
-		printf("-- test (1)-->%s\n", node->value);
 	}
 	return (node);
 }

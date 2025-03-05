@@ -33,7 +33,6 @@
 # include <errno.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
-# define PATH_MAX 1024
 // functions in pwd.c
 char		*ft_pwd(void);
 
