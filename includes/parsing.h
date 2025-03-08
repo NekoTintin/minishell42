@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/24 03:40:30 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:56:06 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@
 
 typedef struct s_cmd	t_cmd;
 
+typedef struct s_redirect
+{
+	t_token_type	type;
+	char			**file;
+	t_redirect		*next;
+}	t_redirect;
+
 typedef struct s_cmd
 {
-	char		**args;
-	char		**infile;
-	char		**outfile;
-	char		*delimiter;
-	int			delete_tabs;
-	int			*append;
-	int			is_builtin;
+	char		**argument;
+	t_redirect	*redirect;
 	t_cmd		*next;
 }				t_cmd;
 

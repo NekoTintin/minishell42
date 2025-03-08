@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/21 18:43:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/21 18:53:51 by qupollet         ###   ########.fr       */
+/*   Created: 2025/03/08 16:40:42 by qupollet          #+#    #+#             */
+/*   Updated: 2025/03/08 17:22:16 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_find_path(char **envp)
 }
 
 // Transform PATH string var into a tab
-char	**ft_transform_in_tab(char *path)
+char	**ft_split_envp(char *path)
 {
 	char	*new_path;
 	char	**path_tab;
@@ -44,80 +44,55 @@ char	**ft_transform_in_tab(char *path)
 }
 
 // Join for each string in path_tab with prog and test 
-char	*ft_test_for_each(char *prog, char **path_tab)
+int	ft_test_each_str(char *filename, char **splited_path, char **result)
 {
 	int		idx;
-	char	*tmp;
-	char	*tmp2;
+	char	*path_with_slash;
+	char	*full_path;
 
-	idx = 0;
-	while (path_tab[idx] != NULL)
+	idx = -1;
+	while (splited_path[++idx])
 	{
-		tmp = ft_strjoin(path_tab[idx], "/");
-		if (!tmp)
-			return (NULL);
-		tmp2 = ft_strjoin(tmp, prog);
-		free(tmp);
-		if (!tmp2)
-			return (NULL);
-		if (access(tmp2, X_OK) == 0)
-			return (tmp2);
-		free(tmp2);
-		idx++;
+		path_with_slash = ft_strjoin(splited_path[idx], "/");
+		if (!path_with_slash)
+			return (1);
+		full_path = ft_strjoin(path_with_slash, filename);
+		free(path_with_slash);
+		if (!full_path)
+			return (1);
+		if (access(full_path, X_OK) == 0)
+		{
+			*result = ft_strdup(full_path);
+			free(full_path);
+			if (!*result)
+				return (1);
+			return (0);
+		}
+		free(full_path);
 	}
-	return (NULL);
+	return (127);
 }
 
-// Clean prog string from invalid char
-char	*ft_get_clean_prog(char	*prog)
+int	ft_find_in_envp(char **filename, char **envp)
 {
-	char	*fstr;
-	int		start;
-	int		end;
+	char	*path_envp;
+	char	**tab_path;
+	char	*result;
+	int		error_code;
 
-	if (!prog || prog[0] == '\0')
-		return (NULL);
-	start = 0;
-	while ((prog[start] >= 9 && prog[start] <= 13) || prog[start] == ' ')
-		start++;
-	if (prog[start] == '\0')
-		return (NULL);
-	end = start;
-	while (!(prog[end] >= 9 && prog[end] <= 13)
-		&& prog[end] != ' ' && prog[end] != '\0')
-		end++;
-	fstr = ft_substr(prog, start, end - start);
-	if (!fstr)
-		return (NULL);
-	return (fstr);
-}
-
-// Check if prog is already a path otherwise return program path
-char	*ft_find_exec_in_envp(char *prog, char **envp)
-{
-	char		*path;
-	char		**path_tab;
-	char		*complete_path;
-	char		*clean_prog;
-
-	if (ft_is_absolute(prog))
-	{
-		complete_path = ft_strdup(prog);
-		if (!complete_path)
-			return (NULL);
-		return (complete_path);
-	}
-	path = ft_find_path(envp);
-	if (path == NULL)
-		return (NULL);
-	path_tab = ft_transform_in_tab(path);
-	if (!path_tab)
-		return (NULL);
-	clean_prog = ft_get_clean_prog(prog);
-	if (!clean_prog)
-		return (NULL);
-	complete_path = ft_test_for_each(clean_prog, path_tab);
-	ft_freetab(path_tab);
-	free(clean_prog);
-	return (complete_path);
+	if (filename[0][0] == '/')
+		return (0);
+	path_envp = ft_find_path(envp);
+	if (!path_envp)
+		return (127);
+	tab_path = ft_split_envp(path_envp);
+	if (!tab_path)
+		return (1);
+	error_code = ft_test_each_str(*filename, tab_path, &result);
+	if (error_code != 0)
+		return (ft_freetab(tab_path), error_code);
+	free(*filename);
+	*filename = result;
+	ft_freetab(tab_path);
+	return (0);
 }

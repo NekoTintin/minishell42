@@ -6,33 +6,34 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 03:23:49 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/24 15:44:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/08 19:06:30 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_checkfile(char *file, int append)
+int	ft_open_file(char *file, t_token_type type)
 {
 	int		fd;
 
 	if (access(file, F_OK) == -1)
 	{
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0744);
-		if (fd == -1)
-			return (-1);
+		if (type == APPEND)
+			fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0744);
+		else
+			fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0744);
 	}
-	else if (access(file, W_OK))
+	else if (access(file, W_OK) == -1)
 		return (-1);
 	else
 	{
-		if (append == 0)
+		if (type == APPEND)
 			fd = open(file, O_WRONLY | O_TRUNC);
-		else if (append == 1)
+		else
 			fd = open(file, O_WRONLY | O_APPEND);
-		if (fd == -1)
-			return (-1);
 	}
+	if (fd == -1)
+		return (-1);
 	return (fd);
 }
 
