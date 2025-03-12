@@ -31,7 +31,7 @@ int     main(int argc, char **argv)//, char **envp)
 		char		*string = argv[1];
 		t_lexer		*lexer = NULL;
 		t_parser	*parse = NULL;
-		while (string == NULL)
+		/*while (string == NULL)
 		{
 			string = readline("Minishell$ ");
 			if (string == NULL)
@@ -40,17 +40,21 @@ int     main(int argc, char **argv)//, char **envp)
 				free(string);
 			else
 			{
-				lexer = mi_make_lexer(string);
+				//lexer = mi_make_lexer(string);
 				//print_lexer(lexer);
 				//printf("\n");
-				parse = mi_make_parse(lexer);
-				print_parser(parse);
+				//test_mi_parse(lexer, string);
 			}
 			free(string);
 			string = NULL;
-			ll_free_lexer(lexer);
-			free_all_paeser(parser);
-		}
+			//ll_free_lexer(lexer);
+		}*/
+		lexer = mi_make_lexer(string);
+		//print_lexer(lexer);
+		parse = mi_make_parse(parse, lexer);
+		print_parse(parse);
+		free_all_parser(parse);
+		ll_free_lexer(lexer);
 	}
 	return (EXIT_SUCCESS);
 }
