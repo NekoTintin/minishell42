@@ -66,7 +66,7 @@ t_token	*parse_redirection_herdoc(t_token *node, t_redirect *redirect)
 
 	j = 0;
 	i = parse_herdoclen(node);
-	redirect->file = (char **)malloc(sizeof(char *) * i + 1);
+	redirect->file = ft_calloc(i + 1, sizeof(char *));
 	while (j < i)
 	{
 		redirect->file[j] = ft_strdup(node->value);

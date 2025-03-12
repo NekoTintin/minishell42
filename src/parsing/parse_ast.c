@@ -34,7 +34,8 @@ t_token	*parse_commande(t_token *node, t_cmd *cmd)
 	int	index;
 
 	index = 0;
-	cmd->argument = (char **)malloc(sizeof(char *) * parse_find_arrlen(node) + 1);
+	//cmd->argument = (char **)malloc(sizeof(char *) * parse_find_arrlen(node) + 1);
+	cmd->argument = ft_calloc(parse_find_arrlen(node) + 1, sizeof(char *));
 	if (cmd->argument == NULL)
 		return (NULL);
 	while (node->type != PIPE)

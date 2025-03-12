@@ -33,11 +33,11 @@ void	print_parse(t_parser *parse)
 {
 	t_cmd	*cmd;
 	t_redirect	*redirect;
-
+	
 	cmd = parse->top;
 	while (cmd != NULL)
 	{
-		for (int i = 0; cmd->argument[i] != NULL ; i++)
+		for (int i = 0; cmd->argument && cmd->argument[i] != NULL ; i++)
 			printf("argument(%d)->%s\n", i, cmd->argument[i]);
 		redirect = cmd->redirect;
 		while (redirect != NULL)

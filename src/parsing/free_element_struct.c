@@ -21,7 +21,8 @@ void	free_all_parser(t_parser *parser)
 {
 	if (parser != NULL)
 	{
-		free_all_command(parser->top);
+		if (parser->top != NULL)
+			free_all_command(parser->top);
 		free(parser);
 	}
 }
@@ -36,8 +37,10 @@ void	free_all_command(t_cmd *cmd)
 		{
 			curr_f = cmd;
 			cmd = cmd->next;
-			free_array(curr_f->argument);
-			free_all_redirect(curr_f->redirect);
+			if (curr_f->argument != NULL)
+				free_array(curr_f->argument);
+			if (curr_f->redirect != NULL)
+				free_all_redirect(curr_f->redirect);
 			free(curr_f);
 		}
 	}
@@ -53,7 +56,8 @@ void	free_all_redirect(t_redirect *redirect)
 		{
 			curr_f = redirect;
 			redirect = redirect->next;
-			free_array(curr_f->file);
+			if (curr_f->file != NULL)
+				free_array(curr_f->file);
 			free(curr_f);
 		}
 	}
@@ -68,7 +72,8 @@ static void	free_array(char **array)
 		index = 0;
 		while (array[index] != NULL)
 		{
-			free(array[index]);
+			if (array[index] != NULL)
+				free(array[index]);
 			index++;
 		}
 		free(array);

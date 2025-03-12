@@ -26,12 +26,12 @@ int     main(int argc, char **argv)//, char **envp)
 {
     //signal(SIGINT, handle_sigint);
     
-    if (argc != 1 )//|| argv != NULL)
+    if (argc != 1 || argv != NULL)
 	{
-		char		*string = argv[1];
+		char		*string = NULL;
 		t_lexer		*lexer = NULL;
 		t_parser	*parse = NULL;
-		/*while (string == NULL)
+		while (string == NULL)
 		{
 			string = readline("Minishell$ ");
 			if (string == NULL)
@@ -40,21 +40,20 @@ int     main(int argc, char **argv)//, char **envp)
 				free(string);
 			else
 			{
-				//lexer = mi_make_lexer(string);
+				lexer = mi_make_lexer(string);
 				//print_lexer(lexer);
-				//printf("\n");
-				//test_mi_parse(lexer, string);
+				printf("\n");
+				parse = mi_make_parse(parse, lexer);
+				if (parse != NULL)
+				{
+					print_parse(parse);
+					free_all_parser(parse);
+					parse = NULL;
+				}
 			}
 			free(string);
 			string = NULL;
-			//ll_free_lexer(lexer);
-		}*/
-		lexer = mi_make_lexer(string);
-		//print_lexer(lexer);
-		parse = mi_make_parse(parse, lexer);
-		print_parse(parse);
-		free_all_parser(parse);
-		ll_free_lexer(lexer);
+		}
 	}
 	return (EXIT_SUCCESS);
 }
