@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chain_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 08:53:05 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/21 11:34:58 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:19:15 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_token	*ll_init_tolken(t_token *node)
 	node = (t_token *)malloc(sizeof(t_token));
 	if (node == NULL)
 		return (NULL);
+	node->index = 0;
 	node->value = NULL;
 	node->next = NULL;
 	node->type = UNKNOWN;

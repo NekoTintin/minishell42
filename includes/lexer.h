@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/24 03:40:42 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:22:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 
+// Déclaration anticipée de `t_tokenization`
 typedef struct s_token	t_token;
 
 typedef enum e_token_type
@@ -34,6 +35,7 @@ typedef enum e_token_type
 
 typedef struct s_token
 {
+	int				index;
 	char			*value;
 	t_token_type	type;
 	t_token			*next;
@@ -73,9 +75,4 @@ int			lx_assing_env(t_token *node);
 
 //=======================================================*/
 
-//=================== lx_clean_lexer.c ==================*/
-
-t_lexer		*lx_clean_lexer(t_lexer *lexer);
-
-//=======================================================*/
 #endif

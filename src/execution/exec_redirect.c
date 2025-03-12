@@ -6,11 +6,40 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 03:46:59 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/08 19:06:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:25:34 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_redirects(t_cmd *cmd, int *p_in, int *p_out)
+{
+	int			return_code;
+
+	if (ft_has_redirect(cmd, REDIRECT_IN) == 1)
+	{
+		return_code = ft_redirect_input(cmd);
+		if (return_code != 0)
+			return (return_code);
+	}
+	else if (p_in != NULL)
+	{
+		if (dup2(p_in[0], STDIN_FILENO))
+			return (perror("bash: dup2 failed"), 1);
+	}
+	if (ft_has_redirect(cmd, REDIRECT_OUT) == 1)
+	{
+		return_code = ft_redirect_output(cmd);
+		if (return_code != 0)
+			return (return_code);
+	}
+	else if (p_out != NULL)
+	{
+		if (dup2(p_out[1], STDOUT_FILENO))
+			return (perror("bash: dup2 failed"), 1);
+	}
+	return (0);
+}
 
 void	ft_print_errors(char *filename)
 {
@@ -20,6 +49,7 @@ void	ft_print_errors(char *filename)
 
 int	ft_redirect_heredoc(t_cmd *cmd)
 {
+	(void)cmd;
 	return (-1);
 }
 
@@ -66,7 +96,7 @@ int	ft_redirect_output(t_cmd *cmd)
 		{
 			if (output_fd != -1)
 				close(output_fd);
-			output_fd = ft_check_open_file(cur->file[0], cur->type);
+			output_fd = ft_open_file(cur->file[0], cur->type);
 			if (output_fd < 0)
 				return (ft_print_errors(cur->file[0]), -1);
 		}

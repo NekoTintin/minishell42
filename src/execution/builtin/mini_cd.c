@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:30:17 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/08 15:27:32 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:18:10 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	mini_cd(char **args)
 		dir = args[1];
 	if (chdir(dir) == -1)
 	{
-		ft_putchar_fd("bash: cd: ", 2);
+		ft_putstr_fd("bash: cd: ", 2);
 		perror(dir);
 		return (1);
 	}

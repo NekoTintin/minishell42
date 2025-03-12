@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 02:25:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/02/24 03:19:08 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:17:34 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_free_pipe(int **pipe_tab, int tab_size)
 	int		idx;
 
 	idx = -1;
-	while (pipe_tab[++idx] < tab_size - 1)
+	while (++idx < tab_size - 1)
 		free(pipe_tab[idx]);
 	free(pipe_tab);
 }

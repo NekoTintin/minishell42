@@ -6,12 +6,14 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/08 19:06:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:26:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
+
+# define ERR_FORK "bash: fork failed: Resource temporarily unavailable"
 
 # include "minishell.h"
 
@@ -37,14 +39,24 @@ int			mini_pwd(void);
 void		mini_unset(void);
 
 // file_management.c //
-int			ft_check_open_file(char *file, t_token_type type);
+int			ft_open_file(char *file, t_token_type type);
 int			ft_checkprog(char *prog);
 
 // exec_redirect.c //
-int			ft_exec_input(t_cmd *cmd);
-int			ft_exec_output(t_cmd *cmd);
+int			ft_redirects(t_cmd *cmd, int *p_in, int *p_out);
+void		ft_print_errors(char *filename);
+int			ft_redirect_heredoc(t_cmd *cmd);
+int			ft_redirect_input(t_cmd *cmd);
+int			ft_redirect_output(t_cmd *cmd);
 
 // exec_utils.c //
+void		ft_close_pipe(int *input, int *output);
+int			ft_has_redirect(t_cmd *cmd, t_token_type type_search);
+int			ft_exec_builtin(t_cmd *cmd, char **envp);
 int			ft_is_builtin(const char *str);
+
+// builtin //
+int			mini_cd(char **args);
+int			mini_pwd(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 20:25:00 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/21 11:56:23 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:30:15 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	lx_assing_synbols(t_token *node)
 		return (1);
 	}
 	else if (ft_strlen(node->value) != 1)
-		node->type = WORD;
+		node->type = UNKNOWN;
 	else if (node->value[0] == '>')
 		node->type = REDIRECT_OUT;
 	else if (node->value[0] == '<')

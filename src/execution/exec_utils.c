@@ -6,16 +6,49 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:42:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/08 19:04:37 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:14:56 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	ft_close_pipe(int *input, int *output)
+{
+	if (input)
+	{
+		if (input[0] != -1 && close(input[0]) == -1)
+			perror("bash: close failed");
+		if (input[1] != -1 && close(input[1]) == -1)
+			perror("bash: close failed");
+	}
+	if (output)
+	{
+		if (output[0] != -1 && close(output[0]) == -1)
+			perror("bash: close failed");
+		if (output[1] != -1 && close(output[1]) == -1)
+			perror("bash: close failed");
+	}
+}
+
+int	ft_has_redirect(t_cmd *cmd, t_token_type type_search)
+{
+	t_redirect		*cur;
+
+	cur = cmd->redirect;
+	while (cur)
+	{
+		if (cur->type == type_search)
+			return (1);
+		cur = cur->next;
+	}
+	return (0);
+}
+
 int	ft_exec_builtin(t_cmd *cmd, char **envp)
 {
 	int	builtin_type;
 
+	(void)envp;
 	builtin_type = ft_is_builtin(cmd->argument[0]);
 	if (builtin_type == 2)
 		return (mini_cd(cmd->argument));

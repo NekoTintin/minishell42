@@ -6,7 +6,7 @@
 /*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/21 12:04:03 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:29:35 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,24 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 
 static int	lx_test_c(char *c)
 {
-	if (*c == '>' || *c == '|' || *c == '<' || *c == 32 || *c == 36)
+	if (*c == '>' || *c == '|' || *c == '<' \
+		|| *c == 32 || *c == 36 || *c == 39 || *c == 34)
 		return (1);
 	return (0);
 }
 
 static int	lx_find_length(char *str, int index, int length)
 {
-	if (str[index] == '<' || str[index] == '>' || str[index] == '|')
+	if (str[index] == '<' || str[index] == '>')
 	{
 		while (str[index + length] == str[index])
 			length++;
 		return (length);
 	}
-	else if (str[index] == 39 || str[index] == 34)
+	else if (str[index] == 39 || str[index] == 34 || str[index] == '|')
 	{
 		length = 1;
-		while (str[index + length] != str[index] && str[index + length] != '\0')
-			length++;
-		return (length + 1);
+		return (length);
 	}
 	else if (str[index] == 36)
 	{

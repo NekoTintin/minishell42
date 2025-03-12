@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+         #
+#    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/02/21 12:23:38 by bchallat         ###   ########.fr        #
+#    Updated: 2025/03/12 00:27:01 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,18 +34,29 @@ NAME = minishell_test
 #===========================================================#
 
 SRC	=	testeur/main.c \
+		testeur/lib_test_lexer.c \
+		testeur/lib_test_parsing.c\
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
 		lexer/tokenization.c \
-		lexer/lx_clean_lexer.c \
-		parsing/env_var_handle.c \
-		parsing/env_var_utils.c \
-		parsing/free_things.c \
-		parsing/init_parser.c \
-		parsing/pars_utils.c \
-		parsing/parser_handle.c \
-		parsing/parsing.c \
+		parsing/parser.c \
+		parsing/parse_valid_lexer.c\
+		parsing/parse_conc_quote.c\
+		parsing/make_element_struct.c\
+		parsing/free_element_struct.c \
+		parsing/parse_ast_utils.c \
+		parsing/parse_ast_redir_utils.c \
+		parsing/parse_ast_redirect.c \
+		parsing/parse_ast.c \
+		execution/exec_redirect.c \
+		execution/exec_utils.c \
+		execution/exec.c \
+		execution/file_management.c \
+		execution/find_exec.c \
+		execution/utils.c \
+		execution/builtin/mini_cd.c \
+		execution/builtin/mini_pwd.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
@@ -76,7 +87,7 @@ fclean:
 	@echo "$(RED)🧹 Delete	all	file obj P_S"
 	@$(RMF) $(OBJDIR) $(OBJS) $(NAME)
 
-re: all
+re: fclean all
 
 .PHONY: all clean fclean re
 
@@ -93,3 +104,5 @@ ${OBJDIR}:
 	@mkdir -p ${OBJDIR}/signal
 	@mkdir -p ${OBJDIR}/testeur
 	@mkdir -p ${OBJDIR}/util
+	@mkdir -p ${OBJDIR}/execution
+	@mkdir -p ${OBJDIR}/execution/builtin
