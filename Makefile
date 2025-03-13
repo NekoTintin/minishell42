@@ -72,7 +72,7 @@ $(NAME): $(OBJS)
 clean:
 	@make clean -C libft/ > /dev/null
 	@echo "$(RED)🧹 Delete	file obj P_S"
-	$(RMF) $(OBJDIR) $(OBJS)
+	@$(RMF) $(OBJDIR) $(OBJS)
 
 fclean:
 	@make fclean -C libft/ > /dev/null
