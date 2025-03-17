@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/14 14:47:36 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/17 04:32:52 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,15 @@ void		ft_freetab(char **args);
 int			mini_cd(char **args);
 void		mini_echo(char **args);
 int			mini_env(char **envp);
-void		mini_exit(void);
-void		mini_export(void);
+int			mini_exit(char **args);
+int			mini_export(char **args, char **envp);
 int			mini_pwd(void);
-void		mini_unset(void);
+int			mini_unset(char **args, char **envp, char **n_envp);
+
+// buildin utils //
+int			unset_is_name_valid(const char *name);
+int			get_first_occ(char *str, char c);
+int			unset_get_tab_size(char **envp);
 
 // file_management.c //
 int			ft_open_file(char *file, t_token_type type);

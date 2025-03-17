@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:30:17 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/14 14:32:01 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/17 01:41:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	mini_cd(char **args)
 
 	size = cd_tab_size(args);
 	if (size > 2)
-		return (ft_putendl_fd("bash: cd: too many arguments", 2), 1);
+		return (ft_putstr_fd("bash: cd: too many arguments", 2), 1);
 	if (size == 1)
 		dir = ".";
 	else
