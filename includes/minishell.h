@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "lexer.h"
 # include "parsing.h"
+# include "exec.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
