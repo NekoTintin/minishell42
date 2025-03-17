@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 02:25:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/16 00:16:41 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:23:17 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,10 @@
 void			ft_freetab(char **args);
 void			ft_free_pipe(int **pipe, int tab_size);
 
-int	ft_builtin_counter(t_parser *parser)
+void	ft_print_errors(char *filename)
 {
-	t_cmd	*cur;
-	int		counter;
-
-	cur = parser->top;
-	counter = 0;
-	while (cur)
-	{
-		if (ft_is_builtin(cur->argument[0]))
-			counter++;
-		cur = cur->next;
-	}
-	return (counter);
+	ft_putstr_fd("bash: ", 2);
+	perror(filename);
 }
 
 pid_t	*ft_create_pid_tab(int table_size)

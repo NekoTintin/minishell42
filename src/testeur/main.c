@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/14 14:19:56 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:48:57 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ int     main(int argc, char **argv, char **envp)
 				if (parse != NULL)
 				{
 					exec_main(parse, envp);
-					ll_free_lexer(lexer);
-					free_all_parser(parse);
+					if (lexer)
+						ll_free_lexer(lexer);
+					if (parse)
+						free_all_parser(parse);
 					parse = NULL;
 				}
 			}

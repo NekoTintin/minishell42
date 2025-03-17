@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/16 00:54:13 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:06:22 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	exec_loop(t_parser *parser, pid_t *pid_tab, int **pipe_tab, char **envp)
 			if (pid_tab[idx_pipe] < 0)
 				perror(ERR_FORK);
 			if (pid_tab[idx_pipe] == 0)
-				error = ft_child_exec(cmd, pipe_tab[idx_pipe], envp);
+				error = ft_child_exec(cmd, 0, pipe_tab, envp);
 		}
 		cmd = cmd->next;
 	}
@@ -93,14 +93,17 @@ int	exec_loop(t_parser *parser, pid_t *pid_tab, int **pipe_tab, char **envp)
 
 int	exec_main(t_parser *parser, char **envp)
 {
-	pid_t		*pid_tab;
-	int			**pipe_tab;
-	int			status;
-	int			idx;
+	//pid_t		*pid_tab;
+	//int			**pipe_tab;
+	//int			status;
+	//int			idx;
 
-	if (!parser || !parser->top)
+	if (!parser || !parser->top || !parser->top->argument[0])
 		return (1);
-	pid_tab = ft_create_pid_tab(ft_builtin_counter(parser));
+	if (parser->size == 1)
+		return (ft_case_one(parser, envp));
+	return (1);
+	/*pid_tab = ft_create_pid_tab(ft_builtin_counter(parser));
 	if (!pid_tab)
 		return (1);
 	pipe_tab = ft_create_pipe_tab(ft_buildin_counter(parser));
@@ -110,5 +113,5 @@ int	exec_main(t_parser *parser, char **envp)
 	idx = -1;
 	while (++idx < parser->size)
 		waitpid(pid_tab[idx], &status, 0);
-	return (WEXITSTATUS(status));
+	return (WEXITSTATUS(status));*/
 }

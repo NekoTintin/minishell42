@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 03:46:59 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/14 13:51:15 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/17 20:03:27 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@ int	ft_redirects(t_cmd *cmd, int *p1, int *p2)
 {
 	int			return_code;
 
+	(void)p1;
+	(void)p2;
 	if (ft_has_redirect(cmd, REDIRECT_IN) == 1)
 	{
 		return_code = ft_redirect_input(cmd);
 		if (return_code != 0)
 			return (return_code);
-	}
-	else if (p1 != NULL)
-	{
-		if (dup2(p1[0], STDIN_FILENO) == -1)
-			return (perror("bash: dup2 failed"), 1);
 	}
 	if (ft_has_redirect(cmd, REDIRECT_OUT) == 1)
 	{
@@ -33,18 +30,7 @@ int	ft_redirects(t_cmd *cmd, int *p1, int *p2)
 		if (return_code != 0)
 			return (return_code);
 	}
-	else if (p2 != NULL)
-	{
-		if (dup2(p2[1], STDOUT_FILENO) == -1)
-			return (perror("bash: dup2 failed"), 1);
-	}
 	return (0);
-}
-
-void	ft_print_errors(char *filename)
-{
-	ft_putstr_fd("bash: ", 2);
-	perror(filename);
 }
 
 int	ft_redirect_heredoc(t_cmd *cmd)
@@ -76,7 +62,7 @@ int	ft_redirect_input(t_cmd *cmd)
 	if (input_fd != -1)
 	{
 		if (dup2(input_fd, STDIN_FILENO) == -1)
-			return (perror("bash: dup2 failed"), 1);
+			return (close(input_fd), perror("bash: dup2 failed"), 1);
 		close(input_fd);
 	}
 	return (0);
@@ -105,7 +91,7 @@ int	ft_redirect_output(t_cmd *cmd)
 	if (output_fd != -1)
 	{
 		if (dup2(output_fd, STDOUT_FILENO) == -1)
-			return (perror("bash: dup2 failed"), -1);
+			return (close(output_fd), perror("bash: dup2 failed"), 1);
 		close(output_fd);
 	}
 	return (0);
