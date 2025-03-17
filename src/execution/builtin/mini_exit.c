@@ -3,18 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   mini_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:27 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/18 21:20:44 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/03/16 03:15:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/testeur.h"
+#include "../../../includes/exec.h"
 
-void    mini_exit(void);
-
-void     mini_exit()
+int	exit_contain_char(char *arg)
 {
-    exit(0);
+	int		idx;
+
+	idx = 0;
+	while (arg[idx])
+	{
+		if (arg[idx] < '0' || arg[idx] > '9')
+			return (1);
+		idx++;
+	}
+	return (0);
+}
+
+int	mini_exit(char **args)
+{
+	if (args[1])
+	{
+		if (exit_contain_char(args[1]) == 1)
+		{
+			ft_putstr_fd("bash: exit", 2);
+			ft_putstr_fd(args[1], 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
+			return (1);
+		}
+		if (args[2])
+		{
+			ft_putstr_fd("bash: exit: too many arguments\n", 2);
+			return (1);
+		}
+		exit(atoi(args[1]));
+	}
+	exit(0);
 }

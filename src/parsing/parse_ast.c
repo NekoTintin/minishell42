@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 10:23:23 by benoitchall       #+#    #+#             */
-/*   Updated: 2025/03/12 14:50:49 by qupollet         ###   ########.fr       */
+/*   Created: 2025/02/28 10:23:23 by benoitchallat     #+#    #+#             */
+/*   Updated: 2025/03/05 20:14:07 by benoitchallat    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_token	*parse_commande(t_token *node, t_cmd *cmd)
 	int	index;
 
 	index = 0;
-	cmd->argument = (char **)malloc(sizeof(char *) * parse_find_arrlen(node));
+	//cmd->argument = (char **)malloc(sizeof(char *) * parse_find_arrlen(node) + 1);
+	cmd->argument = ft_calloc(parse_find_arrlen(node) + 1, sizeof(char *));
 	if (cmd->argument == NULL)
 		return (NULL);
 	while (node->type != PIPE)

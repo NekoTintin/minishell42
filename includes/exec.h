@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/12 00:26:09 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:47:36 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			exec_main(t_parser *parser, char **envp);
 int			ft_find_in_envp(char **filename, char **envp);
 
 // utils.c //
+int			ft_cmd_counter(t_parser *parser);
 pid_t		*ft_create_pid_tab(int table_size);
 int			**ft_create_pipe_tab(int table_size);
 void		ft_free_pipe(int **pipe_tab, int tab_size);
@@ -50,6 +51,7 @@ int			ft_redirect_input(t_cmd *cmd);
 int			ft_redirect_output(t_cmd *cmd);
 
 // exec_utils.c //
+int			ft_create_pipes(t_parser *parser, int **pipe_tab);
 void		ft_close_pipe(int *input, int *output);
 int			ft_has_redirect(t_cmd *cmd, t_token_type type_search);
 int			ft_exec_builtin(t_cmd *cmd, char **envp);

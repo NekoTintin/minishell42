@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:42:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/12 00:14:56 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/16 00:48:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,23 @@ void	ft_close_pipe(int *input, int *output)
 	if (input)
 	{
 		if (input[0] != -1 && close(input[0]) == -1)
+		{
 			perror("bash: close failed");
+			input[0] = -1;
+		}
 		if (input[1] != -1 && close(input[1]) == -1)
+		{
 			perror("bash: close failed");
+			input[1] = -1;
+		}
 	}
 	if (output)
 	{
 		if (output[0] != -1 && close(output[0]) == -1)
+		{
 			perror("bash: close failed");
+			output[0] = -1;
+		}
 		if (output[1] != -1 && close(output[1]) == -1)
 			perror("bash: close failed");
 	}

@@ -3,34 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:05 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/18 21:20:24 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/03/16 02:44:07 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/testeur.h"
+#include "../../../includes/exec.h"
 
-void    mini_echo(char **args);
-
-void    mini_echo(char **args)
+int	echo_check_args(char *arg)
 {
-    int     index;
+	int		idx;
 
-    if (args[1][0] == '-')
-    {
-        index = 2;
-        printf("%s",args[index++]);
-        while (args[index] != NULL)
-            printf(" %s",args[index++]);
-    }
-    else if (args[1] != "-n")
-    {
-        index = 1;
-        printf("%s",args[index++]);
-        while (args[index] != NULL)
-            printf(" %s",args[index++]);
-        printf("\n");
-    }
+	if (!arg)
+		return (1);
+	if (arg[0] == '-' && arg[1] == 'n')
+	{
+		idx = 1;
+		while (arg[idx] == 'n')
+			idx++;
+		if (arg[idx] == '\0')
+			return (0);
+	}
+	return (1);
+}
+
+void	mini_echo(char **args)
+{
+	int		idx;
+	int		new_line;
+
+	new_line = echo_check_args(args[1]);
+	idx = 1;
+	if (args[1] && new_line == 0)
+		idx++;
+	while (args[idx])
+	{
+		ft_putstr_fd(args[idx], 1);
+		idx++;
+		if (args[idx])
+			printf(" ");
+	}
+	if (new_line == 1)
+		ft_putstr("\n", 1);
 }

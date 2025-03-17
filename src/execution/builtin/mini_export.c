@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:37 by bchallat          #+#    #+#             */
-/*   Updated: 2025/02/18 21:20:50 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/03/16 03:42:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/testeur.h"
+#include "../../../includes/exec.h"
 
-void    mini_export(void);
+void	mini_export(void)
+{
+
+}

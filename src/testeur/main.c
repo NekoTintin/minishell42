@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/12 14:46:38 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:19:56 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,14 @@ void	handle_sigint(int sig)
 	fflush(stdout);
 }
 
-int	main(int argc, char **argv, char **envp)
+int     main(int argc, char **argv, char **envp)
 {
-	char		*string;
-	t_lexer		*lexer;
-	t_parser	*parse;
-	//signal(SIGINT, handle_sigint);
-
-	parse = NULL;
-	string = NULL;
-	lexer = NULL;
 	if (argc != 1 || argv != NULL)
 	{
+		char		*string = NULL;
+		t_lexer		*lexer = NULL;
+		t_parser	*parse = NULL;
+
 		while (string == NULL)
 		{
 			string = readline("Minishell$ ");
@@ -43,11 +39,16 @@ int	main(int argc, char **argv, char **envp)
 			{
 				lexer = mi_make_lexer(string);
 				parse = mi_make_parse(parse, lexer);
-				exec_main(parse, envp);
+				if (parse != NULL)
+				{
+					exec_main(parse, envp);
+					ll_free_lexer(lexer);
+					free_all_parser(parse);
+					parse = NULL;
+				}
 			}
 			free(string);
 			string = NULL;
-			ll_free_lexer(lexer);
 		}
 	}
 	return (EXIT_SUCCESS);

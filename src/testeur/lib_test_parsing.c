@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:54:05 by benoitchall       #+#    #+#             */
-/*   Updated: 2025/03/12 14:28:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/14 13:44:37 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void     test_mi_parse(t_lexer *lexer, char *string)
 {
     t_parser    *parse = NULL;
     printf("test commande --> %s\n", string);
-
     if (parsing_valid_lexer(lexer))
         printf("ERROR_COMMAND_NOT_VALID \n");
     else 
@@ -34,11 +33,11 @@ void	print_parse(t_parser *parse)
 {
 	t_cmd	*cmd;
 	t_redirect	*redirect;
-
+	
 	cmd = parse->top;
 	while (cmd != NULL)
 	{
-		for (int i = 0; cmd->argument[i] != NULL ; i++)
+		for (int i = 0; cmd->argument && cmd->argument[i] != NULL ; i++)
 			printf("argument(%d)->%s\n", i, cmd->argument[i]);
 		redirect = cmd->redirect;
 		while (redirect != NULL)

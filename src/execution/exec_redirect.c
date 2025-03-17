@@ -6,13 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 03:46:59 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/12 00:25:34 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/14 13:51:15 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_redirects(t_cmd *cmd, int *p_in, int *p_out)
+int	ft_redirects(t_cmd *cmd, int *p1, int *p2)
 {
 	int			return_code;
 
@@ -22,9 +22,9 @@ int	ft_redirects(t_cmd *cmd, int *p_in, int *p_out)
 		if (return_code != 0)
 			return (return_code);
 	}
-	else if (p_in != NULL)
+	else if (p1 != NULL)
 	{
-		if (dup2(p_in[0], STDIN_FILENO))
+		if (dup2(p1[0], STDIN_FILENO) == -1)
 			return (perror("bash: dup2 failed"), 1);
 	}
 	if (ft_has_redirect(cmd, REDIRECT_OUT) == 1)
@@ -33,9 +33,9 @@ int	ft_redirects(t_cmd *cmd, int *p_in, int *p_out)
 		if (return_code != 0)
 			return (return_code);
 	}
-	else if (p_out != NULL)
+	else if (p2 != NULL)
 	{
-		if (dup2(p_out[1], STDOUT_FILENO))
+		if (dup2(p2[1], STDOUT_FILENO) == -1)
 			return (perror("bash: dup2 failed"), 1);
 	}
 	return (0);
