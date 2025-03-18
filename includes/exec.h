@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/17 19:23:36 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:18:17 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ int			ft_checkprog(char *prog);
 
 // exec_redirect.c //
 int			ft_redirects(t_cmd *cmd, int *p_in, int *p_out);
-int			ft_redirect_heredoc(t_cmd *cmd);
 int			ft_redirect_input(t_cmd *cmd);
-int			ft_redirect_output(t_cmd *cmd);
 
 // exec_utils.c //
 int			ft_create_pipes(t_parser *parser, int **pipe_tab);
