@@ -49,20 +49,6 @@ SRC	=	testeur/main.c \
 		parsing/parse_ast_redir_utils.c \
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
-		execution/builtin/builtin_utils.c \
-		execution/builtin/mini_cd.c \
-		execution/builtin/mini_env.c \
-		execution/builtin/mini_exit.c \
-		execution/builtin/mini_export.c \
-		execution/builtin/mini_pwd.c \
-		execution/builtin/mini_unset.c \
-		execution/exec.c \
-		execution/exec_redirect.c \
-		execution/exec_utils.c \
-		execution/file_exec.c \
-		execution/find_exec.c \
-		execution/utils.c \
-#execution/builtin/mini_echo.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
@@ -102,7 +88,7 @@ re: all
 #===========================================================#
 
 ${OBJDIR}:
-	@echo "${YELLOW}📂 Creating directory ${OBJ_DIR}...$(BLUE)		object/$(RESET)"
+	@echo "${GREEN}[->]${YELLOW}		📂 Creating directory ${OBJ_DIR}...$(BLUE)	(object)$(RESET)\n"
 	@mkdir -p ${OBJDIR}
 	@mkdir -p ${OBJDIR}/builtin
 	@mkdir -p ${OBJDIR}/lexer
@@ -110,5 +96,3 @@ ${OBJDIR}:
 	@mkdir -p ${OBJDIR}/signal
 	@mkdir -p ${OBJDIR}/testeur
 	@mkdir -p ${OBJDIR}/util
-	@mkdir -p ${OBJDIR}/execution
-	@mkdir -p ${OBJDIR}/execution/builtin
