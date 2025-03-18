@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 03:46:59 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/17 20:03:27 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:42:58 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ int	ft_redirects(t_cmd *cmd, int *p1, int *p2)
 
 int	ft_redirect_heredoc(t_cmd *cmd)
 {
-	(void)cmd;
-	return (-1);
+	int		heredoc_pipe[2];
+
+	if (pipe(heredoc_pipe) == -1)
+		return (perror("bash: pipe failed"), 1);
+
+	if (dup2[heredoc_pipe[0], ])
+	return (0);
 }
 
 // Duplicate the input in stdin, cmd->infile must be valid
