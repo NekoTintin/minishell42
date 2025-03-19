@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:15:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/18 18:02:45 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:43:40 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_redirect_infile(t_redirect *cur)
 	if (dup2(input_fd, STDIN_FILENO) == -1)
 	{
 		close(input_fd);
-		perror("bash: dup2 failed");
+		perror("bash: dup2");
 		return (1);
 	}
 	close(input_fd);
@@ -73,12 +73,12 @@ int	ft_write_in_pipe(int write_pipe, char *delim)
 			return (free(input), 0);
 		if (write(write_pipe, input, ft_strlen(input)) == -1)
 		{
-			perror("bash: write failed");
+			perror("bash: write");
 			return (free(input), 1);
 		}
 		if (write(write_pipe, "\n", 1) == -1)
 		{
-			perror("bash: write failed");
+			perror("bash: write");
 			return (free(input), 1);
 		}
 		free(input);
@@ -93,18 +93,18 @@ int	ft_read_lines(t_redirect *cur, int *heredoc_pipe)
 	child = fork();
 	if (child < 0)
 	{
-		perror("bash: fork failed");
+		perror("bash: fork");
 		return (1);
 	}
 	if (child == 0)
 	{
-		close(heredoc_pipe[0]);
+		ft_close_pipe(heredoc_pipe, 1, 0);
 		if (ft_write_in_pipe(heredoc_pipe[1], cur->file[0]) == 1)
 		{
-			close(heredoc_pipe[1]);
+			ft_close_pipe(heredoc_pipe, 0, 1);
 			exit (1);
 		}
-		close(heredoc_pipe[1]);
+		ft_close_pipe(heredoc_pipe, 0, 1);
 		exit (0);
 	}
 	waitpid(child, NULL, 0);
@@ -116,19 +116,19 @@ int	ft_redirect_heredoc(t_redirect *cur)
 	int				heredoc_pipe[2];
 
 	if (pipe(heredoc_pipe) == -1)
-		return (perror("bash: pipe failed"), 1);
-	close(heredoc_pipe[1]);
+		return (perror("bash: pipe"), 1);
+	ft_close_pipe(heredoc_pipe, 0, 1);
 	if (ft_read_lines(cur, heredoc_pipe) == 1)
 	{
-		close(heredoc_pipe[0]);
+		ft_close_pipe(heredoc_pipe, 1, 0);
 		return (1);
 	}
 	if (dup2(heredoc_pipe[0], STDIN_FILENO) == -1)
 	{
-		close(heredoc_pipe[0]);
-		perror("bash: dup2 failed");
+		ft_close_pipe(heredoc_pipe, 1, 0);
+		perror("bash: dup2");
 		return (1);
 	}
-	close(heredoc_pipe[0]);
+	ft_close_pipe(heredoc_pipe, 1, 0);
 	return (0);
 }

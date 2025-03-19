@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/03/17 19:08:09 by qupollet         ###   ########.fr        #
+#    Updated: 2025/03/19 14:20:23 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC	=	testeur/main.c \
 		execution/builtin/mini_pwd.c \
 		execution/exec_case1.c \
 		execution/exec_redirect.c \
+		execution/exec_redirect_stdin.c \
 		execution/exec_utils.c \
 		execution/exec.c \
 		execution/file_management.c \

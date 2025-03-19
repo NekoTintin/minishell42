@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 02:25:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/17 19:23:17 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:18:56 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 void			ft_freetab(char **args);
 void			ft_free_pipe(int **pipe, int tab_size);
-
-void	ft_print_errors(char *filename)
-{
-	ft_putstr_fd("bash: ", 2);
-	perror(filename);
-}
 
 pid_t	*ft_create_pid_tab(int table_size)
 {
@@ -74,4 +68,9 @@ void	ft_freetab(char **args)
 	while (args[++idx] != NULL)
 		free(args[idx]);
 	free(args);
+}
+
+void	exec_freeall(pid_t *pid_tab, int **pipe_tab)
+{
+	
 }

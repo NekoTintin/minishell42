@@ -6,36 +6,51 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:42:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/16 00:48:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:21:05 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_close_pipe(int *input, int *output)
+void	ft_close_all_pipes(int **pipe_tab, int nb_child)
 {
-	if (input)
+	int		idx;
+
+	if (!pipe_tab || nb_child < 1)
+		return ;
+	idx = 0;
+	while (idx < nb_child - 1)
 	{
-		if (input[0] != -1 && close(input[0]) == -1)
+		ft_close_pipe(pipe_tab[idx], 1, 1);
+		idx++;
+	}
+}
+
+void	ft_close_pipe(int *pipe, int read, int write)
+{
+	if (!pipe)
+		return ;
+	if (read == 1)
+	{
+		if (pipe[0] != -1)
 		{
-			perror("bash: close failed");
-			input[0] = -1;
-		}
-		if (input[1] != -1 && close(input[1]) == -1)
-		{
-			perror("bash: close failed");
-			input[1] = -1;
+			if (close(pipe[0]) == -1)
+			{
+				perror("bash: close");
+				pipe[0] = -1;
+			}
 		}
 	}
-	if (output)
+	if (write == 1)
 	{
-		if (output[0] != -1 && close(output[0]) == -1)
+		if (pipe[1] != -1)
 		{
-			perror("bash: close failed");
-			output[0] = -1;
+			if (close(pipe[1]) == -1)
+			{
+				perror("bash: close");
+				pipe[1] = -1;
+			}
 		}
-		if (output[1] != -1 && close(output[1]) == -1)
-			perror("bash: close failed");
 	}
 }
 
@@ -59,10 +74,17 @@ int	ft_exec_builtin(t_cmd *cmd, char **envp)
 
 	(void)envp;
 	builtin_type = ft_is_builtin(cmd->argument[0]);
-	if (builtin_type == 2)
+	if (builtin_type == 1)
+	{
+		mini_echo(cmd->argument);
+		return ;
+	}
+	else if (builtin_type == 2)
 		return (mini_cd(cmd->argument));
-	if (builtin_type == 3)
+	else if (builtin_type == 3)
 		return (mini_pwd());
+	else if (builtin_type == 6)
+		return (mini_env);
 	return (127);
 }
 
