@@ -19,7 +19,7 @@ int	parse_find_arrlen(t_token *node)
 	index = 0;
 	while (node != NULL)
 	{
-		if (node->type == WORD)
+		if (node->type == WORD || node->type == WHITESPACE)
 			index++;
 		else if (node->type == VAR_ENV)
 			index++;

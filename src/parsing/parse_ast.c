@@ -34,13 +34,13 @@ t_token	*parse_commande(t_token *node, t_cmd *cmd)
 	int	index;
 
 	index = 0;
-	//cmd->argument = (char **)malloc(sizeof(char *) * parse_find_arrlen(node) + 1);
 	cmd->argument = ft_calloc(parse_find_arrlen(node) + 1, sizeof(char *));
 	if (cmd->argument == NULL)
 		return (NULL);
 	while (node->type != PIPE)
 	{
-		if (node->type == WORD || node->type == VAR_ENV)
+		if (node->type == WORD || node->type == VAR_ENV \
+			|| node->type == WHITESPACE)
 		{
 			cmd->argument[index] = parse_simple_cmd(node);
 			if (cmd == NULL)
@@ -64,7 +64,7 @@ char	*parse_simple_cmd(t_token *node)
 {
 	char	*args;
 
-	if (node->type == WORD)
+	if (node->type == WORD || node->type == WHITESPACE)
 	{
 		args = ft_strdup(node->value);
 		if (args == NULL)
