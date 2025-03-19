@@ -25,7 +25,7 @@ OBJDIR = object
 LIBFT = libft/libft.a
 LIBS = -lreadline
 
-CCFLAG = cc -Wall -Wextra -Werror -g3 -I includes/
+CCFLAG = cc -Wall -Wextra -Werror -g3 -I includes/ -fsanitize=address
 RMF = rm -rf
 NAME = minishell_test
 
@@ -36,6 +36,8 @@ NAME = minishell_test
 SRC	=	testeur/main.c \
 		testeur/lib_test_lexer.c \
 		testeur/lib_test_parsing.c\
+		testeur/lib_test_mini_export.c \
+		testeur/mini_export.c \
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \

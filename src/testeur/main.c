@@ -22,15 +22,19 @@ void handle_sigint(int sig) {
     fflush(stdout);
 }
 
-int     main(int argc, char **argv)//, char **envp)
+int     main(int argc, char **argv, char **envp)
 {
     //signal(SIGINT, handle_sigint);
     
     if (argc != 1 || argv != NULL)
 	{
 		char		*string = NULL;
+		char		**var_env = NULL;
 		t_lexer		*lexer = NULL;
 		t_parser	*parse = NULL;
+		
+		var_env = cp_array_env(envp, 0);
+		print_env_array(var_env);
 		while (string == NULL)
 		{
 			string = readline("Minishell$ ");
@@ -44,15 +48,20 @@ int     main(int argc, char **argv)//, char **envp)
 				//print_lexer(lexer);
 				printf("\n");
 				parse = mi_make_parse(parse, lexer);
-				if (parse != NULL)
+				if (parse == NULL)
+					return (EXIT_FAILURE);
+				print_parse(parse);
+				if (!strcmp(parse->top->argument[0], "export"))
 				{
-					print_parse(parse);
-					free_all_parser(parse);
-					parse = NULL;
+					if (mini_export(parse->top->argument, &var_env))
+						printf("ERROR export\n");
 				}
+				free_all_parser(parse);
+				parse = NULL;
+				free(string);
+				string = NULL;
+				
 			}
-			free(string);
-			string = NULL;
 		}
 	}
 	return (EXIT_SUCCESS);
