@@ -38,6 +38,7 @@ SRC	=	testeur/main.c \
 		testeur/lib_test_parsing.c\
 		testeur/lib_test_mini_export.c \
 		testeur/mini_export.c \
+		testeur/mini_export_utils.c \
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
