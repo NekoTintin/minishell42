@@ -15,7 +15,7 @@
 
 static char	**exp_add_variable(char **array, char **argument);
 static int	exp_valid(char **argument);
-//static void	exp_var_exist(char **new, char **argument, int index);
+static int	exp_var_exist(char ***array, char *string);
 
 
 /*
@@ -53,10 +53,29 @@ int	mini_export(char **argument, char ***var_env)
  *
  *
 */
-/*statit int	exp_var_exist(char **array, char *argument)
+static int	exp_var_exist(char ***array, char *string)
 {
-	return (0);
-}*/
+	int	index;
+	int	n;
+
+	index = 0;
+	n = 0;
+	while (string[n] && string[n] != 61)
+		n++;
+	while((*array)[index] != NULL)
+	{
+		if (!ft_strncmp((*array)[index], string, n))
+		{
+			free((*array)[index]);
+			(*array)[index] = ft_strdup(string);
+			if ((*array)[index] == NULL)
+				return (-1);
+			return (0);
+		}
+		index++;
+	}
+	return (1);
+}
 
 /*	FONC	exp_add_variable [arg_array, array]
  *		->create arg_array
@@ -74,29 +93,29 @@ int	mini_export(char **argument, char ***var_env)
 static char	**exp_add_variable(char **array, char **argument)
 {
 	int	index;
-	int	ind_var;
+	int	n;
 	char	**new;
 
-	index = 0;
-	ind_var = 1;
-	new = cp_array_env(array, ft_arrlen(array));
-	while (new[index] != NULL)
-		index++;
-	while (argument[ind_var] != NULL)
+	new = cp_array_env(array, ft_arrlen(&argument[2]) + 1);
+	if (new == NULL)
+		return (NULL);
+	index = 2;
+	while (argument && argument[index])
 	{
-		while (argument[ind_var] != NULL && *argument[ind_var] != 32)
-			ind_var++;
-		if (argument[ind_var] == NULL)
-			break ;
-		else
-			ind_var += 1;
-		new[index] = ft_strdup(argument[ind_var]);
-		if (new[index] == NULL)
+		n = exp_var_exist(&new, argument[index]);
+		if (n == -1)
 			return (NULL);
-		ind_var++;
+		if (n != 0)
+		{
+			n = ft_arrlen(new);
+			new[n] = ft_strdup(argument[index]);
+			if (new[n] == NULL)
+				return (NULL);
+		}
 		index++;
 	}
-	free_array(array);	
+	free_array(array);
+	new[ft_arrlen(new) + 1] = NULL;
 	return (new);
 }
 
