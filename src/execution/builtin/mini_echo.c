@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:05 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/19 15:51:41 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:41:04 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	echo_check_args(char *arg)
 	if (!arg)
 		return (1);
 	while (*arg == ' ')
-		*arg++;
+		arg++;
 	if (arg[0] == '-' && arg[1] == 'n')
 	{
 		idx = 1;
@@ -48,5 +48,5 @@ void	mini_echo(char **args)
 			printf(" ");
 	}
 	if (new_line == 1)
-		ft_putstr("\n", 1);
+		ft_putstr_fd("\n", 1);
 }

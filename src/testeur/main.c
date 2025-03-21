@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/17 19:48:57 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:26:00 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,38 +20,42 @@ void	handle_sigint(int sig)
 	fflush(stdout);
 }
 
-int     main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	if (argc != 1 || argv != NULL)
-	{
-		char		*string = NULL;
-		t_lexer		*lexer = NULL;
-		t_parser	*parse = NULL;
+	char		*string;
+	t_lexer		*lexer;
+	t_parser	*parse;
+	int			exit_status;
 
-		while (string == NULL)
+	(void)argv;
+	lexer = NULL;
+	parse = NULL;
+	if (argc != 1)
+		return (EXIT_FAILURE);
+	while (1)
+	{
+		string = readline("Minishell$ ");
+		if (!string)
+			return (EXIT_SUCCESS);
+		if (*string == '\0')
 		{
-			string = readline("Minishell$ ");
-			if (string == NULL)
-				return (free(string), EXIT_SUCCESS);
-			else if (*string == '\0')
-				free(string);
-			else
-			{
-				lexer = mi_make_lexer(string);
-				parse = mi_make_parse(parse, lexer);
-				if (parse != NULL)
-				{
-					exec_main(parse, envp);
-					if (lexer)
-						ll_free_lexer(lexer);
-					if (parse)
-						free_all_parser(parse);
-					parse = NULL;
-				}
-			}
 			free(string);
-			string = NULL;
+			continue ;
 		}
+		//add_history(string);
+		lexer = mi_make_lexer(string);
+		free(string);
+		if (!lexer)
+			return (EXIT_FAILURE);
+		parse = mi_make_parse(parse, lexer);
+		if (!parse)
+			return (ll_free_lexer(lexer), 1);
+		exit_status = exec_main(parse, envp);
+		ll_free_lexer(lexer);
+		free_all_parser(parse);
+		lexer = NULL;
+		parse = NULL;
+		
 	}
 	return (EXIT_SUCCESS);
 }

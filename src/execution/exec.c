@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/19 17:16:34 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:30:22 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	exec_loop(t_parser *parser, pid_t *pid_tab, int **pipe_tab, char **envp)
 	{
 		pid_tab[idx] = fork();
 		if (pid_tab[idx] < 0)
-			return (perror(ERR_FORK), 1);
+			return (perror("bash: fork"), 1);
 		else if (pid_tab[idx] == 0)
 		{
 			error = ft_exec_child(cmd, pipe_tab, idx, envp);
@@ -78,7 +78,7 @@ int	exec_create_pipes(int **pipe_tab, int nb_child)
 	if (nb_child <= 1)
 		return (1);
 	idx = 0;
-	while (idx < nb_child - 1)
+	while (pipe_tab[idx] != NULL)
 	{
 		if (pipe(pipe_tab[idx]) == -1)
 		{

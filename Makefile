@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/03/19 14:20:23 by qupollet         ###   ########.fr        #
+#    Updated: 2025/03/21 15:28:40 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,11 @@ SRC	=	testeur/main.c \
 		parsing/parse_ast_redir_utils.c \
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
+		execution/builtin/builtin_utils.c \
 		execution/builtin/mini_cd.c \
+		execution/builtin/mini_echo.c \
 		execution/builtin/mini_pwd.c \
+		execution/builtin/mini_env.c \
 		execution/exec_case1.c \
 		execution/exec_redirect.c \
 		execution/exec_redirect_stdin.c \

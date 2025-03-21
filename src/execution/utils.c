@@ -6,14 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 02:25:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/19 17:18:56 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:27:25 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 void			ft_freetab(char **args);
-void			ft_free_pipe(int **pipe, int tab_size);
 
 pid_t	*ft_create_pid_tab(int table_size)
 {
@@ -30,7 +29,7 @@ int	**ft_create_pipe_tab(int table_size)
 	int		**pipe_tab;
 	int		idx;
 
-	pipe_tab = ft_calloc((table_size - 1), sizeof(int *));
+	pipe_tab = ft_calloc((table_size), sizeof(int *));
 	if (!pipe_tab)
 		return (NULL);
 	idx = 0;
@@ -38,7 +37,7 @@ int	**ft_create_pipe_tab(int table_size)
 	{
 		pipe_tab[idx] = ft_calloc(2, sizeof(int));
 		if (!pipe_tab[idx])
-			return (ft_free_pipe(pipe_tab, idx), NULL);
+			return (ft_free_pipe(pipe_tab), NULL);
 		if (pipe(pipe_tab[idx]) == -1)
 		{
 			ft_putendl_fd("bash: error when creating the pipe", 2);
@@ -47,15 +46,16 @@ int	**ft_create_pipe_tab(int table_size)
 		}
 		idx++;
 	}
+	pipe_tab[idx] = NULL;
 	return (pipe_tab);
 }
 
-void	ft_free_pipe(int **pipe_tab, int tab_size)
+void	ft_free_pipe(int **pipe_tab)
 {
 	int		idx;
 
 	idx = -1;
-	while (++idx < tab_size - 1)
+	while (pipe_tab[idx] != NULL)
 		free(pipe_tab[idx]);
 	free(pipe_tab);
 }
@@ -72,5 +72,6 @@ void	ft_freetab(char **args)
 
 void	exec_freeall(pid_t *pid_tab, int **pipe_tab)
 {
-	
+	free(pid_tab);
+	ft_free_pipe(pipe_tab);
 }

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:42:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/19 17:21:05 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:25:05 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,18 @@ int	ft_exec_builtin(t_cmd *cmd, char **envp)
 {
 	int	builtin_type;
 
-	(void)envp;
 	builtin_type = ft_is_builtin(cmd->argument[0]);
 	if (builtin_type == 1)
 	{
 		mini_echo(cmd->argument);
-		return ;
+		return (0);
 	}
 	else if (builtin_type == 2)
 		return (mini_cd(cmd->argument));
 	else if (builtin_type == 3)
 		return (mini_pwd());
 	else if (builtin_type == 6)
-		return (mini_env);
+		return (mini_env(envp));
 	return (127);
 }
 

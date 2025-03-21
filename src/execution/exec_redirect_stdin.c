@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:15:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/19 16:43:40 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:39:19 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_redirect_input(t_cmd *cmd)
 	t_redirect		*cur;
 	int				code;
 
+	code = 0;
 	cur = cmd->redirect;
 	while (cur)
 	{
@@ -117,18 +118,17 @@ int	ft_redirect_heredoc(t_redirect *cur)
 
 	if (pipe(heredoc_pipe) == -1)
 		return (perror("bash: pipe"), 1);
-	ft_close_pipe(heredoc_pipe, 0, 1);
 	if (ft_read_lines(cur, heredoc_pipe) == 1)
 	{
-		ft_close_pipe(heredoc_pipe, 1, 0);
+		ft_close_pipe(heredoc_pipe, 1, 1);
 		return (1);
 	}
 	if (dup2(heredoc_pipe[0], STDIN_FILENO) == -1)
 	{
-		ft_close_pipe(heredoc_pipe, 1, 0);
+		ft_close_pipe(heredoc_pipe, 1, 1);
 		perror("bash: dup2");
 		return (1);
 	}
-	ft_close_pipe(heredoc_pipe, 1, 0);
+	ft_close_pipe(heredoc_pipe, 1, 1);
 	return (0);
 }

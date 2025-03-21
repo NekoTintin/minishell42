@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 03:46:59 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/19 17:17:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:28:50 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	ft_redirects(t_cmd *cmd, int *p1, int *p2)
 		if (dup2(p1[0], STDIN_FILENO) == -1)
 			return (perror("bash: dup2"), 1);
 	}
-	if (ft_has_redirect(cmd, REDIRECT_OUT) == 1)
+	if (ft_has_redirect(cmd, REDIRECT_OUT) == 1
+		|| ft_has_redirect(cmd, APPEND))
 	{
 		code = ft_redirect_output(cmd);
 		if (code != 0)

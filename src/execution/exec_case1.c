@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:10:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/17 19:58:38 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:26:33 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_case1_child(t_cmd *cmd, char**envp)
 
 	child = fork();
 	if (child < 0)
-		return (ft_putendl_fd(ERR_FORK, 2), 1);
+		return (ft_putendl_fd("bash: fork", 2), 1);
 	else if (child == 0)
 	{
 		error = ft_find_in_envp(&(cmd->argument[0]), envp);

@@ -6,14 +6,12 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/19 17:17:29 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:27:12 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
-
-# define ERR_FORK "bash: fork failed: Resource temporarily unavailable"
 
 # include "minishell.h"
 
@@ -27,12 +25,11 @@ int			exec_main(t_parser *parser, char **envp);
 int			ft_find_in_envp(char **filename, char **envp);
 
 // utils.c //
-
-int			ft_cmd_counter(t_parser *parser);
 pid_t		*ft_create_pid_tab(int table_size);
 int			**ft_create_pipe_tab(int table_size);
-void		ft_free_pipe(int **pipe_tab, int tab_size);
+void		ft_free_pipe(int **pipe_tab);
 void		ft_freetab(char **args);
+void		exec_freeall(pid_t *pid_tab, int **pipe_tab);
 
 // builtins //
 int			mini_cd(char **args);
