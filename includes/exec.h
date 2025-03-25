@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/21 15:27:12 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:03:10 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int			exec_main(t_parser *parser, char **envp);
 
 // find_exec.c //
 int			ft_find_in_envp(char **filename, char **envp);
+
+// env_var.c //
+int			exec_replace_env_var(char **str);
 
 // utils.c //
 pid_t		*ft_create_pid_tab(int table_size);

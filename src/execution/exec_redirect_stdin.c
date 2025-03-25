@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:15:31 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/21 17:39:19 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:01:45 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	ft_write_in_pipe(int write_pipe, char *delim)
 		input = readline("> ");
 		if (!input)
 			return (0);
+		if (exec_replace_env_var(&input) != 0)
+			return (1);
 		if (ft_strncmp(input, delim, ft_strlen(delim)) == 0)
 			return (free(input), 0);
 		if (write(write_pipe, input, ft_strlen(input)) == -1)
