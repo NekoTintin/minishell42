@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "testeur.h"
-
+# include "../../../includes/minishell.h"
 /*	*******		FONC 1		*******		*/
 
 void	print_env_array(char **var_env)

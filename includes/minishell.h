@@ -39,4 +39,12 @@ char		*ft_pwd(void);
 // functions in pars_utils.c
 char		*ft_get_from_env(char *env_var, char **envp);
 
+// !!!fonc for export !!!
+int		mini_export(char **argument, char ***var_env);
+void		print_env_array(char **var_env);
+char		**cp_array_env(char **envp, int length);
+int		ft_arrlen(char **array);
+//void		free_array(char **array);
+
+
 #endif

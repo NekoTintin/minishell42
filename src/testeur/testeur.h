@@ -22,11 +22,4 @@ void		test_mi_lexer(char *string);
 void		test_mi_parse(t_lexer *lexer, char *string);
 void		print_parse(t_parser *parse);
 
-int		mini_export(char **argument, char ***var_env);
-void		print_env_array(char **var_env);
-char		**cp_array_env(char **envp, int length);
-int		ft_arrlen(char **array);
-void		free_array(char **array);
-
-
 #endif

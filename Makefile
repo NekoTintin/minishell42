@@ -36,9 +36,8 @@ NAME = minishell_test
 SRC	=	testeur/main.c \
 		testeur/lib_test_lexer.c \
 		testeur/lib_test_parsing.c\
-		testeur/lib_test_mini_export.c \
-		testeur/mini_export.c \
-		testeur/mini_export_utils.c \
+		execution/builtin/mini_export.c \
+		execution/builtin/mini_export_utils.c \
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
@@ -93,9 +92,10 @@ re: all
 ${OBJDIR}:
 	@echo "${GREEN}[->]${YELLOW}		📂 Creating directory ${OBJ_DIR}...$(BLUE)	(object)$(RESET)\n"
 	@mkdir -p ${OBJDIR}
-	@mkdir -p ${OBJDIR}/builtin
 	@mkdir -p ${OBJDIR}/lexer
 	@mkdir -p ${OBJDIR}/parsing
 	@mkdir -p ${OBJDIR}/signal
 	@mkdir -p ${OBJDIR}/testeur
 	@mkdir -p ${OBJDIR}/util
+	@mkdir -p ${OBJDIR}/execution
+	@mkdir -p ${OBJDIR}/execution/builtin
