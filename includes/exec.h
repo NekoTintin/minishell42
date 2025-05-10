@@ -25,8 +25,9 @@ int			exec_main(t_parser *parser, char **envp);
 int			ft_find_in_envp(char **filename, char **envp);
 
 // env_var.c //
-int			exec_replace_env_var(char **str);
+//int			exec_replace_env_var(char **str);
 
+int	exec_replace_env_var(char **str, char **envp);
 // utils.c //
 pid_t		*ft_create_pid_tab(int table_size);
 int			**ft_create_pipe_tab(int table_size);
@@ -59,7 +60,6 @@ int			ft_checkprog(char *prog);
 void		ft_print_errors(char *filename);
 int			ft_redirects(t_cmd *cmd, int *p1, int *p2);
 int			ft_redirect_input(t_cmd *cmd);
-
 // exec_utils.c //
 void		ft_close_all_pipes(int **pipe_tab, int nb_child);
 void		ft_close_pipe(int *pipe, int read, int write);

@@ -15,7 +15,7 @@
 void		free_all_parser(t_parser *parser);
 void		free_all_command(t_cmd *cmd);
 void		free_all_redirect(t_redirect *redirect);
-static void	free_array(char **array);
+void	free_array(char **array);
 
 void	free_all_parser(t_parser *parser)
 {
@@ -63,7 +63,7 @@ void	free_all_redirect(t_redirect *redirect)
 	}
 }
 
-static void	free_array(char **array)
+void	free_array(char **array)
 {
 	int	index;
 

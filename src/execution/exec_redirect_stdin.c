@@ -70,8 +70,8 @@ int	ft_write_in_pipe(int write_pipe, char *delim)
 		input = readline("> ");
 		if (!input)
 			return (0);
-		if (exec_replace_env_var(&input) != 0)
-			return (1);
+		/*if (exec_replace_env_var(&input) != 0)
+			return (1);*/
 		if (ft_strncmp(input, delim, ft_strlen(delim)) == 0)
 			return (free(input), 0);
 		if (write(write_pipe, input, ft_strlen(input)) == -1)

@@ -54,6 +54,8 @@ SRC	=	testeur/main.c \
 		execution/builtin/mini_echo.c \
 		execution/builtin/mini_pwd.c \
 		execution/builtin/mini_env.c \
+		execution/builtin/mini_export.c \
+		execution/builtin/mini_export_utils.c \
 		execution/exec_case1.c \
 		execution/exec_redirect.c \
 		execution/exec_redirect_stdin.c \

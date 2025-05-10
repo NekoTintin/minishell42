@@ -184,4 +184,4 @@ static int	exp_valid(char **argument)
 	}
 	free_array(array);	
 	return (new);
-}
+}*/

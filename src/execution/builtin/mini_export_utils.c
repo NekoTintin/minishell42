@@ -57,7 +57,7 @@ int	ft_arrlen(char **array)
 }
 /*	*******		FONC 4		*******		*/
 
-void	free_array(char **array)
+/*void	free_array(char **array)
 {
 	int	index;
 
@@ -72,4 +72,4 @@ void	free_array(char **array)
 		}
 		free(array);
 	}
-}
+}*/

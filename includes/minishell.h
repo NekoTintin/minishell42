@@ -45,7 +45,7 @@ int		mini_export(char **argument, char ***var_env);
 void		print_env_array(char **var_env);
 char		**cp_array_env(char **envp, int length);
 int		ft_arrlen(char **array);
-//void		free_array(char **array);
+void		free_array(char **array);
 
 
 #endif
