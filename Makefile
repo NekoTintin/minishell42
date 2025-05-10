@@ -36,8 +36,6 @@ NAME = minishell_test
 SRC	=	testeur/main.c \
 		testeur/lib_test_lexer.c \
 		testeur/lib_test_parsing.c\
-		execution/builtin/mini_export.c \
-		execution/builtin/mini_export_utils.c \
 		lexer/chain_list.c \
 		lexer/lexer.c \
 		lexer/lexer_utils.c \
@@ -51,6 +49,19 @@ SRC	=	testeur/main.c \
 		parsing/parse_ast_redir_utils.c \
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
+		execution/builtin/builtin_utils.c \
+		execution/builtin/mini_cd.c \
+		execution/builtin/mini_echo.c \
+		execution/builtin/mini_pwd.c \
+		execution/builtin/mini_env.c \
+		execution/exec_case1.c \
+		execution/exec_redirect.c \
+		execution/exec_redirect_stdin.c \
+		execution/exec_utils.c \
+		execution/exec.c \
+		execution/file_management.c \
+		execution/find_exec.c \
+		execution/utils.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
