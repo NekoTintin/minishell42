@@ -34,7 +34,6 @@ int     main(int argc, char **argv, char **envp)
 		t_parser	*parse = NULL;
 		
 		var_env = cp_array_env(envp, 0);
-		print_env_array(var_env);
 		while (string == NULL)
 		{
 			string = readline("Minishell$ ");
@@ -45,17 +44,13 @@ int     main(int argc, char **argv, char **envp)
 			else
 			{
 				lexer = mi_make_lexer(string);
-				//print_lexer(lexer);
+				print_lexer(lexer);
 				printf("\n");
 				parse = mi_make_parse(parse, lexer);
 				if (parse == NULL)
 					return (EXIT_FAILURE);
 				print_parse(parse);
-				if (!strcmp(parse->top->argument[0], "export"))
-				{
-					if (mini_export(parse->top->argument, &var_env))
-						printf("ERROR export\n");
-				}
+				exec_main(parse, var_env);
 				free_all_parser(parse);
 				parse = NULL;
 				free(string);
