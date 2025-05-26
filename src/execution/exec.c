@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/21 15:30:22 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:54:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	ft_exec_child(t_cmd *cmd, int **pipes, int cmd_idx, char **envp)
 	if (code != 0)
 		exit (code);
 	if (execve(cmd->argument[0], cmd->argument, envp) == -1)
-		;
-	ft_print_errors(cmd->argument[0]);
+		ft_print_errors(cmd->argument[0]);
 	exit (1);
 }
 

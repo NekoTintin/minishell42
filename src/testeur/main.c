@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:16:32 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/21 17:26:00 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:47:58 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!parse)
 			return (ll_free_lexer(lexer), 1);
 		exit_status = exec_main(parse, envp);
+		(void)exit_status;
 		ll_free_lexer(lexer);
 		free_all_parser(parse);
 		lexer = NULL;
