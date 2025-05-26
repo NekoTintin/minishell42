@@ -31,5 +31,6 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 		if (parse == NULL)
 			return (ll_free_lexer(lexer), NULL);
 	}
+	ll_free_lexer(lexer);
 	return (parse);
 }
