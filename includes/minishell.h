@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "lexer.h"
 # include "parsing.h"
+//# include "exec.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -33,11 +34,18 @@
 # include <errno.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
-
 // functions in pwd.c
 char		*ft_pwd(void);
 
 // functions in pars_utils.c
 char		*ft_get_from_env(char *env_var, char **envp);
+
+// !!!fonc for export !!!
+int		mini_export(char **argument, char ***var_env);
+void		print_env_array(char **var_env);
+char		**cp_array_env(char **envp, int length);
+int		ft_arrlen(char **array);
+void		free_array(char **array);
+
 
 #endif
