@@ -32,7 +32,7 @@
 # include <fcntl.h>
 # include <term.h>
 # include <errno.h>
-# include <limits.h>
+# include <linux/limits.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
 
