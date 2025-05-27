@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 00:26:38 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 01:11:31 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd);
 // exec_utils.c //
 void		ft_print_errors(char *src);
 int			is_builtin(char *cmd);
+int			exec_builtin(t_cmd *cmd, t_env *env, int builtin_code);
 
 // file_management.c //
 int			file_write(char *file, t_token_type type);
+int			check_exec(char *exec);
 
 // redirect.c //
 int			search_redirect(t_cmd *cmd, t_token_type type);
@@ -61,12 +63,12 @@ int			exec_one(t_cmd *cmd, t_env *env);
 int			ft_find_in_path(char *file, t_env *env, char **res);
 
 // builtins //
-//int			mini_cd(char **args);
-//void		mini_echo(char **args);
-//int			mini_env(char **envp);
+int			mini_cd(char **args, t_env *env);
+int			mini_echo(char **args);
+int			mini_env(t_env *env);
 //int			mini_exit(char **args);
 //int			mini_export(char **args, char **envp);
-//int			mini_pwd(void);
+int			mini_pwd(void);
 //int			mini_unset(char **args, char **envp, char **n_envp);
 
 // env_var.c //
