@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+         #
+#    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/03/05 19:45:33 by benoitchallat    ###   ########.fr        #
+#    Updated: 2025/05/26 12:42:30 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ SRC	=	minishell.c \
 		parsing/parse_ast_redir_utils.c \
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
+		execution/exec.c \
+		execution/mem_utils.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
