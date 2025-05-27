@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/26 21:59:20 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 21:10:59 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,25 @@ char		*ft_pwd(void);
 // functions in pars_utils.c
 char		*ft_get_from_env(char *env_var, char **envp);
 
+// functions in env_init.c
+t_env		*ft_create_tenv(char **envp);
+void		ft_free_env(t_env *top);
+
+// functions in env_func.c
+int			ft_add_to_env(t_env *top, char *key, char *val);
+char		*ft_env_get_value(t_env *env, char *key);
+char		**ft_env_to_tab(t_env *env);
+int			env_remove(t_env **env, char *key);
+
+// functions in env_utils.c
+int			exec_env_size(t_env *env);
+void		free_tab(char **tablo);
+
 // !!!fonc for export !!!
-int		mini_export(char **argument, char ***var_env);
+int			mini_export(char **argument, char ***var_env);
 void		print_env_array(char **var_env);
 char		**cp_array_env(char **envp, int length);
-int		ft_arrlen(char **array);
+int			ft_arrlen(char **array);
 void		free_array(char **array);
-
 
 #endif

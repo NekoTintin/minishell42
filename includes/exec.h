@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 20:19:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 23:04:39 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ typedef struct s_pipeline
 	int			pipe_out[2];
 	t_pipeline	*next;
 }	t_pipeline;
-
-typedef struct s_env
-{
-	char	*key;
-	char	*value;
-	t_env	*next;
-}	t_env;
 
 // exec.c //
 int			exec_main(t_parser *parser, t_env *env);
