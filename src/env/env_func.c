@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 22:01:23 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 21:32:26 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 22:54:53 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,31 @@ char	*ft_env_get_value(t_env *env, char *key)
 	}
 	return (value);
 }
-// A corriger, plante avec valgrind
+
 char	**ft_env_to_tab(t_env *env)
 {
 	t_env	*cur;
 	int		len;
+	int		size;
 	char	**new_tab;
+	char	*tmp;
 
-	cur = env;
-	len = exec_env_size(env);
-	new_tab = ft_calloc(len + 1, sizeof(char *));
+	size = exec_env_size(env);
+	new_tab = ft_calloc(size + 1, sizeof(char *));
 	if (!new_tab)
 		return (NULL);
 	cur = env;
 	len = 0;
-	while (cur)
+	while (cur && len < size)
 	{
-		new_tab[len] = ft_strjoin(cur->key, "=");
+		tmp = ft_strjoin(cur->key, "=");
+		if (!tmp)
+			return (free_tab(new_tab), NULL);
+		new_tab[len] = ft_strjoin(tmp, cur->value);
+		free(tmp);
 		if (!new_tab[len])
 			return (free_tab(new_tab), NULL);
-		new_tab[len] = ft_strjoin(new_tab[len], cur->value);
-		if (!new_tab[len])
-			return (free_tab(new_tab), NULL);
+		cur = cur->next;
 		len++;
 	}
 	return (new_tab);

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 20:53:44 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 20:59:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 22:49:42 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	free_tab(char **tablo)
 		free(tablo[i]);
 		i++;
 	}
+	free(tablo);
 }
