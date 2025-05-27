@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/05/26 12:42:30 by qupollet         ###   ########.fr        #
+#    Updated: 2025/05/27 20:36:54 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,3 +97,4 @@ ${OBJDIR}:
 	@mkdir -p ${OBJDIR}/util
 	@mkdir -p ${OBJDIR}/execution
 	@mkdir -p ${OBJDIR}/execution/builtin
+	@mkdir -p ${OBJDIR}/env

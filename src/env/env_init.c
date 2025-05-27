@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 22:01:23 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 00:28:24 by qupollet         ###   ########.fr       */
+/*   Created: 2025/05/27 20:34:36 by qupollet          #+#    #+#             */
+/*   Updated: 2025/05/27 21:21:19 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_allocate_env(t_env *top, char **envp)
 	while (envp[y])
 		y++;
 	cur = top;
-	i = 0;
+	i = 1;
 	while (i < y)
 	{
 		cur->next = ft_calloc(1, sizeof(t_env));
@@ -73,27 +73,6 @@ void	ft_free_env(t_env *top)
 		free(tmp->value);
 		free(tmp);
 	}
-}
-
-int	ft_add_to_env(t_env *top, char *key, char *val)
-{
-	t_env	*cur;
-	t_env	*new_node;
-
-	cur = top;
-	while (cur->next)
-		cur = cur->next;
-	new_node = ft_calloc(1, sizeof(t_env));
-	if (!new_node)
-		return (1);
-	new_node->key = ft_strdup(key);
-	if (!new_node->key)
-		return (free(new_node), 1);
-	new_node->value = ft_strdup(val);
-	if (!new_node->value)
-		return (free(new_node->key), free(new_node), 1);
-	cur->next = new_node;
-	return (0);
 }
 
 t_env	*ft_create_tenv(char **envp)
