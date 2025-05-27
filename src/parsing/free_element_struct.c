@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:47:09 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/03 16:47:40 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/05/27 13:04:47 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		free_all_parser(t_parser *parser);
 void		free_all_command(t_cmd *cmd);
 void		free_all_redirect(t_redirect *redirect);
-void	free_array(char **array);
+void		free_array(char **array);
 
 void	free_all_parser(t_parser *parser)
 {
