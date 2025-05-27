@@ -49,8 +49,6 @@ SRC	=	minishell.c \
 		parsing/parse_ast_redir_utils.c \
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
-		execution/exec.c \
-		execution/mem_utils.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
