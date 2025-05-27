@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 21:10:59 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 23:30:45 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 # include <errno.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 // functions in pwd.c
 char		*ft_pwd(void);

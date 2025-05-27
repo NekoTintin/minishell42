@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 23:04:39 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 23:49:20 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int			ft_add_to_env(t_env *top, char *key, char *val);
 // exec_one.c //
 int			exec_one(t_cmd *cmd, t_env *env);
 
-// find_exec.c //
-//int			ft_find_in_envp(char **filename, char **envp);
+// find_in_path.c //
+int			ft_find_in_path(char *file, t_env *env, char **res);
 
 // builtins //
 //int			mini_cd(char **args);

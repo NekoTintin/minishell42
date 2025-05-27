@@ -6,37 +6,62 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 23:08:48 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 23:28:01 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 23:49:21 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_find_in_path(char *file, t_env *env, char **res)
+static int	find_loop(t_env *cur, char *file, char **res)
 {
-	t_env		*cur;
 	char		*slash_path;
 	char		*full_path;
 
-	if (file[0] == '/')
+	if (!cur->value)
+		return (2);
+	slash_path = ft_strjoin(cur->value, "/");
+	if (!slash_path)
+		return (1);
+	full_path = ft_strjoin(slash_path, file);
+	free(slash_path);
+	if (!full_path)
+		return (1);
+	if (access(full_path, X_OK) == 0)
+	{
+		*res = ft_strdup(full_path);
+		free(full_path);
+		if (!*res)
+			return (1);
 		return (0);
+	}
+	return (2);
+}
+
+int	ft_find_in_path(char *file, t_env *env, char **res)
+{
+	t_env		*cur;
+	int			code;
+
+	if (!file || !env || !res)
+		return (1);
+	if (file[0] == '/')
+	{
+		if (access(file, X_OK) == 0)
+		{
+			*res = ft_strdup(file);
+			if (!*res)
+				return (1);
+			return (0);
+		}
+		return (126);
+	}
 	cur = env;
 	while (cur)
 	{
-		slash_path = ft_strjoin(cur->value, "/");
-		if (!slash_path)
-			return (1);
-		full_path = ft_strjoin(slash_path, file);
-		free(slash_path);
-		if (!full_path)
-			return (1);
-		if (access(full_path, X_OK) == 0)
-		{
-			*res = ft_strdup(full_path);
-			if (!*res)
-				return (free(full_path), 1);
-			return (free(full_path), 0);
-		}
+		code = find_loop(cur, file, res);
+		if (code != 2)
+			return (code);
+		cur = cur->next;
 	}
 	return (127);
 }
