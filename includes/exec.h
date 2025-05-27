@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/26 22:05:10 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 17:03:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_exec
 {
 	int			nb_child;
 	t_pipeline	*top;
-	char		**envp;
+	t_env		*env;
 }	t_exec;
 
 typedef struct s_pipeline
@@ -42,13 +42,13 @@ typedef struct s_env
 }	t_env;
 
 // exec.c //
-int			exec_main(t_parser *parser, char **envp);
+int			exec_main(t_parser *parser, t_env *env);
 
-// mem_utils.c //
-void		ft_free_pipeline(t_pipeline *pipeline);
+// pipeline.c //
+t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd);
 
 // find_exec.c //
-int			ft_find_in_envp(char **filename, char **envp);
+//int			ft_find_in_envp(char **filename, char **envp);
 
 // builtins //
 //int			mini_cd(char **args);

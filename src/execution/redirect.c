@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem_utils.c                                        :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 12:27:07 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/26 12:28:26 by qupollet         ###   ########.fr       */
+/*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
+/*   Updated: 2025/05/27 17:26:30 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_free_pipeline(t_pipeline *pipeline)
+int	search_redirect(t_cmd *cmd, t_token_type type)
 {
-	t_pipeline	*tmp;
+	t_redirect	*cur;
 
-	while (pipeline)
+	cur = cmd->redirect;
+	while (cur)
 	{
-		tmp = pipeline;
-		pipeline = pipeline->next;
-		free(tmp);
+		if (cur->type == type)
+			return (1);
+		cur = cur->next;
 	}
+	return (0);
+}
+
+int	ft_redirects(t_pipeline *pipeline)
+{
+	int		return_code;
+	return (0);
 }
