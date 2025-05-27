@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 17:03:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:33:24 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ int			exec_main(t_parser *parser, t_env *env);
 
 // pipeline.c //
 t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd);
+
+// exec_utils.c //
+void		ft_print_errors(char *src);
+
+// file_management.c //
+int			file_write(char *file, t_token_type type);
+
+// redirect.c //
+int			search_redirect(t_cmd *cmd, t_token_type type);
 
 // find_exec.c //
 //int			ft_find_in_envp(char **filename, char **envp);
