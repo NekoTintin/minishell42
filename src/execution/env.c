@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 22:01:23 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 00:28:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:32:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,27 @@ t_env	*ft_create_tenv(char **envp)
 		cur = cur->next;
 	}
 	return (top);
+}
+
+char	*env_search(t_env *env, char *key)
+{
+	t_env	*cur;
+	char	*value;
+
+	if (!env || !key)
+		return (NULL);
+	cur = env;
+	while (cur)
+	{
+		if (ft_strncmp(cur->key, key, ft_strlen(key)) == 0
+			&& cur->key[ft_strlen(key)] == '\0')
+		{
+			value = ft_strdup(cur->value);
+			if (!value)
+				return (NULL);
+			return (value);
+		}
+		cur = cur->next;
+	}
+	return (value);
 }
