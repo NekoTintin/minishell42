@@ -33,7 +33,7 @@ NAME = minishell_test
 #						sources								#
 #===========================================================#
 
-SRC	=	testeur/main.c \
+SRC	=	minishell.c \
 		testeur/lib_test_lexer.c \
 		testeur/lib_test_parsing.c\
 		lexer/chain_list.c \
