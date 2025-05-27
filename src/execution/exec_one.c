@@ -6,11 +6,22 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 20:24:40 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 00:29:27 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_one_child_content(t_env *env)
+{
+	char	**new_envp;
+	char	*path;
+
+	new_envp = ft_env_to_tab(env);
+	if (!new_envp)
+		return (perror("malloc"), 1);
+	path = ft_calloc(1, PATH_MAX);
+}
 
 int	exec_one_child(t_cmd *cmd, t_env *env)
 {
