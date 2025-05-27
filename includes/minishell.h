@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 23:29:47 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 00:30:25 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <fcntl.h>
 # include <term.h>
 # include <errno.h>
+# include <limits.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
 
