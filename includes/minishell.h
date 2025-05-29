@@ -33,6 +33,7 @@
 # include <term.h>
 # include <errno.h>
 # include <linux/limits.h>
+# include <stdbool.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
 
@@ -42,6 +43,13 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct s_minishell
+{
+	t_lexer		*lexer;
+	t_parser	*parse;
+	bool		status;
+}					t_minishell;
 
 // functions in pwd.c
 char		*ft_pwd(void);

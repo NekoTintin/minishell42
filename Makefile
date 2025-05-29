@@ -25,7 +25,7 @@ OBJDIR = object
 LIBFT = libft/libft.a
 LIBS = -lreadline
 
-CCFLAG = cc -Wall -Wextra -Werror -g3 -I includes/ -fsanitize=address
+CCFLAG = cc -Wall -Wextra -Werror -g3 -I includes/ #-fsanitize=address
 RMF = rm -rf
 NAME = minishell_test
 

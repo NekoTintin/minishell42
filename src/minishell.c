@@ -6,102 +6,75 @@
 /*   By: bchallat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:53:34 by bchallat          #+#    #+#             */
-/*   Updated: 2025/05/26 11:53:38 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:45:33 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_parse(t_parser *parser);
-char	**cp_array_env(char **envp, int length);
-int	ft_arrlen(char **array);
-void	print_env_array(char **var_env);
+int			mini_loop(t_minishell *mini);
+t_minishell	*mini_init(void);
+void		handle_sigint(int sig);
 
-void handle_sigint(int sig)
+int	main(int argc, char **argv)
 {
-    (void)sig;
-    printf("\nMinishell$");
-    fflush(stdout);
-}
+	t_minishell	*mini;
 
-int     main(int argc, char **argv, char **envp)
-{
-    signal(SIGINT, handle_sigint);
-    
-    if (argc == 1 && argv[1] == NULL)
-	{
-		char		*line = NULL;
-		char		**var_env = NULL;
-		t_lexer		*lexer = NULL;
-		t_parser	*parse = NULL;
-		
-		var_env = cp_array_env(envp, 0);
-		while (line == NULL)
-		{
-			line = readline("Minishell$");
-			add_history(line);
-			if (line == NULL)
-				return (free(line),free_array(var_env),rl_clear_history(), EXIT_SUCCESS);
-			else if (line[0] == '\0')
-			{
-				free(line);
-				line = NULL;
-			}
-			else
-			{
-				lexer = mi_make_lexer(line);
-				parse = mi_make_parse(parse, lexer);
-				if (parse == NULL)
-					return (EXIT_FAILURE);
-				free_all_parser(parse);
-				parse = NULL;
-				free(line);
-				line = NULL;
-			}
-		}
-
-	rl_clear_history();
-	}
+	mini = mini_init();
+	signal(SIGINT, handle_sigint);
+	if (argc == 1 && argv[1] == NULL)
+		mini_loop(mini);
+	free(mini);
 	return (EXIT_SUCCESS);
 }
 
-char	**cp_array_env(char **envp, int length)
+void	handle_sigint(int sig)
 {
-	char	**var_env;
-	int	index;
+	(void)sig;
+	printf("\nMinishell$");
+	fflush(stdout);
+}
 
-	var_env = (char **)ft_calloc(ft_arrlen(envp) + 1 + length, sizeof(char *));
-	if (var_env == NULL)
-     		return (NULL);
-	index = 0;
-	while (envp != NULL && envp[index] != NULL)
+t_minishell	*mini_init(void)
+{
+	t_minishell	*mini;
+
+	mini = (t_minishell *)malloc(sizeof(t_minishell));
+	mini->lexer = NULL;
+	mini->parse = NULL;
+	mini->status = true;
+	return (mini);
+}
+
+int	mini_loop(t_minishell *mini)
+{
+	char		*line;
+
+	line = NULL;
+	while (mini->status == true)
 	{
-		var_env[index] = ft_strdup(envp[index]);
-		if (var_env[index] == NULL)
-			return (NULL);
-		index++;
+		line = readline("Minishell$ ");
+		add_history(line);
+		if (line == NULL)
+			return (free(line), rl_clear_history(), EXIT_SUCCESS);
+		else if (line[0] == '\0')
+			free(line);
+		else
+		{
+			mini->lexer = mi_make_lexer(line);
+			mini->parse = mi_make_parse(mini->parse, mini->lexer);
+			free_all_parser(mini->parse);
+			line = NULL;
+			mini->parse = NULL;
+		}
 	}
-	return (var_env);
+	rl_clear_history();
+	free_all_parser(mini->parse);
+	free(line);
+	return (EXIT_SUCCESS);
 }
 
-int	ft_arrlen(char **array)
+/*void	mini_free_all(t_minishell *mini)
 {
-	int	index;
-
-	index = 0;
-	while (array[index] != NULL)
-		index++;
-	return (index);
-}
-
-void	print_env_array(char **var_env)
-{
-	int	index;
-
-	index = 0;
-	while (var_env[index] !=  NULL)
-	{
-		printf("export %s\n", var_env[index]);
-		index++;
-	}
-}
+	
+}*/
