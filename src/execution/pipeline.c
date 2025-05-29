@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:33:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 15:28:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:16:19 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,106 +21,47 @@ void	pipeline_free(t_pipeline *top)
 	while (cur)
 	{
 		next = cur->next;
-		if (cur->pipe_in != -1)
-		{
-			close(cur->pipe_in);
-			cur->pipe_in = -1;
-		}
-		if (cur->pipe_out != -1)
-		{
-			close(cur->pipe_out);
-			cur->pipe_out = -1;
-		}
 		free(cur);
 		cur = next;
 	}
 }
 
-int	**create_tab_pipe(int nb_child)
+t_pipeline	*pipeline_init(int nb, t_cmd *top_cmd, t_exec *exec)
 {
-	int	**pipe_tab;
-	int	idx;
+	t_pipeline	*top_pl;
+	t_pipeline	*cur_pl;
+	t_cmd		*cur_cmd;
 
-	pipe_tab = ft_calloc(nb_child - 1, sizeof(int *));
-	if (!pipe_tab)
+	top_pl = ft_calloc(1, sizeof(t_pipeline));
+	if (!top_pl)
 		return (NULL);
-	idx = 0;
-	while (idx < nb_child - 1)
-	{
-		pipe_tab[idx] = ft_calloc(2, sizeof(int));
-		if (!pipe_tab[idx])
-			return (free_int_tab(pipe_tab, idx), NULL);
-		if (pipe(pipe_tab[idx]) == -1)
-			return (free_int_tab(pipe_tab, idx), NULL);
-		idx++;
-	}
-	return (pipe_tab);
-}
-
-int	ft_create_pipes(t_pipeline *top, int nb_child)
-{
-	t_pipeline	*cur;
-	int			**pipe_tab;
-	int			idx;
-
-	pipe_tab = create_tab_pipe(nb_child);
-	if (!pipe_tab)
-		return (1);
-	cur = top;
-	idx = 0;
-	while (cur)
-	{
-		if (idx == 0)
-			cur->pipe_in = STDIN_FILENO;
-		else
-			cur->pipe_in = pipe_tab[idx - 1][0];
-		if (idx == nb_child - 1)
-			cur->pipe_out = STDOUT_FILENO;
-		else
-			cur->pipe_out = pipe_tab[idx][1];
-		cur = cur->next;
-		idx++;
-	}
-	free_int_tab(pipe_tab, nb_child - 1);
-	return (0);
-}
-
-t_pipeline	*pipeline_init(int nb, t_cmd *cmd)
-{
-	t_pipeline	*top;
-	t_pipeline	*cur;
-	t_cmd		*tmp_cmd;
-
-	top = ft_calloc(1, sizeof(t_pipeline));
-	if (!top)
-		return (NULL);
-	cur = top;
-	cur->cmd = cmd;
-	tmp_cmd = cmd->next;
+	cur_pl = top_pl;
+	cur_cmd = top_cmd;
 	while (nb > 0)
 	{
-		cur->pid = -1;
-		cur->next = ft_calloc(1, sizeof(t_pipeline));
-		if (!cur->next)
+		cur_pl->cmd = cur_cmd;
+		cur_pl->pid = -1;
+		cur_pl->exec = exec;
+		if (nb == 1)
+			return (top_pl);
+		cur_pl->next = ft_calloc(1, sizeof(t_pipeline));
+		if (!cur_pl->next)
 			return (NULL);
-		cur->cmd = tmp_cmd;
-		tmp_cmd = tmp_cmd->next;
-		cur = cur->next;
+		cur_pl = cur_pl->next;
+		cur_cmd = cur_cmd->next;
 		nb--;
 	}
-	return (top);
+	return (top_pl);
 }
 
-t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd)
+t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd, t_exec *exec)
 {
 	t_pipeline	*top;
 
 	if (nb <= 0 || !cmd)
 		return (NULL);
-	top = pipeline_init(nb, cmd);
+	top = pipeline_init(nb, cmd, exec);
 	if (!top)
-		return (pipeline_free(top), NULL);
-	if (ft_create_pipes(top) == 1)
 		return (pipeline_free(top), NULL);
 	return (top);
 }

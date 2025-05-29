@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 19:05:51 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:23:53 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,17 @@ int	exec_run(t_exec *exec)
 	return (code);
 }*/
 
-int	exec_main(t_parser *parser, t_env *env)
+int	exec_main(t_parser *parse, t_env *env)
 {
-	//t_exec	*exec;
+	t_exec	*exec;
 
-	if (!parser || !parser->top || !parser->top->argument[0])
+	if (!parse || !parse->top || !parse->top->argument[0])
 		return (1);
-	if (parser->size == 1)
-		return (exec_one(parser->top, env) != 0);
-	//exec = ft_calloc(1, sizeof(t_exec));
-	//if (!exec)
-	//	return (1);
-	//exec->nb_child = parser->size;
-	//exec->env = env;
-	//exec->top = ft_create_pipeline(exec->nb_child, parser->top);
-	//if (!exec->top)
-	//	return (1);
+	// if (parse->size == 1)
+		// return (exec_one(parse->top, env) != 0);
+	exec = exec_init(parse->size, parse->top, env);
+	if (!exec)
+		return (1);
+	
 	return (0);
 }

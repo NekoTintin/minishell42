@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 12:30:33 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:31:37 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ int	ft_one_child_content(t_cmd *cmd, t_env *env, char **envp)
 	if (code != 0)
 		return (code);
 	code = check_exec(cmd->argument[0]);
-	if (code != 0)
-		return (code);
-	code = ft_redirects(cmd, STDIN_FILENO, STDOUT_FILENO);
 	if (code != 0)
 		return (code);
 	if (execve(ntab[0], ntab, envp) == -1)

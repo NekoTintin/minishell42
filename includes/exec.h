@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 15:16:22 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:20:58 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,28 @@ typedef struct s_exec
 	int			nb_child;
 	t_pipeline	*top;
 	t_env		*env;
+	int			**pipe_tab;
 }	t_exec;
 
 typedef struct s_pipeline
 {
 	pid_t		pid;
-	int			pipe_in;
 	t_cmd		*cmd;
-	int			pipe_out;
 	t_pipeline	*next;
+	t_exec		*exec;
 }	t_pipeline;
 
 // exec.c //
 int			exec_main(t_parser *parser, t_env *env);
 
-// pipeline.c //
-t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd);
+// structs_init.c //
+void		pipeline_free(t_pipeline *top);
+t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd, t_exec *exec);
+
+// exec_init.c //
+void		free_int_tab(int **tablo, int size);
+int			close_all_pipes(int **tablo, int size);
+t_exec		*exec_init(int child, t_cmd *cmd, t_env *env);
 
 // exec_utils.c //
 char		**rm_whitespace_tab(char **tablo);
@@ -47,7 +53,7 @@ int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_env *env, int builtin_code);
 
 // exec_utils2.c //
-void		free_int_tab(int **tablo, int size);
+void		exec_quit(t_parser *parse);
 
 // file_management.c //
 int			file_read(char *file);

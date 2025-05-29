@@ -5,22 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 15:15:12 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 15:16:13 by qupollet         ###   ########.fr       */
+/*   Created: 2025/05/29 15:49:56 by qupollet          #+#    #+#             */
+/*   Updated: 2025/05/29 17:24:03 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_int_tab(int **tablo, int size)
+void	exec_quit(t_parser *parse, t_exec *exec)
 {
-	int		i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(tablo[i]);
-		i++;
-	}
-	free(tablo);
+	close_all_pipes(exec->pipe_tab, parse->size - 1);
+	free_int_tab(exec->pipe_tab, parse->size - 1);
+	pipeline_free(exec->top);
+	free(exec);
+	free_all_parser(parse);
+	parse = NULL;
 }
