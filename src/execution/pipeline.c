@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:33:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 19:24:40 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:28:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,49 +21,67 @@ void	pipeline_free(t_pipeline *top)
 	while (cur)
 	{
 		next = cur->next;
-		if (cur->pipe_in[0] != -1)
-			close(cur->pipe_in[0]);
-		if (cur->pipe_in[1] != -1)
-			close(cur->pipe_in[1]);
-		if (cur->pipe_out[0] != -1)
-			close(cur->pipe_out[0]);
-		if (cur->pipe_out[1] != -1)
-			close(cur->pipe_out[1]);
+		if (cur->pipe_in != -1)
+		{
+			close(cur->pipe_in);
+			cur->pipe_in = -1;
+		}
+		if (cur->pipe_out != -1)
+		{
+			close(cur->pipe_out);
+			cur->pipe_out = -1;
+		}
 		free(cur);
 		cur = next;
 	}
 }
 
-int	init_pipe_to_null(int pipe[2])
+int	**create_tab_pipe(int nb_child)
 {
-	pipe[0] = -1;
-	pipe[1] = -1;
-	return (0);
+	int	**pipe_tab;
+	int	idx;
+
+	pipe_tab = ft_calloc(nb_child - 1, sizeof(int *));
+	if (!pipe_tab)
+		return (NULL);
+	idx = 0;
+	while (idx < nb_child - 1)
+	{
+		pipe_tab[idx] = ft_calloc(2, sizeof(int));
+		if (!pipe_tab[idx])
+			return (free_int_tab(pipe_tab, idx), NULL);
+		if (pipe(pipe_tab[idx]) == -1)
+			return (free_int_tab(pipe_tab, idx), NULL);
+		idx++;
+	}
+	return (pipe_tab);
 }
 
-int	ft_create_pipes(t_pipeline *top)
+int	ft_create_pipes(t_pipeline *top, int nb_child)
 {
 	t_pipeline	*cur;
+	int			**pipe_tab;
+	int			idx;
 
+	pipe_tab = create_tab_pipe(nb_child);
+	if (!pipe_tab)
+		return (1);
 	cur = top;
+	idx = 0;
 	while (cur)
 	{
-		if (cur != top)
-		{
-			if (pipe(cur->pipe_in) == -1)
-				return (1);
-		}
+		if (idx == 0)
+			cur->pipe_in = STDIN_FILENO;
 		else
-			init_pipe_to_null(cur->pipe_in);
-		if (cur->next)
-		{
-			if (pipe(cur->pipe_out) == -1)
-				return (1);
-		}
+			cur->pipe_in = pipe_tab[idx - 1][0];
+		if (idx == nb_child - 1)
+			cur->pipe_out = STDOUT_FILENO;
 		else
-			init_pipe_to_null(cur->pipe_out);
+			cur->pipe_out = pipe_tab[idx][1];
 		cur = cur->next;
+		idx++;
 	}
+	free_int_tab(pipe_tab, nb_child - 1);
 	return (0);
 }
 

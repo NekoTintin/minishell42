@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 12:42:06 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:16:22 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ typedef struct s_exec
 typedef struct s_pipeline
 {
 	pid_t		pid;
-	int			pipe_in[2];
+	int			pipe_in;
 	t_cmd		*cmd;
-	int			pipe_out[2];
+	int			pipe_out;
 	t_pipeline	*next;
 }	t_pipeline;
 
@@ -45,6 +45,9 @@ char		**rm_whitespace_tab(char **tablo);
 void		ft_print_errors(char *src, int type);
 int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_env *env, int builtin_code);
+
+// exec_utils2.c //
+void		free_int_tab(int **tablo, int size);
 
 // file_management.c //
 int			file_read(char *file);
