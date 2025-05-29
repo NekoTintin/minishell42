@@ -6,57 +6,58 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/26 21:53:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:05:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exec_child(t_pipeline *pipeline)
+/*
+int	child_process(t_pipeline *pl, t_exec *exec)
 {
-	int		return_code;
+	int			code;
 
-	return_code = ft_find_in_envp(pipeline->cmd->argument[0], );
+	return (1);
 }
 
-t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd)
+int	exec_run(t_exec *exec)
 {
-	t_pipeline	*top;
 	t_pipeline	*cur;
-	t_cmd		*tmp_cmd;
+	int			code;
 
-	top = ft_calloc(1, sizeof(t_pipeline));
-	if (!top)
-		return (NULL);
-	cur = top;
-	cur->cmd = cmd;
-	tmp_cmd = cmd->next;
-	while (nb > 0)
+	code = 0;
+	cur = exec->top;
+	while (cur)
 	{
-		cur->next = ft_calloc(1, sizeof(t_pipeline));
-		if (!cur->next)
-			return (NULL);
-		cur->cmd = tmp_cmd;
-		tmp_cmd = tmp_cmd->next;
+		cur->pid = fork();
+		if (cur->pid < 0)
+			return (ft_print_errors("fork"), 1);
+		if (cur->pid == 0)
+		{
+			code = child_process(cur, exec);
+			if (code != 0)
+				exit(code);
+		}
 		cur = cur->next;
-		nb--;
 	}
-	return (top);
-}
+	return (code);
+}*/
 
-int	exec_main(t_parser *parser, char **envp)
+int	exec_main(t_parser *parser, t_env *env)
 {
-	t_exec	*exec;
+	//t_exec	*exec;
 
 	if (!parser || !parser->top || !parser->top->argument[0])
 		return (1);
-	exec = ft_calloc(1, sizeof(t_exec));
-	if (!exec)
-		return (1);
-	exec->nb_child = parser->size;
-	exec->envp = envp;
-	exec->top = ft_create_pipeline(exec->nb_child, parser->top);
-	if (!exec->top)
-		return (ft_free_pipeline(exec->top), 1);
+	if (parser->size == 1)
+		return (exec_one(parser->top, env) != 0);
+	//exec = ft_calloc(1, sizeof(t_exec));
+	//if (!exec)
+	//	return (1);
+	//exec->nb_child = parser->size;
+	//exec->env = env;
+	//exec->top = ft_create_pipeline(exec->nb_child, parser->top);
+	//if (!exec->top)
+	//	return (1);
 	return (0);
 }
