@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 09:22:09 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 09:23:18 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ int	ft_redirects(t_pipeline *pl)
 	else if (pl->pipe_in[0])
 	{
 		if (dup2(pl->pipe_in[0], STDIN_FILENO) == -1)
-			return (ft_print_errors("dup2", 
-			), 1);
+			return (ft_print_errors("dup2", 0), 1);
 	}
 	return (0);
 }
