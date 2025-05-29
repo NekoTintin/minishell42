@@ -43,6 +43,12 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+/*typedef struct s_minishell
+{
+	t_env			*header;
+	int			code_error;
+}					t_minishell;
+*/
 // functions in pwd.c
 char		*ft_pwd(void);
 

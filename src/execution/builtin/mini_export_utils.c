@@ -13,7 +13,7 @@
 # include "../../../includes/minishell.h"
 /*	*******		FONC 1		*******		*/
 
-void	print_env_array(char **var_env)
+/*void	print_env_array(char **var_env)
 {
 	int	index;
 
@@ -23,7 +23,7 @@ void	print_env_array(char **var_env)
 		printf("export %s\n", var_env[index]);
 		index++;
 	}
-}
+}*/
 /*	*******		FONC 2		*******		*/
 
 char	**cp_array_env(char **envp, int length)

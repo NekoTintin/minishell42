@@ -32,19 +32,22 @@ int     main(int argc, char **argv, char **envp)
     if (argc != 1 || argv != NULL)
 	{
 		char		*string = NULL;
-		char		**var_env = NULL;
 		t_lexer		*lexer = NULL;
 		t_parser	*parse = NULL;
-		var_env = cp_array_env(envp, 0);
-		print_env_array(var_env);
+		t_env		*env = NULL;
+
+		env = ft_create_tenv(envp);
 		while (string == NULL)
 		{
 			string = readline("Minishell$ ");
 			add_history(string);
 			if (string == NULL)
-				return (free(string), EXIT_SUCCESS);
-			else if (*string == '\0')
+				return (free(string),ft_free_env(env),EXIT_SUCCESS);
+			else if (*string == '\0')	
+			{
 				free(string);
+				string = NULL;
+			}
 			else
 			{
 				lexer = mi_make_lexer(string);
@@ -62,7 +65,7 @@ int     main(int argc, char **argv, char **envp)
 				
 			}
 		}
-	free_array(var_env);	
+		ft_free_env(env);
 	}
 	return (EXIT_SUCCESS);
 }

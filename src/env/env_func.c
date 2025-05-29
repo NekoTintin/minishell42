@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/exec.h"
 
 int	ft_add_to_env(t_env *top, char *key, char *val)
 {
