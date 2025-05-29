@@ -53,7 +53,14 @@ SRC	=	testeur/main.c\
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
 		execution/exec.c \
+		execution/exec_one.c \
+		execution/exec_utils.c \
+		execution/file_management.c \
+		execution/find_in_path.c \
+		execution/pipeline.c \
+		execution/redirect.c \
 		execution/builtin/builtin_utils.c \
+		execution/builtin/mini_cd.c \
 		execution/builtin/mini_echo.c \
 		execution/builtin/mini_env.c \
 		execution/builtin/mini_exit.c \

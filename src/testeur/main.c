@@ -57,7 +57,14 @@ int     main(int argc, char **argv, char **envp)
 				if (parse == NULL)
 					return (EXIT_FAILURE);
 				print_parse(parse);
-				//exec_main(parse, var_env);
+				if (exec_main(parse, env) == -1)
+				{
+					ft_free_env(env);
+					free_all_parser(parse);
+					free(string);
+					string = NULL;
+					return (EXIT_FAILURE);
+				}
 				free_all_parser(parse);
 				parse = NULL;
 				free(string);
