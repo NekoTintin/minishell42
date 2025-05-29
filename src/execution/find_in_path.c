@@ -6,13 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 23:08:48 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 21:25:55 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:38:24 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	find_loop(char *path, char *file, char **res)
+static int	find_loop(char *path, char **file)
 {
 	char		*slash_path;
 	char		*full_path;
@@ -20,18 +20,20 @@ static int	find_loop(char *path, char *file, char **res)
 	slash_path = ft_strjoin(path, "/");
 	if (!slash_path)
 		return (1);
-	full_path = ft_strjoin(slash_path, file);
+	full_path = ft_strjoin(slash_path, *file);
 	free(slash_path);
 	if (!full_path)
 		return (1);
 	if (access(full_path, X_OK) == 0)
 	{
-		*res = ft_strdup(full_path);
+		free(*file);
+		*file = ft_strdup(full_path);
 		free(full_path);
-		if (!*res)
+		if (!*file)
 			return (1);
 		return (0);
 	}
+	free(full_path);
 	return (2);
 }
 
@@ -49,39 +51,34 @@ static char	**ft_get_splited_str(t_env *env)
 	return (splited);
 }
 
-static int	ft_absolute(char *file, char **res)
+static int	ft_absolute(char **file)
 {
-	if (access(file, X_OK) == 0)
-	{
-		*res = ft_strdup(file);
-		if (!*res)
-			return (1);
+	if (access(*file, X_OK) == 0)
 		return (0);
-	}
-	return (ft_print_errors(file, 126), 126);
+	return (ft_print_errors(*file, 126), 126);
 }
 
-int	ft_find_in_path(char *file, t_env *env, char **res)
+int	ft_find_in_path(char **file, t_env *env)
 {
 	int			code;
 	int			idx;
 	char		**splited;
 
-	if (!file || !env || !res)
+	if (!file || !env)
 		return (1);
-	if (file[0] == '/')
-		return (ft_absolute(file, res));
+	if (file[0][0] == '/')
+		return (ft_absolute(file));
 	splited = ft_get_splited_str(env);
 	if (!splited)
 		return (1);
 	idx = 0;
 	while (splited[idx])
 	{
-		code = find_loop(splited[idx], file, res);
+		code = find_loop(splited[idx], file);
 		if (code != 2)
 			return (free_tab(splited), code);
 		idx++;
 	}
-	ft_print_errors(file, 127);
+	ft_print_errors(*file, 127);
 	return (free_tab(splited), 127);
 }

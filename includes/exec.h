@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 21:25:09 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:42:06 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,19 @@ int			exec_main(t_parser *parser, t_env *env);
 t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd);
 
 // exec_utils.c //
+char		**rm_whitespace_tab(char **tablo);
 void		ft_print_errors(char *src, int type);
 int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_env *env, int builtin_code);
 
 // file_management.c //
+int			file_read(char *file);
 int			file_write(char *file, t_token_type type);
 int			check_exec(char *exec);
 
 // redirect.c //
 int			search_redirect(t_cmd *cmd, t_token_type type);
+int			ft_redirects(t_cmd *cmd, int p1, int p2);
 
 // env.c //
 t_env		*ft_create_tenv(char **envp);
@@ -60,7 +63,7 @@ int			ft_add_to_env(t_env *top, char *key, char *val);
 int			exec_one(t_cmd *cmd, t_env *env);
 
 // find_in_path.c //
-int			ft_find_in_path(char *file, t_env *env, char **res);
+int			ft_find_in_path(char **file, t_env *env);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);
@@ -70,15 +73,5 @@ int			mini_env(t_env *env);
 //int			mini_export(char **args, char **envp);
 int			mini_pwd(void);
 //int			mini_unset(char **args, char **envp, char **n_envp);
-
-// env_var.c //
-//int			exec_replace_env_var(char **str);
-
-// utils.c //
-//pid_t		*ft_create_pid_tab(int table_size);
-//int			**ft_create_pipe_tab(int table_size);
-//void		ft_free_pipe(int **pipe_tab);
-//void		ft_freetab(char **args);
-//void		exec_freeall(pid_t *pid_tab, int **pipe_tab);
 
 #endif

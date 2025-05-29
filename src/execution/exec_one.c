@@ -6,53 +6,52 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 21:26:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:30:33 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_one_child_content(t_cmd *cmd, t_env *env, char **new_envp, char *path)
+int	ft_one_child_content(t_cmd *cmd, t_env *env, char **envp)
 {
 	int		code;
+	char	**ntab;
 
-	code = ft_find_in_path(cmd->argument[0], env, &path);
+	ntab = rm_whitespace_tab(cmd->argument);
+	if (!ntab)
+		return (perror("malloc"), 1);
+	free_tab(cmd->argument);
+	cmd->argument = ntab;
+	code = ft_find_in_path(&cmd->argument[0], env);
 	if (code != 0)
-		exit (code);
-	code = check_exec(path);
+		return (code);
+	code = check_exec(cmd->argument[0]);
 	if (code != 0)
-		exit(code);
-	free(cmd->argument[0]);
-	cmd->argument[0] = path;
-	if (execve(cmd->argument[0], cmd->argument, new_envp) == -1)
-	{
-		ft_print_errors("execve", 126);
-		exit(126);
-	}
-	exit (0);
+		return (code);
+	code = ft_redirects(cmd, STDIN_FILENO, STDOUT_FILENO);
+	if (code != 0)
+		return (code);
+	if (execve(ntab[0], ntab, envp) == -1)
+		return (ft_print_errors("execve", 126), 126);
+	return (1);
 }
 
 int	exec_one_child(t_cmd *cmd, t_env *env)
 {
 	pid_t	child;
 	int		status;
-	char	*path;
-	char	**new_envp;
+	char	**envp;
 
-	new_envp = ft_env_to_tab(env);
-	if (!new_envp)
+	envp = ft_env_to_tab(env);
+	if (!envp)
 		return (perror("malloc"), 1);
-	path = ft_calloc(1, PATH_MAX);
-	if (!path)
-		return (free_tab(new_envp), perror("malloc"), 1);
 	child = fork();
 	if (child < 0)
-		return (free_tab(new_envp), free(path), ft_print_errors("fork", 0), 1);
+		return (free_tab(envp), ft_print_errors("fork", 0), 1);
 	else if (child == 0)
-		ft_one_child_content(cmd, env, new_envp, path);
+		exit(ft_one_child_content(cmd, env, envp));
 	waitpid(child, &status, 0);
-	free_tab(new_envp);
-	free(path);
+	free_tab(envp);
 	if (WIFSIGNALED(status))
 		return (128 + WTERMSIG(status));
 	return (WEXITSTATUS(status));

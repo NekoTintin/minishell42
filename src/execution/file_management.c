@@ -6,11 +6,21 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:50:34 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 21:27:35 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:41:52 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	file_read(char *file)
+{
+	int			fd;
+
+	fd = open(file, O_RDONLY, 0644);
+	if (fd == -1)
+		ft_print_errors(file, 126);
+	return (fd);
+}
 
 int	file_write(char *file, t_token_type type)
 {
@@ -25,7 +35,7 @@ int	file_write(char *file, t_token_type type)
 		return (-1);
 	fd = open(file, flags, 0644);
 	if (fd == -1)
-		ft_print_errors(file, 0);
+		ft_print_errors(file, 126);
 	return (fd);
 }
 

@@ -6,11 +6,48 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:30:38 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 21:24:57 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:12:11 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	is_whitespace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\r' || c == '\v' || c == '\f')
+		return (1);
+	return (0);
+}
+
+char	**rm_whitespace_tab(char **tablo)
+{
+	char		**new_tab;
+	int			i;
+	int			j;
+	int			size;
+
+	i = -1;
+	size = 0;
+	while (tablo[++i])
+		if (!is_whitespace(tablo[i][0]))
+			size++;
+	new_tab = ft_calloc(size + 1, sizeof(char *));
+	if (!new_tab)
+		return (NULL);
+	i = -1;
+	j = -1;
+	while (tablo[++i])
+	{
+		if (!is_whitespace(tablo[i][0]))
+		{
+			new_tab[++j] = ft_strdup(tablo[i]);
+			if (!new_tab[j])
+				return (free_tab(new_tab), NULL);
+		}
+	}
+	return (new_tab);
+}
 
 void	ft_print_errors(char *exec, int type)
 {
@@ -21,7 +58,7 @@ void	ft_print_errors(char *exec, int type)
 	else if (type == 127)
 		ft_putstr_fd(": command not found\n", 2);
 	else
-		perror("");
+		perror(" ");
 }
 
 int	is_builtin(char *cmd)
@@ -51,7 +88,7 @@ int	exec_builtin(t_cmd *cmd, t_env *env, int builtin_code)
 		return (mini_cd(cmd->argument, env));
 	else if (builtin_code == 3)
 		return (mini_pwd(), 0);
-	else if (builtin_code == 4)
+	else if (builtin_code == 6)
 		return (mini_env(env));
 	return (127);
 }
