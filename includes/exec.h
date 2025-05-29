@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 01:11:31 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:25:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_exec
 
 typedef struct s_pipeline
 {
-	pid_t		*pid;
+	pid_t		pid;
 	int			pipe_in[2];
 	t_cmd		*cmd;
 	int			pipe_out[2];
@@ -41,7 +41,7 @@ int			exec_main(t_parser *parser, t_env *env);
 t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd);
 
 // exec_utils.c //
-void		ft_print_errors(char *src);
+void		ft_print_errors(char *src, int type);
 int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_env *env, int builtin_code);
 
@@ -64,7 +64,7 @@ int			ft_find_in_path(char *file, t_env *env, char **res);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);
-int			mini_echo(char **args);
+void		mini_echo(char **args);
 int			mini_env(t_env *env);
 //int			mini_exit(char **args);
 //int			mini_export(char **args, char **envp);

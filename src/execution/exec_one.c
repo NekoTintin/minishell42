@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 00:56:51 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:26:49 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	ft_one_child_content(t_cmd *cmd, t_env *env, char **new_envp, char *path)
 		exit(code);
 	free(cmd->argument[0]);
 	cmd->argument[0] = path;
-	if (exevce(cmd->argument[0], cmd->argument, new_envp) == -1)
+	if (execve(cmd->argument[0], cmd->argument, new_envp) == -1)
 	{
-		ft_print_errors("execve");
-		exit(1);
+		ft_print_errors("execve", 126);
+		exit(126);
 	}
-	exit (1);
+	exit (0);
 }
 
 int	exec_one_child(t_cmd *cmd, t_env *env)
@@ -47,12 +47,9 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 		return (free_tab(new_envp), perror("malloc"), 1);
 	child = fork();
 	if (child < 0)
-		return (free_tab(new_envp), free(path), ft_print_errors("fork"), 1);
+		return (free_tab(new_envp), free(path), ft_print_errors("fork", 0), 1);
 	else if (child == 0)
-	{
-		if (ft_one_child_content(cmd, env, new_envp, path) == -1)
-			exit(1);
-	}
+		ft_one_child_content(cmd, env, new_envp, path);
 	waitpid(child, &status, 0);
 	free_tab(new_envp);
 	free(path);
@@ -63,13 +60,10 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 
 int	exec_one(t_cmd *cmd, t_env *env)
 {
-	int		code;
 	int		builtin;
 
 	builtin = is_builtin(cmd->argument[0]);
-	if (builtin < 0)
-		return (ft_exec_builtin(cmd, env));
-	else
-		return (exec_one_child(cmd, env));
-	return (-1);
+	if (builtin > 0)
+		return (exec_builtin(cmd, env, builtin));
+	return (exec_one_child(cmd, env));
 }

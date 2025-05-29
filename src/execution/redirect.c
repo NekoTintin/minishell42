@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 18:31:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 09:22:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	exec_redirect_output(t_pipeline *pl)
 	if (fd != -1)
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
-			return (close(fd), ft_print_errors("dup2"), 1);
+			return (close(fd), ft_print_errors("dup2", 0), 1);
 		close(fd);
 	}
 	return (0);
@@ -62,14 +62,15 @@ int	ft_redirects(t_pipeline *pl)
 	if (search_redirect(pl->cmd, REDIRECT_OUT)
 		|| search_redirect(pl->cmd, APPEND))
 	{
-		return_code = exec_redirects_output(pl);
+		return_code = exec_redirect_output(pl);
 		if (return_code != 0)
 			return (return_code);
 	}
 	else if (pl->pipe_in[0])
 	{
 		if (dup2(pl->pipe_in[0], STDIN_FILENO) == -1)
-			return (ft_print_errors("dup2"), 1);
+			return (ft_print_errors("dup2", 
+			), 1);
 	}
 	return (0);
 }

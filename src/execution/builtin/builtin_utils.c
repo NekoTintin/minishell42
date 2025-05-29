@@ -6,11 +6,11 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 04:17:08 by qupollet          #+#    #+#             */
-/*   Updated: 2025/03/17 04:25:22 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:00:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/exec.h"
+#include "../../../includes/minishell.h"
 
 int	unset_is_name_valid(const char *name)
 {

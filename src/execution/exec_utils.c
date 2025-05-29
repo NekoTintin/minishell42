@@ -6,16 +6,22 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:30:38 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 01:11:18 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:24:57 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_print_errors(char *src)
+void	ft_print_errors(char *exec, int type)
 {
 	ft_putstr_fd("bash: ", 2);
-	perror(src);
+	ft_putstr_fd(exec, 2);
+	if (type == 126)
+		ft_putstr_fd(": permission denied\n", 2);
+	else if (type == 127)
+		ft_putstr_fd(": command not found\n", 2);
+	else
+		perror("");
 }
 
 int	is_builtin(char *cmd)
@@ -40,11 +46,11 @@ int	is_builtin(char *cmd)
 int	exec_builtin(t_cmd *cmd, t_env *env, int builtin_code)
 {
 	if (builtin_code == 1)
-		return (mini_echo(cmd->argument));
+		return (mini_echo(cmd->argument), 0);
 	else if (builtin_code == 2)
 		return (mini_cd(cmd->argument, env));
 	else if (builtin_code == 3)
-		return (mini_pwd());
+		return (mini_pwd(), 0);
 	else if (builtin_code == 4)
 		return (mini_env(env));
 	return (127);

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:33:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 19:04:40 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:24:40 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void	pipeline_free(t_pipeline *top)
 	}
 }
 
+int	init_pipe_to_null(int pipe[2])
+{
+	pipe[0] = -1;
+	pipe[1] = -1;
+	return (0);
+}
+
 int	ft_create_pipes(t_pipeline *top)
 {
 	t_pipeline	*cur;
@@ -42,21 +49,19 @@ int	ft_create_pipes(t_pipeline *top)
 	while (cur)
 	{
 		if (cur != top)
+		{
 			if (pipe(cur->pipe_in) == -1)
 				return (1);
-		else
-		{
-			cur->pipe_in[0] = -1;
-			cur->pipe_in[1] = -1;
 		}
+		else
+			init_pipe_to_null(cur->pipe_in);
 		if (cur->next)
+		{
 			if (pipe(cur->pipe_out) == -1)
 				return (1);
-		else
-		{
-			cur->pipe_out[0] = -1;
-			cur->pipe_out[1] = -1;
 		}
+		else
+			init_pipe_to_null(cur->pipe_out);
 		cur = cur->next;
 	}
 	return (0);
