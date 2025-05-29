@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:30:17 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/03/17 01:41:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 01:16:36 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,20 @@ int	cd_tab_size(char **args)
 	return (size);
 }
 
-int	mini_cd(char **args)
+int	cd_update_env(t_env *env, char *oldpwd, char *pwd)
+{
+	if (ft_add_to_env(env, "OLDPWD", oldpwd) == -1)
+		return (1);
+	if (ft_add_to_env(env, "PWD", pwd) == -1)
+		return (1);
+	return (0);
+}
+
+int	mini_cd(char **args, t_env *env)
 {
 	char		*dir;
 	int			size;
+	char		oldpwd[PATH_MAX];
 
 	size = cd_tab_size(args);
 	if (size > 2)
@@ -39,11 +49,16 @@ int	mini_cd(char **args)
 		dir = ".";
 	else
 		dir = args[1];
+	if (getcwd(oldpwd, sizeof(oldpwd)) == NULL)
+	{
+		ft_putstr_fd("cd: error retrieving current directory", 2);
+		return (perror("getcwd: cannot access parent directories"), 1);
+	}
 	if (chdir(dir) == -1)
 	{
 		ft_putstr_fd("bash: cd: ", 2);
 		perror(dir);
 		return (1);
 	}
-	return (0);
+	return (cd_update_env(env, oldpwd, dir));
 }
