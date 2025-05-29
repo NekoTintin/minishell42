@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 17:20:58 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:38:00 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_exec
 
 typedef struct s_pipeline
 {
+	int			id;
 	pid_t		pid;
 	t_cmd		*cmd;
 	t_pipeline	*next;
@@ -53,7 +54,7 @@ int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_env *env, int builtin_code);
 
 // exec_utils2.c //
-void		exec_quit(t_parser *parse);
+void		exec_quit(t_parser *parse, t_exec *exec);
 
 // file_management.c //
 int			file_read(char *file);
