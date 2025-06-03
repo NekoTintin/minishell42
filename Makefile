@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/05/29 16:37:10 by qupollet         ###   ########.fr        #
+#    Updated: 2025/06/04 01:13:35 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,10 @@ SRC	=	minishell.c \
 		execution/builtin/mini_cd.c \
 		execution/builtin/mini_pwd.c \
 		execution/builtin/mini_env.c \
+		execution/builtins.c \
 		execution/exec_init.c \
 		execution/exec_one.c \
 		execution/exec_utils.c \
-		execution/exec_utils2.c \
 		execution/exec.c \
 		execution/file_management.c \
 		execution/find_in_path.c \

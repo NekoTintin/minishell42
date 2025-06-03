@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 15:31:37 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 00:39:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 	if (child < 0)
 		return (free_tab(envp), ft_print_errors("fork", 0), 1);
 	else if (child == 0)
+	{
+		if (ft_redirects(cmd, STDIN_FILENO, STDOUT_FILENO) != 0)
+			return (1);
 		exit(ft_one_child_content(cmd, env, envp));
+	}
 	waitpid(child, &status, 0);
 	free_tab(envp);
 	if (WIFSIGNALED(status))
@@ -60,6 +64,6 @@ int	exec_one(t_cmd *cmd, t_env *env)
 
 	builtin = is_builtin(cmd->argument[0]);
 	if (builtin > 0)
-		return (exec_builtin(cmd, env, builtin));
+		return (exec_builtin_solo(cmd, env, builtin));
 	return (exec_one_child(cmd, env));
 }

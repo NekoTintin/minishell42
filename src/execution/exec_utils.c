@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:30:38 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 15:43:25 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 01:12:52 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,34 +61,26 @@ void	ft_print_errors(char *exec, int type)
 		perror(" ");
 }
 
-int	is_builtin(char *cmd)
+int	exec_restore_stdfd(int fd_in, int fd_out)
 {
-	if (ft_strncmp(cmd, "echo", 4) == 0 && (ft_strlen(cmd) == 4))
-		return (1);
-	else if (ft_strncmp(cmd, "cd", 2) == 0 && (ft_strlen(cmd) == 2))
-		return (2);
-	else if (ft_strncmp(cmd, "pwd", 3) == 0 && (ft_strlen(cmd) == 3))
-		return (3);
-	else if (ft_strncmp(cmd, "export", 6) == 0 && (ft_strlen(cmd) == 6))
-		return (4);
-	else if (ft_strncmp(cmd, "unset", 5) == 0 && (ft_strlen(cmd) == 5))
-		return (5);
-	else if (ft_strncmp(cmd, "env", 3) == 0 && (ft_strlen(cmd) == 3))
-		return (6);
-	else if (ft_strncmp(cmd, "exit", 4) == 0 && (ft_strlen(cmd) == 4))
-		return (7);
-	return (-1);
+	int		code;
+
+	code = 0;
+	if (dup2(fd_in, STDIN_FILENO) == -1)
+		return (ft_print_errors("dup2", 0), 1);
+	if (dup2(fd_out, STDOUT_FILENO) == -1)
+		return (ft_print_errors("dup2", 0), 1);
+	close(fd_in);
+	close(fd_out);
+	return (code);
 }
 
-int	exec_builtin(t_cmd *cmd, t_env *env, int builtin_code)
+void	exec_quit(t_parser *parse, t_exec *exec)
 {
-	if (builtin_code == 1)
-		return (mini_echo(cmd->argument), 0);
-	else if (builtin_code == 2)
-		return (mini_cd(cmd->argument, env));
-	else if (builtin_code == 3)
-		return (mini_pwd(), 0);
-	else if (builtin_code == 6)
-		return (mini_env(env));
-	return (127);
+	close_all_pipes(exec->pipe_tab, parse->size - 1);
+	free_int_tab(exec->pipe_tab, parse->size - 1);
+	pipeline_free(exec->top);
+	free(exec);
+	free_all_parser(parse);
+	parse = NULL;
 }

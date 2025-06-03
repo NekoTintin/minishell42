@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 12:43:07 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 01:12:21 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_redirects(t_cmd *cmd, int p1, int p2)
 		if (return_code != 0)
 			return (return_code);
 	}
-	else if (p1)
+	else if (p1 != STDIN_FILENO)
 	{
 		if (dup2(p1, STDIN_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
@@ -103,7 +103,7 @@ int	ft_redirects(t_cmd *cmd, int p1, int p2)
 		if (return_code != 0)
 			return (return_code);
 	}
-	else if (p2)
+	else if (p2 != STDOUT_FILENO)
 	{
 		if (dup2(p2, STDOUT_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);

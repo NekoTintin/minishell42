@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils2.c                                      :+:      :+:    :+:   */
+/*   redirect_heredoc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 15:49:56 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 17:24:03 by qupollet         ###   ########.fr       */
+/*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
+/*   Updated: 2025/06/03 22:34:20 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	exec_quit(t_parser *parse, t_exec *exec)
+void	handle_sigint_heredoc(int sig)
 {
-	close_all_pipes(exec->pipe_tab, parse->size - 1);
-	free_int_tab(exec->pipe_tab, parse->size - 1);
-	pipeline_free(exec->top);
-	free(exec);
-	free_all_parser(parse);
-	parse = NULL;
+	(void)sig;
+	write(STDIN_FILENO, "\n", 1);
+	exit(130);
+}
+
+int	exec_heredoc_readline(void)
+{
+	pid_t		child;
+
+	child = fork();
+	if (child < 0)
+		return (perror("bash: fork"), 1);
+	if (child == 0)
+	{
+		(void)child;
+	}
+	waitpid(child, NULL, 0);
+	return (0);
+}
+
+int	exec_heredoc(t_cmd *cmd)
+{
+	(void)cmd;
 }

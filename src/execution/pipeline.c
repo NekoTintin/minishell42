@@ -6,11 +6,21 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:33:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 17:39:17 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 01:32:45 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_exec(t_exec *exec)
+{
+	if (!exec)
+		return ;
+	if (exec->pipe_tab)
+		free_int_tab(exec->pipe_tab, exec->nb_child - 1);
+	pipeline_free(exec->top);
+	free(exec);
+}
 
 void	pipeline_free(t_pipeline *top)
 {
