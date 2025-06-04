@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:30:38 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/04 01:12:52 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 03:02:40 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	exec_quit(t_parser *parse, t_exec *exec)
 {
 	close_all_pipes(exec->pipe_tab, parse->size - 1);
 	free_int_tab(exec->pipe_tab, parse->size - 1);
-	pipeline_free(exec->top);
+	free_exec(exec);
 	free(exec);
 	free_all_parser(parse);
 	parse = NULL;

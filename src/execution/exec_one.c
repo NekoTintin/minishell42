@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/04 00:39:01 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 02:13:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	ft_one_child_content(t_cmd *cmd, t_env *env, char **envp)
 	cmd->argument = ntab;
 	code = ft_find_in_path(&cmd->argument[0], env);
 	if (code != 0)
-		return (code);
+		return (free_tab(ntab), code);
 	code = check_exec(cmd->argument[0]);
 	if (code != 0)
-		return (code);
+		return (free_tab(ntab), code);
 	if (execve(ntab[0], ntab, envp) == -1)
-		return (ft_print_errors("execve", 126), 126);
+		return (free_tab(ntab), ft_print_errors("execve", 126), 126);
 	return (1);
 }
 
@@ -61,9 +61,12 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 int	exec_one(t_cmd *cmd, t_env *env)
 {
 	int		builtin;
+	int		code;
 
 	builtin = is_builtin(cmd->argument[0]);
 	if (builtin > 0)
-		return (exec_builtin_solo(cmd, env, builtin));
-	return (exec_one_child(cmd, env));
+		code = exec_builtin_solo(cmd, env, builtin);
+	else
+		code = exec_one_child(cmd, env);
+	return (code);
 }

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:19:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 17:03:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 02:46:23 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@ int	close_all_pipes(int **tablo, int size)
 	int			idx;
 	int			error;
 
+	if (!tablo)
+		return (1);
 	idx = 0;
 	error = 0;
 	while (idx < size)
 	{
-		if (close(tablo[idx][0]) == -1 || close(tablo[idx][1]) == -1)
-			error = 1;
+		if (tablo[idx] && tablo[idx][0] >= 0)
+			if (close(tablo[idx][0]) == -1)
+				error = 1;
+		if (tablo[idx] && tablo[idx][1] >= 0)
+			if (close(tablo[idx][1]) == -1)
+				error = 1;
 		idx++;
 	}
 	if (error)

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/04 00:39:12 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 02:42:10 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	exec_builtin_solo(t_cmd *cmd, t_env *env, int type)
 
 int	is_builtin(char *cmd)
 {
+	if (!cmd || cmd[0] == '\0')
+		return (-1);
 	if (ft_strncmp(cmd, "echo", 4) == 0 && (ft_strlen(cmd) == 4))
 		return (1);
 	else if (ft_strncmp(cmd, "cd", 2) == 0 && (ft_strlen(cmd) == 2))
@@ -53,6 +55,8 @@ int	is_builtin(char *cmd)
 
 int	exec_builtin(t_cmd *cmd, t_env *env, int builtin_code)
 {
+	if (!cmd || !cmd->argument || !cmd->argument[0] || !env)
+		return (127);
 	if (builtin_code == 1)
 		return (mini_echo(cmd->argument), 0);
 	else if (builtin_code == 2)

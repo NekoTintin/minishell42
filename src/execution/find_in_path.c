@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 23:08:48 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/29 12:38:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/04 01:59:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ static char	**ft_get_splited_str(t_env *env)
 	if (!path)
 		return (NULL);
 	splited = ft_split(path, ':');
+	free(path);
 	if (!splited)
-		return (free(path), NULL);
+		return (NULL);
 	return (splited);
 }
 
@@ -79,6 +80,7 @@ int	ft_find_in_path(char **file, t_env *env)
 			return (free_tab(splited), code);
 		idx++;
 	}
-	ft_print_errors(*file, 127);
+	ft_putstr_fd(*file, STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	return (free_tab(splited), 127);
 }
