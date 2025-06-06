@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/04 01:35:32 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/06 13:20:27 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			ft_find_in_path(char **file, t_env *env);
 int			mini_cd(char **args, t_env *env);
 void		mini_echo(char **args);
 int			mini_env(t_env *env);
-//int			mini_exit(char **args);
+int			mini_exit(char **args, t_parser *parse, t_exec *exec);
 //int			mini_export(char **args, char **envp);
 int			mini_pwd(void);
 //int			mini_unset(char **args, char **envp, char **n_envp);
