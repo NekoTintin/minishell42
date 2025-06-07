@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/06/04 01:13:35 by qupollet         ###   ########.fr        #
+#    Updated: 2025/06/07 04:25:23 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC	=	minishell.c \
 		execution/file_management.c \
 		execution/find_in_path.c \
 		execution/pipeline.c \
+		execution/redirect_heredoc.c \
 		execution/redirect.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}

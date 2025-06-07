@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/04 01:12:21 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/07 04:23:24 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,32 +54,50 @@ int	exec_redirect_output(t_cmd *cmd)
 	return (0);
 }
 
+int	exec_redir_infile(t_redirect *red)
+{
+	int			fd;
+
+	fd = open(red->file[0], O_RDONLY);
+	if (fd < 0)
+	{
+		ft_print_errors(red->file[0], 0);
+		return (1);
+	}
+	if (dup2(fd, STDIN_FILENO) == -1)
+	{
+		close(fd);
+		ft_print_errors("dup2", 0);
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
+
 int	exec_redirect_input(t_cmd *cmd)
 {
 	t_redirect	*cur;
-	int			fd;
+	int			code;
 
-	fd = -1;
+	code = 0;
 	cur = cmd->redirect;
 	while (cur)
 	{
 		if (cur->type == REDIRECT_IN)
 		{
-			if (fd != -1)
-				close(fd);
-			fd = file_read(cur->file[0]);
-			if (fd < 0)
-				return (1);
+			code = exec_redir_infile(cur);
+			if (code != 0)
+				return (code);
+		}
+		else if (cur->type == HEREDOC)
+		{
+			code = exec_heredoc(cur);
+			if (code != 0)
+				return (code);
 		}
 		cur = cur->next;
 	}
-	if (fd != -1)
-	{
-		if (dup2(fd, STDIN_FILENO) == -1)
-			return (close(fd), ft_print_errors("dup2", 0), 1);
-		close(fd);
-	}
-	return (0);
+	return (code);
 }
 
 int	ft_redirects(t_cmd *cmd, int p1, int p2)
