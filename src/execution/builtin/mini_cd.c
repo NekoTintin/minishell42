@@ -43,12 +43,12 @@ int	mini_cd(char **args, t_env *env)
 	char		oldpwd[PATH_MAX];
 
 	size = cd_tab_size(args);
-	if (size > 2)
+	if (size > 3)
 		return (ft_putstr_fd("bash: cd: too many arguments\n", 2), 1);
 	if (size == 1)
 		dir = ".";
 	else
-		dir = args[1];
+		dir = args[2];
 	if (getcwd(oldpwd, sizeof(oldpwd)) == NULL)
 	{
 		ft_putstr_fd("cd: error retrieving current directory", 2);
