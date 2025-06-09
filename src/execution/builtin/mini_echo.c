@@ -40,12 +40,12 @@ void	mini_echo(char **args)
 	idx = 1;
 	if (args[1] && new_line == 0)
 		idx++;
+	if (*args[idx] == 32 && ft_strlen(args[idx]) == 1)
+		idx += 1;
 	while (args[idx])
 	{
 		ft_putstr_fd(args[idx], 1);
 		idx++;
-		if (args[idx])
-			printf(" ");
 	}
 	if (new_line == 1)
 		ft_putstr_fd("\n", 1);
