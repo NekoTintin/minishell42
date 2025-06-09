@@ -59,9 +59,9 @@ static int	valid_pipe(t_lexer *lexer)
 	while (curr != NULL)
 	{
 		if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
-			return (1);
+			return (printf("bash: syntax error near unexpected token `|'\n"));
 		if (curr->type == PIPE && curr->next->type == PIPE)
-			return (1);
+			return (printf("bash: syntax error near unexpected token `|'\n"));
 		prev = curr;
 		curr = curr->next;
 	}
