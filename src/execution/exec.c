@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/05 18:14:03 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/09 04:42:55 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int	child_process(t_pipeline *pl, t_exec *exec)
 {
 	int			code;
 
-	if (ft_redirects(pl->cmd, STDIN_FILENO, STDOUT_FILENO) != 0)
-		exit(1);
 	if (pl->id > 0)
 		if (dup2(exec->pipe_tab[pl->id - 1][0], STDIN_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
 	if (pl->id < exec->nb_child - 1)
 		if (dup2(exec->pipe_tab[pl->id][1], STDOUT_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
+	if (ft_redirects(pl->cmd, STDIN_FILENO, STDOUT_FILENO) != 0)
+		exit(1);
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (ft_print_errors("pipes", 0), 1);
 	code = exec_cmd(pl, exec->env);
