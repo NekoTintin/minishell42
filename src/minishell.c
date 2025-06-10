@@ -19,6 +19,11 @@ void	handle_sigint(int sig)
 	fflush(stdout);
 }
 
+void	handle_sigquit(int sig)
+{
+	(void)sig;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -30,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	parse = NULL;
 	lexer = NULL;
 	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 	if (argc == 1 && argv[1] == NULL)
 	{
 		while (line == NULL)
