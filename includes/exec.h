@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/07 04:24:26 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:20:03 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ typedef struct s_pipeline
 }	t_pipeline;
 
 // builtins.c //
-int			exec_builtin_solo(t_cmd *cmd, t_env *env, int type);
+int			exec_builtin_solo(t_cmd *cmd, t_parser *parse,
+				t_env *env, int type);
 int			is_builtin(char *cmd);
-int			exec_builtin(t_cmd *cmd, t_env *env, int builtin_code);
+int			exec_builtin(t_cmd *cmd, t_parser *parse,
+				t_env *env, int builtin_code);
 
 // exec.c //
 int			exec_main(t_parser *parser, t_env *env);
@@ -65,7 +67,7 @@ int			check_exec(char *exec);
 
 // redirect.c //
 int			search_redirect(t_cmd *cmd, t_token_type type);
-int			ft_redirects(t_cmd *cmd, int p1, int p2);
+int			ft_redirects(t_cmd *cmd, int p1, int p2, t_env *env);
 
 // env.c //
 t_env		*ft_create_tenv(char **envp);
@@ -73,13 +75,16 @@ int			ft_add_to_env(t_env *top, char *key, char *val);
 
 // exec_one.c //
 int			exec_restore_stdfd(int fd_in, int fd_out);
-int			exec_one(t_cmd *cmd, t_env *env);
+int			exec_one(t_cmd *cmd, t_parser *parse, t_env *env);
 
 // find_in_path.c //
 int			ft_find_in_path(char **file, t_env *env);
 
 // redirect_heredoc.c //
-int			exec_heredoc(t_redirect *red);
+int			exec_heredoc(t_redirect *red, t_env *env);
+
+// replace_env_var.c //
+char		*replace_var(char *str, t_env *env);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);

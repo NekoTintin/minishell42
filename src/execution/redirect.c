@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/07 04:23:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:20:46 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	exec_redir_infile(t_redirect *red)
 	return (0);
 }
 
-int	exec_redirect_input(t_cmd *cmd)
+int	exec_redirect_input(t_cmd *cmd, t_env *env)
 {
 	t_redirect	*cur;
 	int			code;
@@ -91,7 +91,7 @@ int	exec_redirect_input(t_cmd *cmd)
 		}
 		else if (cur->type == HEREDOC)
 		{
-			code = exec_heredoc(cur);
+			code = exec_heredoc(cur, env);
 			if (code != 0)
 				return (code);
 		}
@@ -100,13 +100,13 @@ int	exec_redirect_input(t_cmd *cmd)
 	return (code);
 }
 
-int	ft_redirects(t_cmd *cmd, int p1, int p2)
+int	ft_redirects(t_cmd *cmd, int p1, int p2, t_env *env)
 {
 	int		return_code;
 
 	if (search_redirect(cmd, REDIRECT_IN) || search_redirect(cmd, HEREDOC))
 	{
-		return_code = exec_redirect_input(cmd);
+		return_code = exec_redirect_input(cmd, env);
 		if (return_code != 0)
 			return (return_code);
 	}

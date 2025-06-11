@@ -6,13 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/06 13:39:37 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:20:28 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exec_builtin_solo(t_cmd *cmd, t_env *env, int type)
+int	exec_builtin_solo(t_cmd *cmd, t_parser *parse, t_env *env, int type)
 {
 	int		fd_in;
 	int		fd_out;
@@ -22,12 +22,12 @@ int	exec_builtin_solo(t_cmd *cmd, t_env *env, int type)
 	fd_out = dup(STDOUT_FILENO);
 	if (fd_in < 0 || fd_out < 0)
 		return (ft_print_errors("bash: dup2", 0), 1);
-	if (ft_redirects(cmd, fd_in, fd_out) != 0)
+	if (ft_redirects(cmd, fd_in, fd_out, env) != 0)
 	{
 		exec_restore_stdfd(fd_in, fd_out);
 		return (1);
 	}
-	code = exec_builtin(cmd, env, type);
+	code = exec_builtin(cmd, parse, env, type);
 	exec_restore_stdfd(fd_in, fd_out);
 	return (code);
 }
@@ -53,8 +53,9 @@ int	is_builtin(char *cmd)
 	return (-1);
 }
 
-int	exec_builtin(t_cmd *cmd, t_env *env, int builtin_code)
+int	exec_builtin(t_cmd *cmd, t_parser *parse, t_env *env, int builtin_code)
 {
+	(void)parse;
 	if (!cmd || !cmd->argument || !cmd->argument[0] || !env)
 		return (127);
 	if (builtin_code == 1)

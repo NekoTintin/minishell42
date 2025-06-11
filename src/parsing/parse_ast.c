@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 10:23:23 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/05 20:14:07 by benoitchallat    ###   ########.fr       */
+/*   Created: 2025/02/28 10:23:23 by benoitchall       #+#    #+#             */
+/*   Updated: 2025/06/10 13:45:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,12 @@ char	*parse_simple_cmd(t_token *node)
 {
 	char	*args;
 
-	if (node->type == WORD || node->type == WHITESPACE)
+	if (node->type == WORD || node->type == WHITESPACE \
+		|| node->type == VAR_ENV)
 	{
 		args = ft_strdup(node->value);
 		if (args == NULL)
 			return (NULL);
-	}
-	else if (node->type == VAR_ENV)
-	{
-		args = ft_strdup(getenv(&node->value[1]));
-		if (args == NULL)
-		{
-			args = ft_strdup(" ");
-			if (args == NULL)
-				return (NULL);
-		}
 	}
 	else
 		return (NULL);
