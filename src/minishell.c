@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, handle_sigquit);
 	if (argc == 1 && argv[1] == NULL)
 	{
+		env = ft_create_tenv(envp);
 		while (line == NULL)
 		{
 			line = readline("Minishell$ ");
@@ -55,7 +56,6 @@ int	main(int argc, char **argv, char **envp)
 				parse = mi_make_parse(parse, lexer);
 				if (parse != NULL)
 				{
-					env = ft_create_tenv(envp);
 					if (!env)
 					{
 						free(line);

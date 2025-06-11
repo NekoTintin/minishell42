@@ -89,5 +89,6 @@ int			mini_exit(char **args, t_parser *parse, t_exec *exec);
 //int			mini_export(char **args, char **envp);
 int			mini_pwd(void);
 //int			mini_unset(char **args, char **envp, char **n_envp);
+int			mini_unset(char **arg, t_env *env);
 
 #endif
