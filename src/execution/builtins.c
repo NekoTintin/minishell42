@@ -63,6 +63,8 @@ int	exec_builtin(t_cmd *cmd, t_env *env, int builtin_code)
 		return (mini_cd(cmd->argument, env));
 	else if (builtin_code == 3)
 		return (mini_pwd(), 0);
+	else if (builtin_code == 4)
+		return (mini_export(cmd->argument, env));
 	else if (builtin_code == 5)
 		return (mini_unset(cmd->argument, env));
 	else if (builtin_code == 6)

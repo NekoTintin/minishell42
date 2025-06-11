@@ -64,7 +64,6 @@ int			exec_env_size(t_env *env);
 void		free_tab(char **tablo);
 
 // !!!fonc for export !!!
-int			mini_export(char **argument, char ***var_env);
 void		print_env_array(char **var_env);
 char		**cp_array_env(char **envp, int length);
 int			ft_arrlen(char **array);
