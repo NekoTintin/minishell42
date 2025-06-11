@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:27 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/06 13:18:37 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:42:40 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	exit_contain_char(char *arg)
 	return (0);
 }
 
-// DON'T FORGET TO FREE ALL THE STRUCTURES ALLOCATED IN THE MAIN LOOP!!!
-// ADD THIS BEFORE THE EXITS
 int	mini_exit(char **args, t_parser *parse, t_exec *exec)
 {
 	ft_putstr_fd("exit\n", 1);

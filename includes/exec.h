@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/11 16:20:03 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:54:00 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ typedef struct s_pipeline
 
 // builtins.c //
 int			exec_builtin_solo(t_cmd *cmd, t_parser *parse,
-				t_env *env, int type);
+				t_exec *exec, int type);
 int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_parser *parse,
-				t_env *env, int builtin_code);
+				t_exec *exec, int builtin_code);
 
 // exec.c //
 int			exec_main(t_parser *parser, t_env *env);
@@ -75,7 +75,7 @@ int			ft_add_to_env(t_env *top, char *key, char *val);
 
 // exec_one.c //
 int			exec_restore_stdfd(int fd_in, int fd_out);
-int			exec_one(t_cmd *cmd, t_parser *parse, t_env *env);
+int			exec_one(t_cmd *cmd, t_parser *parse, t_exec *exec);
 
 // find_in_path.c //
 int			ft_find_in_path(char **file, t_env *env);
@@ -91,8 +91,8 @@ int			mini_cd(char **args, t_env *env);
 void		mini_echo(char **args);
 int			mini_env(t_env *env);
 int			mini_exit(char **args, t_parser *parse, t_exec *exec);
-//int			mini_export(char **args, char **envp);
+int			mini_export(char **argument, t_env *env);
 int			mini_pwd(void);
-//int			mini_unset(char **args, char **envp, char **n_envp);
+int			mini_unset(char **args, t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/11 16:20:33 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:51:16 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,16 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 	return (WEXITSTATUS(status));
 }
 
-int	exec_one(t_cmd *cmd, t_parser *parse, t_env *env)
+int	exec_one(t_cmd *cmd, t_parser *parse, t_exec *exec)
 {
 	int		builtin;
 	int		code;
 
 	builtin = is_builtin(cmd->argument[0]);
 	if (builtin > 0)
-		code = exec_builtin_solo(cmd, parse, env, builtin);
+		code = exec_builtin_solo(cmd, parse, exec, builtin);
 	else
-		code = exec_one_child(cmd, env);
+		code = exec_one_child(cmd, exec->env);
+	free_exec(exec);
 	return (code);
 }

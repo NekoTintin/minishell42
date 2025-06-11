@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/06/09 04:14:58 by qupollet         ###   ########.fr        #
+#    Updated: 2025/06/11 19:01:45 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,10 +51,13 @@ SRC	=	minishell.c \
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
 		execution/builtin/builtin_utils.c \
-		execution/builtin/mini_echo.c \
 		execution/builtin/mini_cd.c \
-		execution/builtin/mini_pwd.c \
+		execution/builtin/mini_echo.c \
 		execution/builtin/mini_env.c \
+		execution/builtin/mini_exit.c \
+		execution/builtin/mini_export.c \
+		execution/builtin/mini_pwd.c \
+		execution/builtin/mini_unset.c \
 		execution/builtins.c \
 		execution/exec_init.c \
 		execution/exec_one.c \

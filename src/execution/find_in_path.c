@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 23:08:48 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/04 01:59:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:52:41 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ static char	**ft_get_splited_str(t_env *env)
 
 static int	ft_absolute(char **file)
 {
-	if (access(*file, X_OK) == 0)
-		return (0);
-	return (ft_print_errors(*file, 126), 126);
+	if (access(*file, F_OK) == -1)
+		return (ft_print_errors(*file, 127), 127);
+	if (access(*file, X_OK) == -1)
+		return (ft_print_errors(*file, 126), 126);
+	return (0);
 }
 
 int	ft_find_in_path(char **file, t_env *env)
@@ -67,7 +69,7 @@ int	ft_find_in_path(char **file, t_env *env)
 
 	if (!file || !env)
 		return (1);
-	if (file[0][0] == '/')
+	if (ft_strchr(file[0], '/'))
 		return (ft_absolute(file));
 	splited = ft_get_splited_str(env);
 	if (!splited)

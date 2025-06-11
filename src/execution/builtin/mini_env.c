@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:17 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/06 13:25:31 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:23:14 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	mini_env(t_env *env)
 	cur = env;
 	while (cur)
 	{
-		if (cur->key || cur->value)
+		if (cur->key && cur->value)
 			printf("%s=%s\n", cur->key, cur->value);
 		else if (cur->key)
 			printf("%s=\n", cur->key);

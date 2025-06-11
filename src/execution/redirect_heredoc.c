@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/10 14:08:32 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:59:35 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int	ft_write_pipe(int fd, char *delim, t_env *env)
 		if (ft_strncmp(input, delim, ft_strlen(delim)) == 0
 			&& ft_strlen(input) == ft_strlen(delim))
 			return (free(input), 0);
-		newstring = replace_var(input, env);
+		(void)env;
+		newstring = ft_strdup(input);
+		//newstring = replace_var(input, env);
 		free(input);
 		if (!newstring)
 			return (1);

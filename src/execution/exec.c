@@ -6,13 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/11 16:20:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:50:26 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exec_cmd(t_pipeline *pl, t_env *env, t_parser *parse)
+int	exec_cmd(t_pipeline *pl, t_parser *parse, t_exec *exec)
 {
 	int		code;
 	char	**ntab;
@@ -26,14 +26,14 @@ int	exec_cmd(t_pipeline *pl, t_env *env, t_parser *parse)
 	pl->cmd->argument = ntab;
 	builtin_type = is_builtin(ntab[0]);
 	if (builtin_type > 0)
-		return (exec_builtin(pl->cmd, parse, env, builtin_type));
-	code = ft_find_in_path(&pl->cmd->argument[0], env);
+		return (exec_builtin(pl->cmd, parse, exec, builtin_type));
+	code = ft_find_in_path(&pl->cmd->argument[0], exec->env);
 	if (code != 0)
 		return (free_tab(ntab), code);
 	code = check_exec(pl->cmd->argument[0]);
 	if (code != 0)
 		return (free_tab(ntab), code);
-	envp = ft_env_to_tab(env);
+	envp = ft_env_to_tab(exec->env);
 	if (!envp)
 		return (free_tab(ntab), perror("malloc"), 1);
 	if (execve(ntab[0], ntab, envp) == -1)
@@ -55,7 +55,7 @@ int	child_process(t_pipeline *pl, t_exec *exec, t_parser *parse)
 		exit(1);
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (ft_print_errors("pipes", 0), 1);
-	code = exec_cmd(pl, exec->env, parse);
+	code = exec_cmd(pl, parse, exec);
 	if (code != 0)
 	{
 		ft_print_errors("exec_cmd", code);
@@ -90,7 +90,7 @@ int	wait_all_children(t_exec *exec)
 	return (code);
 }
 
-int	exec_main_loop(t_exec *exec, t_parser *parse)
+int	exec_main_loop(t_parser *parse, t_exec *exec)
 {
 	t_pipeline	*cur;
 	int			code;
@@ -123,12 +123,20 @@ int	exec_main(t_parser *parse, t_env *env)
 	if (!parse || !parse->top || !parse->top->argument[0])
 		return (1);
 	if (parse->size == 1)
-		return (exec_one(parse->top, parse, env) != 0);
+	{
+		exec = ft_calloc(1, sizeof(t_exec));
+		if (!exec)
+			return (ft_print_errors("malloc", 0), 1);
+		exec->pipe_tab = NULL;
+		exec->nb_child = 1;
+		exec->env = env;
+		exec->top = NULL;
+		return (exec_one(parse->top, parse, exec));
+	}
 	exec = exec_init(parse->size, parse->top, env);
 	if (!exec)
 		return (1);
-	code = exec_main_loop(exec, parse);
-	if (code != 0)
-		return (exec_quit(parse, exec), 1);
-	return (0);
+	code = exec_main_loop(parse, exec);
+	free_exec(exec);
+	return (code);
 }
