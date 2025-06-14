@@ -6,13 +6,12 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 17:05:03 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/09 04:42:14 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:11:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// TO FIX
 char	*get_key_from_str(char *str, int start, int idx, t_env *env)
 {
 	char	*key;
@@ -56,36 +55,25 @@ int	get_size_with_var(char *str, t_env *env)
 	return (size);
 }
 
-char	*copy_to_str(char **str, t_env *env)
+int	copy_to_str(char *str, char **nstr, t_env *env)
 {
 	int		idx;
-	int		start;
-	char	*val;
+	int		idx_nstr;
 
 	idx = 0;
-	start = 0;
-	while ((*str)[idx])
+	idx_nstr = 0;
+	while (str[idx])
 	{
-		if ((*str)[idx] == '$')
+		if (str[idx] == '$')
 		{
+			(void)env;
 			idx++;
-			start = idx;
-			while (ft_isalnum((*str)[idx]))
-				idx++;
-			val = get_key_from_str(*str, start, idx, env);
-			if (val)
-			{
-				strcat(*str, val);
-				free(val);
-			}
+			// TO DO
 		}
 		else
-		{
-			strcat(*str, &(*str)[idx]);
-			idx++;
-		}
+			(*nstr)[idx_nstr++] = str[idx++];
 	}
-	return (*str);
+	return (0);
 }
 
 char	*replace_var(char *str, t_env *env)
@@ -96,9 +84,9 @@ char	*replace_var(char *str, t_env *env)
 	if (!str || !env || !*str)
 		return (NULL);
 	size = get_size_with_var(str, env);
-	nstr = (char *)ft_calloc(size + 1, sizeof(char));
+	nstr = ft_calloc(size + 1, sizeof(char));
 	if (!nstr)
 		return (NULL);
-	copy_to_str(&nstr, env);
+	copy_to_str(str, &nstr, env);
 	return (nstr);
 }
