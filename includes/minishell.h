@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/28 00:30:25 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/05/28 00:32:06 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <fcntl.h>
 # include <term.h>
 # include <errno.h>
-# include <linux/limits.h>
+//# include <linux/limits.h>
 # include <stdbool.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
@@ -48,6 +48,7 @@ typedef struct s_minishell
 {
 	t_lexer		*lexer;
 	t_parser	*parse;
+	t_env		*env;
 	bool		status;
 }					t_minishell;
 
@@ -72,7 +73,6 @@ int			exec_env_size(t_env *env);
 void		free_tab(char **tablo);
 
 // !!!fonc for export !!!
-int			mini_export(char **argument, char ***var_env);
 void		print_env_array(char **var_env);
 char		**cp_array_env(char **envp, int length);
 int			ft_arrlen(char **array);

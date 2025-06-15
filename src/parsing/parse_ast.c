@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 10:23:23 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/05 20:14:07 by benoitchallat    ###   ########.fr       */
+/*   Created: 2025/02/28 10:23:23 by benoitchall       #+#    #+#             */
+/*   Updated: 2025/06/10 13:45:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

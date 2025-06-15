@@ -6,57 +6,137 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/26 21:53:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:50:26 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exec_child(t_pipeline *pipeline)
+int	exec_cmd(t_pipeline *pl, t_parser *parse, t_exec *exec)
 {
-	int		return_code;
+	int		code;
+	char	**ntab;
+	char	**envp;
+	int		builtin_type;
 
-	return_code = ft_find_in_envp(pipeline->cmd->argument[0], );
+	ntab = rm_whitespace_tab(pl->cmd->argument);
+	if (!ntab)
+		return (perror("malloc"), 1);
+	free_tab(pl->cmd->argument);
+	pl->cmd->argument = ntab;
+	builtin_type = is_builtin(ntab[0]);
+	if (builtin_type > 0)
+		return (exec_builtin(pl->cmd, parse, exec, builtin_type));
+	code = ft_find_in_path(&pl->cmd->argument[0], exec->env);
+	if (code != 0)
+		return (free_tab(ntab), code);
+	code = check_exec(pl->cmd->argument[0]);
+	if (code != 0)
+		return (free_tab(ntab), code);
+	envp = ft_env_to_tab(exec->env);
+	if (!envp)
+		return (free_tab(ntab), perror("malloc"), 1);
+	if (execve(ntab[0], ntab, envp) == -1)
+		return (free_tab(envp), ft_print_errors("execve", 126), 126);
+	return (1);
 }
 
-t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd)
+int	child_process(t_pipeline *pl, t_exec *exec, t_parser *parse)
 {
-	t_pipeline	*top;
-	t_pipeline	*cur;
-	t_cmd		*tmp_cmd;
+	int			code;
 
-	top = ft_calloc(1, sizeof(t_pipeline));
-	if (!top)
-		return (NULL);
-	cur = top;
-	cur->cmd = cmd;
-	tmp_cmd = cmd->next;
-	while (nb > 0)
+	if (pl->id > 0)
+		if (dup2(exec->pipe_tab[pl->id - 1][0], STDIN_FILENO) == -1)
+			return (ft_print_errors("dup2", 0), 1);
+	if (pl->id < exec->nb_child - 1)
+		if (dup2(exec->pipe_tab[pl->id][1], STDOUT_FILENO) == -1)
+			return (ft_print_errors("dup2", 0), 1);
+	if (ft_redirects(pl->cmd, STDIN_FILENO, STDOUT_FILENO, exec->env) != 0)
+		exit(1);
+	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
+		return (ft_print_errors("pipes", 0), 1);
+	code = exec_cmd(pl, parse, exec);
+	if (code != 0)
 	{
-		cur->next = ft_calloc(1, sizeof(t_pipeline));
-		if (!cur->next)
-			return (NULL);
-		cur->cmd = tmp_cmd;
-		tmp_cmd = tmp_cmd->next;
-		cur = cur->next;
-		nb--;
+		ft_print_errors("exec_cmd", code);
+		return (code);
 	}
-	return (top);
+	return (code);
 }
 
-int	exec_main(t_parser *parser, char **envp)
+int	wait_all_children(t_exec *exec)
+{
+	t_pipeline		*cur;
+	int				code;
+	int				status;
+
+	cur = exec->top;
+	code = 0;
+	while (cur)
+	{
+		if (waitpid(cur->pid, &status, 0) < 0)
+		{
+			ft_print_errors("waitpid", 0);
+			code = 1;
+			cur = cur->next;
+			continue ;
+		}
+		if (WIFSIGNALED(status))
+			code = (128 + WTERMSIG(status));
+		if (WIFEXITED(status))
+			code = WEXITSTATUS(status);
+		cur = cur->next;
+	}
+	return (code);
+}
+
+int	exec_main_loop(t_parser *parse, t_exec *exec)
+{
+	t_pipeline	*cur;
+	int			code;
+
+	code = 0;
+	cur = exec->top;
+	while (cur)
+	{
+		cur->pid = fork();
+		if (cur->pid < 0)
+			return (ft_print_errors("fork", 0), 1);
+		if (cur->pid == 0)
+		{
+			code = child_process(cur, exec, parse);
+			exit(code);
+		}
+		cur = cur->next;
+	}
+	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
+		return (1);
+	code = wait_all_children(exec);
+	return (code);
+}
+
+int	exec_main(t_parser *parse, t_env *env)
 {
 	t_exec	*exec;
+	int		code;
 
-	if (!parser || !parser->top || !parser->top->argument[0])
+	if (!parse || !parse->top || !parse->top->argument[0])
 		return (1);
-	exec = ft_calloc(1, sizeof(t_exec));
+	if (parse->size == 1)
+	{
+		exec = ft_calloc(1, sizeof(t_exec));
+		if (!exec)
+			return (ft_print_errors("malloc", 0), 1);
+		exec->pipe_tab = NULL;
+		exec->nb_child = 1;
+		exec->env = env;
+		exec->top = NULL;
+		return (exec_one(parse->top, parse, exec));
+	}
+	exec = exec_init(parse->size, parse->top, env);
 	if (!exec)
 		return (1);
-	exec->nb_child = parser->size;
-	exec->envp = envp;
-	exec->top = ft_create_pipeline(exec->nb_child, parser->top);
-	if (!exec->top)
-		return (ft_free_pipeline(exec->top), 1);
-	return (0);
+	code = exec_main_loop(parse, exec);
+	free_exec(exec);
+	return (code);
 }

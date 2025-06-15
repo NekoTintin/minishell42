@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_test_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:08:38 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/04 21:40:16 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/05/28 21:11:30 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ void     test_mi_lexer(char *string)
     if (lexer != NULL || string != NULL)
         print_lexer(lexer);
     ll_free_lexer(lexer);
-}
-
-void    print_lexer(t_lexer *lexer)
-{
-    t_token *node = lexer->header;
-    printf("number of token -> (%d)\n", lexer->size);
-    while (node != NULL)
-    {
-        printf("[valeur node(%d): %s, %s ]  \n",node->index, node->value, print_enum(node->type));
-        node = node->next;
-    }
-    printf("\n-- END LEXER --\n");
 }
 
 char     *print_enum(int nb)
