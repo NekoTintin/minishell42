@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-
 t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd);
 
 t_parser	*parse_cmd_list(t_token *node, t_parser *parse)
@@ -45,7 +44,7 @@ t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd)
 {
 	int	index;
 
-	index = -1;
+	index = 0;
 	while (node->type != PIPE)
 	{
 		if (node->type == WORD || node->type == VAR_ENV \
