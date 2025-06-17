@@ -14,7 +14,8 @@
 
 static char			*make_value_in_quote(char *value, t_token *q_node);
 static t_token		*make_new_quote(t_token *node);
-static t_token	*loop_value(char **value, t_token *q_node, t_token *node, t_token *f_node);
+static t_token		*loop_value(char **value, t_token *q_node,
+			    \ t_token *node, t_token *f_node);
 
 t_lexer	*parse_conc_quote(t_lexer *lexer)
 {
@@ -48,18 +49,7 @@ static t_token	*make_new_quote(t_token *node)
 	new = ll_init_tolken(new);
 	value = NULL;
 	f_node = NULL;
-	/*while (q_node->type != node->type)
-	{
-		value = make_value_in_quote(value, q_node);
-		if (value == NULL)
-			return (NULL);
-		f_node = q_node;
-		q_node = q_node->next;
-		free(f_node->value);
-		free(f_node);
-	}*/
 	q_node = loop_value(&value, q_node, node, f_node);
-	printf(">> %s \n", value);
 	if (q_node == NULL)
 		return (NULL);
 	new->value = ft_strdup(value);
