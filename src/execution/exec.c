@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/11 19:50:26 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:01:21 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	exec_cmd(t_pipeline *pl, t_parser *parse, t_exec *exec)
 	pl->cmd->argument = ntab;
 	builtin_type = is_builtin(ntab[0]);
 	if (builtin_type > 0)
-		return (exec_builtin(pl->cmd, parse, exec, builtin_type));
+		return (exec_builtin_pipeline(pl->cmd, parse, exec, builtin_type));
 	code = ft_find_in_path(&pl->cmd->argument[0], exec->env);
 	if (code != 0)
 		return (free_tab(ntab), code);
@@ -104,8 +104,8 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 			return (ft_print_errors("fork", 0), 1);
 		if (cur->pid == 0)
 		{
-			signal(SIGINT, SIG_DFL);  // Restaurer comportement par défaut
-    			signal(SIGQUIT, SIG_DFL);
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			code = child_process(cur, exec, parse);
 			exit(code);
 		}

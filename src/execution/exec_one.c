@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/11 19:51:16 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:24:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 	int		status;
 	char	**envp;
 
+	if (ft_find_in_path(&cmd->argument[0], env) != 0)
+		return (127);
 	envp = ft_env_to_tab(env);
 	if (!envp)
 		return (perror("malloc"), 1);
