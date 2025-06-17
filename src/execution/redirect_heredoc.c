@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/13 13:20:42 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:32:38 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,24 @@ void	handle_sigint_heredoc(int sig)
 
 void	close_pipes(int hd_pipe[2], int p1, int p2)
 {
-	if (p1 == 1)
+	if (p1 == 1 && hd_pipe[0] != -1)
 	{
 		if (close(hd_pipe[0]) == -1)
 			perror("bash: close");
 		hd_pipe[0] = -1;
 	}
-	if (p2 == 1)
+	if (p2 == 1 && hd_pipe[1] != -1)
 	{
 		if (close(hd_pipe[1]) == -1)
 			perror("bash: close");
 		hd_pipe[1] = -1;
-		return ;
 	}
 }
 
 int	ft_write_pipe(int fd, char *delim, t_env *env)
 {
 	char		*input;
-	char		*newstring;
+	char		*new;
 
 	while (1)
 	{
@@ -54,15 +53,13 @@ int	ft_write_pipe(int fd, char *delim, t_env *env)
 		if (ft_strncmp(input, delim, ft_strlen(delim)) == 0
 			&& ft_strlen(input) == ft_strlen(delim))
 			return (free(input), 0);
-		newstring = replace_var(input, env);
+		new = replace_var(input, env);
 		free(input);
-		if (!newstring)
+		if (!new)
 			return (1);
-		if (write(fd, newstring, ft_strlen(newstring)) == -1)
-			return (perror("bash: write"), free(newstring), -1);
-		if (write(fd, "\n", 1) == -1)
-			return (perror("bash: write"), free(newstring), -1);
-		free(newstring);
+		if (write(fd, new, ft_strlen(new)) == -1 || write(fd, "\n", 1) == -1)
+			return (perror("bash: write"), free(new), -1);
+		free(new);
 	}
 	return (1);
 }
@@ -81,7 +78,7 @@ int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_env *env)
 		signal(SIGINT, &handle_sigint_heredoc);
 		signal(SIGQUIT, SIG_IGN);
 		if (ft_write_pipe(hd_pipe[1], red->file[0], env) == -1)
-			_exit (1);
+			exit (1);
 		close_pipes(hd_pipe, 0, 1);
 		exit (0);
 	}

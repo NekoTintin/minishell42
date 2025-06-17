@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 17:05:03 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/13 13:11:01 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:39:35 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	copy_to_str(char *str, char **nstr, t_env *env)
 		{
 			(void)env;
 			idx++;
-			// TO DO
 		}
 		else
 			(*nstr)[idx_nstr++] = str[idx++];
