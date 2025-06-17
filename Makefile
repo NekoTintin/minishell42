@@ -34,6 +34,8 @@ NAME = minishell_test
 #===========================================================#
 
 SRC	=	minishell.c \
+		testeur/lib_test_lexer.c \
+		testeur/lib_test_parsing.c \
 		env/env_func.c \
 		env/env_utils.c \
 		env/env_init.c \

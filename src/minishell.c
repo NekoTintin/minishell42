@@ -69,21 +69,22 @@ int	mini_loop(t_minishell *mini)
 		line = readline("Minishell$ ");
 		add_history(line);
 		if (line == NULL)
-			return (free(line), rl_clear_history(), EXIT_SUCCESS);
+			return (free(line), clear_history(), EXIT_SUCCESS);
 		else if (line[0] == '\0')
 			free(line);
 		else
 		{
 			mini->lexer = mi_make_lexer(line);
 			mini->parse = mi_make_parse(mini->parse, mini->lexer);
-			if (exec_main(mini->parse, mini->env) == -1)
-				return (EXIT_FAILURE);
+			print_parse(mini->parse);
+			/*if (exec_main(mini->parse, mini->env) == -1)
+				return (EXIT_FAILURE);*/
 			free_all_parser(mini->parse);
 			line = NULL;
 			mini->parse = NULL;
 		}
 	}
-	rl_clear_history();
+	clear_history();
 	free(line);
 	return (EXIT_SUCCESS);
 }

@@ -12,6 +12,9 @@
 
 #include "../../includes/minishell.h"
 
+
+t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd);
+
 t_parser	*parse_cmd_list(t_token *node, t_parser *parse)
 {
 	while (node != NULL)
@@ -31,21 +34,26 @@ t_parser	*parse_cmd_list(t_token *node, t_parser *parse)
 
 t_token	*parse_commande(t_token *node, t_cmd *cmd)
 {
-	int	index;
-
-	index = 0;
 	cmd->argument = ft_calloc(parse_find_arrlen(node) + 1, sizeof(char *));
 	if (cmd->argument == NULL)
 		return (NULL);
+	node = loop_parse_cmd(node, cmd);
+	return (node);
+}
+
+t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd)
+{
+	int	index;
+
+	index = -1;
 	while (node->type != PIPE)
 	{
 		if (node->type == WORD || node->type == VAR_ENV \
 			|| node->type == WHITESPACE)
 		{
-			cmd->argument[index] = parse_simple_cmd(node);
+			cmd->argument[index++] = parse_simple_cmd(node);
 			if (cmd == NULL)
 				return (NULL);
-			index++;
 		}
 		else if (node_is_redirect(node))
 		{

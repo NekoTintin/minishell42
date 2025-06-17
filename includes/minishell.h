@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "parsing.h"
 # include "exec.h"
+# include "../src/testeur/testeur.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>

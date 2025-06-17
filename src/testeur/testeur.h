@@ -15,7 +15,7 @@
 
 #include "../../includes/minishell.h"
 
-void		print_lexer(t_lexer *lexer);
+void		print_mi_lexer(t_lexer *lexer);
 char		*print_enum(int nb);
 void		test_mi_lexer(char *string);
 
