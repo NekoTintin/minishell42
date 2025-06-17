@@ -76,9 +76,8 @@ int	mini_loop(t_minishell *mini)
 		{
 			mini->lexer = mi_make_lexer(line);
 			mini->parse = mi_make_parse(mini->parse, mini->lexer);
-			print_parse(mini->parse);
-			/*if (exec_main(mini->parse, mini->env) == -1)
-				return (EXIT_FAILURE);*/
+			if (exec_main(mini->parse, mini->env) == -1)
+				return (EXIT_FAILURE);
 			free_all_parser(mini->parse);
 			line = NULL;
 			mini->parse = NULL;
