@@ -35,11 +35,13 @@ void	mini_echo(char **args, t_env *env)
 {
 	int		idx;
 	int		new_line;
-
-	new_line = echo_check_args(args[1]);
+	
+	if (!args[1])
+		return ;
+	new_line = echo_check_args(args[2]);
 	idx = 1;
-	if (args[1] && new_line == 0)
-		idx++;
+	if (new_line == 0)
+		idx = 3;
 	if (*args[idx] == 32 && ft_strlen(args[idx]) == 1)
 		idx += 1;
 	while (args[idx])
