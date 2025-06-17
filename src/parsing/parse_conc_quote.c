@@ -14,8 +14,8 @@
 
 static char			*make_value_in_quote(char *value, t_token *q_node);
 static t_token		*make_new_quote(t_token *node);
-static t_token		*loop_value(char **value, t_token *q_node,
-			    \ t_token *node, t_token *f_node);
+static t_token		*loop_value(char **value, t_token *q_node, \
+			    		t_token *node, t_token *f_node);
 
 t_lexer	*parse_conc_quote(t_lexer *lexer)
 {
@@ -59,7 +59,8 @@ static t_token	*make_new_quote(t_token *node)
 	return (free(value), q_node);
 }
 
-static t_token	*loop_value(char **value, t_token *q_node, t_token *node, t_token *f_node)
+static t_token	*loop_value(char **value, t_token *q_node, \
+			   	t_token *node, t_token *f_node)
 {
 	while (q_node->type != node->type)
 	{
@@ -71,7 +72,7 @@ static t_token	*loop_value(char **value, t_token *q_node, t_token *node, t_token
 		free(f_node->value);
 		free(f_node);
 	}
-	return(q_node);
+	return (q_node);
 }
 
 static char	*make_value_in_quote(char *value, t_token *q_node)
