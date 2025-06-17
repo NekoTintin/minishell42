@@ -15,41 +15,19 @@
 int			mini_loop(t_minishell *mini);
 t_minishell	*mini_init(void);
 void		handle_sigint(int sig);
-//void		handle_sigquit(int sig);
+void		handle_sigquit(int sig);
 void		mini_free(t_minishell *mini);
-
-void handle_sigint(int sig) 
-{
-	(void)sig;
-	rl_replace_line("", 0);          // Vide la ligne en cours
-	write(1, "\n", 1);               // Va à la ligne
-	rl_on_new_line();                // Indique que readline est sur une nouvelle ligne
-	rl_redisplay();                  // Redisplay le prompt proprement
-}
-
-void setup_signals() 
-{
-    struct sigaction sa;
-
-    sa.sa_handler = handle_sigint;
-    sa.sa_flags = SA_RESTART;  // Redémarrer les appels bloquants
-    sigemptyset(&sa.sa_mask);
-
-    sigaction(SIGINT, &sa, NULL);  // Capture Ctrl+C
-    signal(SIGQUIT, SIG_IGN);      // Ignore Ctrl+
-}
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*mini;
 
 	mini = mini_init();
-	setup_signals();
 	mini->env = ft_create_tenv(envp);
 	if (mini->env == NULL)
 		return (EXIT_FAILURE);
-	//signal(SIGINT, handle_sigint);
-	//signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 	if (argc == 1 && argv[1] == NULL)
 		mini_loop(mini);
 	mini_free(mini);
@@ -57,17 +35,16 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-/*void	handle_sigint(int sig)
+void	handle_sigint(int sig)
 {
 	(void)sig;
 	printf("\nMinishell$");
-	fflush(stdout);
-}*/
+}
 
-/*void	handle_sigquit(int sig)
+void	handle_sigquit(int sig)
 {
 	(void)sig;
-}*/
+}
 
 t_minishell	*mini_init(void)
 {
@@ -90,7 +67,6 @@ int	mini_loop(t_minishell *mini)
 	while (mini->status == true)
 	{
 		line = readline("Minishell$ ");
-		fflush(stdout);
 		add_history(line);
 		if (line == NULL)
 			return (free(line), rl_clear_history(), EXIT_SUCCESS);

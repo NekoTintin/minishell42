@@ -31,7 +31,7 @@ int	echo_check_args(char *arg)
 	return (1);
 }
 
-void	mini_echo(char **args)
+void	mini_echo(char **args, t_env *env)
 {
 	int		idx;
 	int		new_line;
@@ -44,7 +44,10 @@ void	mini_echo(char **args)
 		idx += 1;
 	while (args[idx])
 	{
-		ft_putstr_fd(args[idx], 1);
+		if (args[idx][0] == '$')
+			ft_putstr_fd(ft_env_get_value(env, &args[idx][1]) , 1);
+		else
+			ft_putstr_fd(args[idx], 1);
 		idx++;
 	}
 	if (new_line == 1)

@@ -58,7 +58,7 @@ int	exec_builtin(t_cmd *cmd, t_parser *parse, t_exec *exec, int builtin_code)
 	if (!cmd || !cmd->argument || !cmd->argument[0] || !exec)
 		return (127);
 	if (builtin_code == 1)
-		return (mini_echo(cmd->argument), 0);
+		return (mini_echo(cmd->argument, exec->env), 0);
 	else if (builtin_code == 2)
 		return (mini_cd(cmd->argument, exec->env));
 	else if (builtin_code == 3)

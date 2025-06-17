@@ -104,6 +104,8 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 			return (ft_print_errors("fork", 0), 1);
 		if (cur->pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);  // Restaurer comportement par défaut
+    			signal(SIGQUIT, SIG_DFL);
 			code = child_process(cur, exec, parse);
 			exit(code);
 		}

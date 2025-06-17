@@ -87,7 +87,7 @@ char		*replace_var(char *str, t_env *env);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);
-void		mini_echo(char **args);
+void		mini_echo(char **args, t_env *env);
 int			mini_env(t_env *env);
 int			mini_exit(char **args, t_parser *parse, t_exec *exec);
 int			mini_export(char **argument, t_env *env);
