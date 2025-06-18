@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/17 20:24:09 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:01:41 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	exec_one(t_cmd *cmd, t_parser *parse, t_exec *exec)
 
 	builtin = is_builtin(cmd->argument[0]);
 	if (builtin > 0)
-		code = exec_builtin_solo(cmd, parse, exec, builtin);
+		return (exec_builtin_solo(cmd, parse, exec, builtin));
 	else
-		code = exec_one_child(cmd, exec->env);
+		return (exec_one_child(cmd, exec->env));
 	free_exec(exec);
 	return (code);
 }
