@@ -17,6 +17,18 @@ t_minishell	*mini_init(void);
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		mini_free(t_minishell *mini);
+void		mini_code_error(int code, t_lexer *lexer);
+
+void	handle_sigint(int sig)
+{
+	(void)sig;
+	printf("\nMinishell$");
+}
+
+void	handle_sigquit(int sig)
+{
+	(void)sig;
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -35,17 +47,6 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-void	handle_sigint(int sig)
-{
-	(void)sig;
-	printf("\nMinishell$");
-}
-
-void	handle_sigquit(int sig)
-{
-	(void)sig;
-}
-
 t_minishell	*mini_init(void)
 {
 	t_minishell	*mini;
@@ -62,8 +63,10 @@ t_minishell	*mini_init(void)
 int	mini_loop(t_minishell *mini)
 {
 	char		*line;
+	int		code_error;
 
 	line = NULL;
+	code_error = 0;
 	while (mini->status == true)
 	{
 		line = readline("Minishell$ ");
@@ -75,8 +78,10 @@ int	mini_loop(t_minishell *mini)
 		else
 		{
 			mini->lexer = mi_make_lexer(line);
+			mini_code_error(code_error, mini->lexer);
 			mini->parse = mi_make_parse(mini->parse, mini->lexer);
-			if (exec_main(mini->parse, mini->env) == -1)
+			code_error = exec_main(mini->parse, mini->env);
+			if (code_error == -1)
 				return (EXIT_FAILURE);
 			free_all_parser(mini->parse);
 			line = NULL;
@@ -94,4 +99,21 @@ void	mini_free(t_minishell *mini)
 		free_all_parser(mini->parse);
 	if (mini->env != NULL)
 		ft_free_env(mini->env);
+}
+
+void	mini_code_error(int code, t_lexer *lexer)
+{
+	t_token	*curr;
+
+	curr = lexer->header;
+	while (curr != NULL)
+	{
+		if (curr->type == VAR_ENV && \
+			curr->value[1] == '?' && ft_strlen(curr->value) == 2)
+		{
+			free(curr->value);
+			curr->value = ft_itoa(code);
+		}
+		curr = curr->next;
+	}
 }
