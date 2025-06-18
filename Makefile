@@ -27,7 +27,7 @@ LIBS = -lreadline
 
 CCFLAG = cc -Wall -Wextra -Werror -g3 -I includes/
 RMF = rm -rf
-NAME = minishell_test
+NAME = minishell
 
 #===========================================================#
 #						sources								#
@@ -88,7 +88,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo  "$(GREEN)[..]       	🛠️ $(YELLOW)MAKE	libft ...$(BLUE)libft/libft.a\n"
 	@make -C libft/ > /dev/null
-	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	loop test$(BLUE)	**Test Loop**\n"
+	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	.exe ... $(BLUE)Minishell\n"
 	@$(CCFLAG) -g3 $(OBJS) $(LIBFT) $(LIBS) -o $(NAME)
 
 clean:
