@@ -75,7 +75,7 @@ t_minishell	*mini_init(char **envp)
 	mini->parse = NULL;
 	mini->env = ft_create_tenv(envp);
 	if (mini->env == NULL)
-		return (EXIT_FAILURE);
+		return (NULL);
 	mini->status = true;
 	return (mini);
 }
