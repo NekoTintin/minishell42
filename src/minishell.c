@@ -27,6 +27,8 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);	
 	if ((mini = mini_init(envp)) == NULL)
 		return (EXIT_FAILURE);
+
+	setup_signal_parent();
 	mini_loop(mini);
 	mini_free(mini);
 	return (EXIT_SUCCESS);
