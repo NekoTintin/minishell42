@@ -17,7 +17,7 @@ t_minishell	*mini_init(void);
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		mini_free(t_minishell *mini);
-void		mini_code_error(int code, t_lexer *lexer);
+void	mini_code_error(int code, t_lexer *lexer, t_env *env);
 
 void	handle_sigint(int sig)
 {
@@ -78,7 +78,7 @@ int	mini_loop(t_minishell *mini)
 		else
 		{
 			mini->lexer = mi_make_lexer(line);
-			mini_code_error(code_error, mini->lexer);
+			mini_code_error(code_error, mini->lexer, mini->env);
 			mini->parse = mi_make_parse(mini->parse, mini->lexer);
 			code_error = exec_main(mini->parse, mini->env);
 			if (code_error == -1)
@@ -101,11 +101,13 @@ void	mini_free(t_minishell *mini)
 		ft_free_env(mini->env);
 }
 
-void	mini_code_error(int code, t_lexer *lexer)
+void	mini_code_error(int code, t_lexer *lexer, t_env *env)
 {
 	t_token	*curr;
+	char	*value;
 
 	curr = lexer->header;
+	value = NULL;
 	while (curr != NULL)
 	{
 		if (curr->type == VAR_ENV && \
@@ -113,6 +115,16 @@ void	mini_code_error(int code, t_lexer *lexer)
 		{
 			free(curr->value);
 			curr->value = ft_itoa(code);
+		}
+		if (curr->type == VAR_ENV && \
+			curr->value[1] != '?' && ft_strlen(curr->value) > 2)
+		{
+			value = strdup(ft_env_get_value(env, &curr->value[1]));
+			if (value == NULL)
+				return ;
+			free(curr->value);
+			curr->value = ft_strdup(value);
+			free(value);
 		}
 		curr = curr->next;
 	}
