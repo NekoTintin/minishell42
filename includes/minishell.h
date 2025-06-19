@@ -53,6 +53,18 @@ typedef struct s_minishell
 	bool		status;
 }					t_minishell;
 
+
+
+/* *************************************************** */
+
+
+void	setup_signals_parent(void);
+void	handle_sigint_parent(int sig);
+void	setup_dfl_child(void);
+void	setup_signals_heredoc(void);
+void	handle_sigint_heredoc(int sig);
+
+/* *************************************************** */
 // functions in pwd.c
 char		*ft_pwd(void);
 
