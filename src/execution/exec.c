@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/17 20:01:21 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:41:27 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	exec_cmd(t_pipeline *pl, t_parser *parse, t_exec *exec)
 	char	**envp;
 	int		builtin_type;
 
+	builtin_type = is_builtin(pl->cmd->argument[0]);
+	if (builtin_type > 0)
+		return (exec_builtin_pipeline(pl->cmd, parse, exec, builtin_type));
 	ntab = rm_whitespace_tab(pl->cmd->argument);
 	if (!ntab)
 		return (perror("malloc"), 1);
 	free_tab(pl->cmd->argument);
 	pl->cmd->argument = ntab;
-	builtin_type = is_builtin(ntab[0]);
-	if (builtin_type > 0)
-		return (exec_builtin_pipeline(pl->cmd, parse, exec, builtin_type));
 	code = ft_find_in_path(&pl->cmd->argument[0], exec->env);
 	if (code != 0)
 		return (free_tab(ntab), code);
@@ -133,7 +133,9 @@ int	exec_main(t_parser *parse, t_env *env)
 		exec->nb_child = 1;
 		exec->env = env;
 		exec->top = NULL;
-		return (exec_one(parse->top, parse, exec));
+		code = exec_one(parse->top, parse, exec);
+		free_exec(exec);
+		return (code);
 	}
 	exec = exec_init(parse->size, parse->top, env);
 	if (!exec)
