@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/17 20:57:17 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:00:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	exec_builtin(t_cmd *cmd, t_parser *parse, t_exec *exec, int builtin_code)
 	if (!cmd || !cmd->argument || !cmd->argument[0] || !exec)
 		return (127);
 	if (builtin_code == 1)
-		return (mini_echo(cmd->argument, exec->env), 0);
+		return (mini_echo(cmd->argument), 0);
 	else if (builtin_code == 2)
 		return (mini_cd(cmd->argument, exec->env));
 	else if (builtin_code == 3)
