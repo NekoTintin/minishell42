@@ -47,6 +47,7 @@ typedef struct s_env
 
 typedef struct s_minishell
 {
+	char		*line;
 	t_lexer		*lexer;
 	t_parser	*parse;
 	t_env		*env;
