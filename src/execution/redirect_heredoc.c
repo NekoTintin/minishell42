@@ -12,13 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-void	handle_sigint_heredoc(int sig)
-{
-	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);
-	exit(130);
-}
-
 void	close_pipes(int hd_pipe[2], int p1, int p2)
 {
 	if (p1 == 1 && hd_pipe[0] != -1)
