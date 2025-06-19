@@ -13,7 +13,7 @@
 #include "../includes/minishell.h"
 
 int			mini_loop(t_minishell *mini);
-t_minishell		*mini_init(void);
+t_minishell		*mini_init(char **envp);
 void			mini_free(t_minishell *mini);
 void			mini_code_error(int code, t_lexer *lexer, t_env *env);
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv[1] != NULL || envp == NULL)
 		return (EXIT_FAILURE);	
-	if ((mini = mini_init()) == NULL);
+	if ((mini = mini_init(envp)) == NULL)
 		return (EXIT_FAILURE);
 	mini_loop(mini);
 	mini_free(mini);
@@ -65,7 +65,7 @@ int	mini_loop(t_minishell *mini)
 	return (EXIT_SUCCESS);
 }
 
-t_minishell	*mini_init(void)
+t_minishell	*mini_init(char **envp)
 {
 	t_minishell	*mini;
 
