@@ -34,6 +34,8 @@ NAME = minishell_test
 #===========================================================#
 
 SRC	=	minishell.c \
+		testeur/lib_test_lexer.c \
+		testeur/lib_test_parsing.c \
 		env/env_func.c \
 		env/env_utils.c \
 		env/env_init.c \
@@ -95,7 +97,7 @@ clean:
 	@$(RMF) $(OBJDIR) $(OBJS)
 
 fclean:
-	@make clean -C libft/ > /dev/null
+	@make fclean -C libft/ > /dev/null
 	@echo "$(RED)🧹 Delete	all	file obj P_S"
 	@$(RMF) $(OBJDIR) $(OBJS) $(NAME)
 
@@ -118,3 +120,4 @@ ${OBJDIR}:
 	@mkdir -p ${OBJDIR}/util
 	@mkdir -p ${OBJDIR}/execution
 	@mkdir -p ${OBJDIR}/execution/builtin
+	@mkdir -p ${OBJDIR}/env

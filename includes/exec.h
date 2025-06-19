@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/11 18:54:00 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:01:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int			exec_builtin_solo(t_cmd *cmd, t_parser *parse,
 int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_parser *parse,
 				t_exec *exec, int builtin_code);
-
+int			exec_builtin_pipeline(t_cmd *cmd, t_parser *parse,
+				t_exec *exec, int type);
 // exec.c //
 int			exec_main(t_parser *parser, t_env *env);
 
@@ -88,7 +89,7 @@ char		*replace_var(char *str, t_env *env);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);
-void		mini_echo(char **args);
+void		mini_echo(char **args, t_env *env);
 int			mini_env(t_env *env);
 int			mini_exit(char **args, t_parser *parse, t_exec *exec);
 int			mini_export(char **argument, t_env *env);

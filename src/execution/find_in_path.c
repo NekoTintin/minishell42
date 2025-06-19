@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 23:08:48 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/11 16:52:41 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:52:48 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_find_in_path(char **file, t_env *env)
 	int			idx;
 	char		**splited;
 
-	if (!file || !env)
+	if (!file || !env || !*file || !**file)
 		return (1);
 	if (ft_strchr(file[0], '/'))
 		return (ft_absolute(file));

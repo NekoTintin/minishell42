@@ -6,11 +6,32 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 22:01:23 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 22:54:53 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:14:45 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	ft_replace_env(t_env *top, char *key, char *val)
+{
+	t_env	*cur;
+
+	cur = top;
+	while (cur)
+	{
+		if (ft_strncmp(cur->key, key, ft_strlen(cur->key)) == 0
+			&& cur->key[ft_strlen(cur->key)] == '\0')
+		{
+			free(cur->value);
+			cur->value = ft_strdup(val);
+			if (!cur->value)
+				return (1);
+			return (0);
+		}
+		cur = cur->next;
+	}
+	return (1);
+}
 
 int	ft_add_to_env(t_env *top, char *key, char *val)
 {
@@ -18,7 +39,7 @@ int	ft_add_to_env(t_env *top, char *key, char *val)
 	t_env	*new_node;
 
 	if (ft_env_get_value(top, key) != NULL)
-		return (1);
+		return (ft_replace_env(top, key, val));
 	cur = top;
 	while (cur->next)
 		cur = cur->next;

@@ -27,7 +27,7 @@ void     test_mi_lexer(char *string)
     
     lexer = mi_make_lexer(string);
     if (lexer != NULL || string != NULL)
-        print_lexer(lexer);
+       // print_lexer(lexer);
     ll_free_lexer(lexer);
 }
 

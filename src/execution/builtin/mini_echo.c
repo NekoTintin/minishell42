@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:05 by bchallat          #+#    #+#             */
-/*   Updated: 2025/05/28 19:01:28 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:20:07 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,25 @@ int	echo_check_args(char *arg)
 	return (1);
 }
 
-void	mini_echo(char **args)
+void	mini_echo(char **args, t_env *env)
 {
 	int		idx;
 	int		new_line;
 
-	new_line = echo_check_args(args[1]);
+	if (!args[1])
+		return ;
+	new_line = echo_check_args(args[2]);
 	idx = 1;
-	if (args[1] && new_line == 0)
-		idx++;
+	if (new_line == 0)
+		idx = 3;
 	if (*args[idx] == 32 && ft_strlen(args[idx]) == 1)
 		idx += 1;
 	while (args[idx])
 	{
-		ft_putstr_fd(args[idx], 1);
+		if (args[idx][0] == '$')
+			ft_putstr_fd(ft_env_get_value(env, &args[idx][1]), 1);
+		else
+			ft_putstr_fd(args[idx], 1);
 		idx++;
 	}
 	if (new_line == 1)
