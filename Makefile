@@ -34,6 +34,7 @@ NAME = minishell
 #===========================================================#
 
 SRC	=	minishell.c \
+		signal.c \
 		testeur/lib_test_lexer.c \
 		testeur/lib_test_parsing.c \
 		env/env_func.c \
