@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/19 10:54:07 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:41:37 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,5 @@ int	exec_main(t_parser *parse, t_env *env)
 		return (1);
 	code = exec_main_loop(parse, exec);
 	free_exec(exec);
-	free(exec);
 	return (code);
 }

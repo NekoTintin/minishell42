@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:53:34 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/11 20:17:00 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:08:16 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	mini_loop(t_minishell *mini)
 		{
 			mini->lexer = mi_make_lexer(line);
 			mini_code_error(code_error, mini->lexer);
+			free(line);
 			mini->parse = mi_make_parse(mini->parse, mini->lexer);
 			code_error = exec_main(mini->parse, mini->env);
 			if (code_error == -1)
