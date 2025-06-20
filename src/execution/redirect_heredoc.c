@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/17 19:32:38 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:38:23 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_env *env)
 	if (child == 0)
 	{
 		close_pipes(hd_pipe, 1, 0);
-		signal(SIGINT, &handle_sigint_heredoc);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (ft_write_pipe(hd_pipe[1], red->file[0], env) == -1)
 			exit (1);
 		close_pipes(hd_pipe, 0, 1);

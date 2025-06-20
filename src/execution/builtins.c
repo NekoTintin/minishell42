@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/19 11:00:01 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:49:39 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	exec_builtin_pipeline(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 
 	code = exec_builtin(cmd, parse, exec, type);
 	free_all_parser(parse);
+	ft_free_env(exec->env);
 	free_exec(exec);
 	clear_history();
 	return (code);
