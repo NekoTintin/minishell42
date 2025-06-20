@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:27 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/19 14:58:29 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:23:25 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	mini_exit(char **args, t_parser *parse, t_exec *exec)
 	if (!tablo)
 		return (perror("malloc"), 1);
 	ft_putstr_fd("exit\n", 1);
+	ret = 0;
 	if (args[1])
 	{
 		ret = exit_check_errors(tablo);
@@ -93,11 +94,8 @@ int	mini_exit(char **args, t_parser *parse, t_exec *exec)
 			exit (ret);
 		}
 		ret = atoi(tablo[1]) % 256;
-		free_tab(tablo);
-		exec_quit(parse, exec);
-		exit(ret);
 	}
 	free_tab(tablo);
 	exec_quit(parse, exec);
-	exit(0);
+	exit(ret);
 }

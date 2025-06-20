@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/19 11:38:23 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:12:16 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	close_pipes(int hd_pipe[2], int p1, int p2)
 	}
 }
 
-int	ft_write_pipe(int fd, char *delim, t_env *env)
+int	ft_write_pipe(int fd, char *delim)
 {
 	char		*input;
 	char		*new;
@@ -53,7 +53,7 @@ int	ft_write_pipe(int fd, char *delim, t_env *env)
 		if (ft_strncmp(input, delim, ft_strlen(delim)) == 0
 			&& ft_strlen(input) == ft_strlen(delim))
 			return (free(input), 0);
-		new = replace_var(input, env);
+		new = ft_strdup(input);
 		free(input);
 		if (!new)
 			return (1);
@@ -64,7 +64,7 @@ int	ft_write_pipe(int fd, char *delim, t_env *env)
 	return (1);
 }
 
-int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_env *env)
+int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_exec *exec)
 {
 	pid_t		child;
 	int			status;
@@ -75,11 +75,10 @@ int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_env *env)
 	if (child == 0)
 	{
 		close_pipes(hd_pipe, 1, 0);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		if (ft_write_pipe(hd_pipe[1], red->file[0], env) == -1)
+		if (ft_write_pipe(hd_pipe[1], red->file[0]) == -1)
 			exit (1);
 		close_pipes(hd_pipe, 0, 1);
+		free_heredoc(exec);
 		exit (0);
 	}
 	close_pipes(hd_pipe, 0, 1);
@@ -92,13 +91,13 @@ int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_env *env)
 	return (0);
 }
 
-int	exec_heredoc(t_redirect *red, t_env *env)
+int	exec_heredoc(t_redirect *red, t_exec *exec)
 {
 	int			hd_pipe[2];
 
 	if (pipe(hd_pipe) == -1)
 		return (ft_print_errors("pipe", 0), 1);
-	if (exec_heredoc_readline(red, hd_pipe, env) != 0)
+	if (exec_heredoc_readline(red, hd_pipe, exec) != 0)
 		return (close_pipes(hd_pipe, 1, 0), 1);
 	if (dup2(hd_pipe[0], STDIN_FILENO) == -1)
 	{
