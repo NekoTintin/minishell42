@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/20 14:38:13 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 14:44:20 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	exec_builtin_solo(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 		exec_restore_stdfd(fd_in, fd_out);
 		return (1);
 	}
+	if (is_builtin(cmd->argument[0]) == 7)
+	{
+		exec_restore_stdfd(fd_in, fd_out);
+		mini_exit(cmd->argument, parse, exec);
+	}
 	code = exec_builtin(cmd, parse, exec, type);
 	exec_restore_stdfd(fd_in, fd_out);
 	return (code);
@@ -36,6 +41,13 @@ int	exec_builtin_pipeline(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 {
 	int		code;
 
+	if (is_builtin(cmd->argument[0]) == 7)
+	{
+		ft_free_env(exec->env);
+		clear_history();
+		if (mini_exit_for_children(cmd->argument, parse, exec) == 0)
+			return (0);
+	}
 	code = exec_builtin(cmd, parse, exec, type);
 	free_all_parser(parse);
 	ft_free_env(exec->env);
