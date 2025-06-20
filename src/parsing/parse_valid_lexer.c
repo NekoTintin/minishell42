@@ -15,6 +15,7 @@
 static int	valid_quote(t_lexer *lexer);
 static int	valid_pipe(t_lexer *lexer);
 int			valid_redirect(t_lexer *lexer);
+t_token		*valid_skip_space(t_token *node);
 
 int	parsing_valid_lexer(t_lexer *lexer)
 {
@@ -58,6 +59,8 @@ static int	valid_pipe(t_lexer *lexer)
 	curr = lexer->header;
 	while (curr != NULL)
 	{
+		if ((curr = valid_skip_space(curr)) == NULL)
+			return (1);
 		if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
 			return (1);
 		if (curr->type == PIPE && curr->next->type == PIPE)
@@ -92,4 +95,15 @@ int	valid_redirect(t_lexer *lexer)
 			node = node->next;
 	}
 	return (0);
+}
+
+t_token	*valid_skip_space(t_token *node)
+{
+	while (node->type == WHITESPACE)
+	{
+		if (node->next == NULL)
+			return (NULL);
+		node = node->next;
+	}
+	return (node);
 }

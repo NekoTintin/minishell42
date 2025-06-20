@@ -14,24 +14,24 @@
 
 int		g_sig = 0;
 
-void	setup_signals_parent(void)
+void	sig_setup_mini(void)
 {
 	g_sig = 0;
-	signal(SIGINT, handle_sigint_parent);
+	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	handle_sigint_parent(int sig)
+void	handle_sigint(int sig)
 {
 	(void)sig;
 	g_sig = SIGINT;
-	write(STDOUT_FILENO, "\n", 1);
+	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-void	setup_dfl_child(void)
+void	sig_setup_defaut(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);

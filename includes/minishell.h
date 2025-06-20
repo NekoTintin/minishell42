@@ -33,7 +33,7 @@
 # include <fcntl.h>
 # include <term.h>
 # include <errno.h>
-# include <linux/limits.h>
+//# include <linux/limits.h>
 # include <stdbool.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."
@@ -55,13 +55,13 @@ typedef struct s_minishell
 }					t_minishell;
 
 
-
 /* *************************************************** */
 
+extern int	g_sig;
 
-void	setup_signals_parent(void);
-void	handle_sigint_parent(int sig);
-void	setup_dfl_child(void);
+void	sig_setup_mini(void);
+void	handle_sigint(int sig);
+void	sig_setup_defaut(void);
 void	setup_signals_heredoc(void);
 void	handle_sigint_heredoc(int sig);
 
