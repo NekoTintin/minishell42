@@ -113,7 +113,7 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 		{
 			signal(SIGINT, SIG_IGN);
 			code = wait_all_children(exec);
-			sig_setup_mini()	
+			sig_setup_mini();	
 		}
 		cur = cur->next;
 	}
