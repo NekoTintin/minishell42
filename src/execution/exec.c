@@ -104,16 +104,21 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 			return (ft_print_errors("fork", 0), 1);
 		if (cur->pid == 0)
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
+
+			sig_setup_defaut();
 			code = child_process(cur, exec, parse);
 			exit(code);
+		}
+		else 
+		{
+			signal(SIGINT, SIG_IGN);
+			code = wait_all_children(exec);
+			sig_setup_mini()	
 		}
 		cur = cur->next;
 	}
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (1);
-	code = wait_all_children(exec);
 	return (code);
 }
 

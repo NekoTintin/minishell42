@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	if ((mini = mini_init(envp)) == NULL)
 		return (EXIT_FAILURE);
 
-	//sig_setup_mini();
+	sig_setup_mini();
 	mini_loop(mini);
 	mini_free(mini);
 	return (EXIT_SUCCESS);

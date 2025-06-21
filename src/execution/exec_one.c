@@ -49,11 +49,17 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 		return (free_tab(envp), ft_print_errors("fork", 0), 1);
 	else if (child == 0)
 	{
+		sig_setup_defaut();
 		if (ft_redirects(cmd, STDIN_FILENO, STDOUT_FILENO, env) != 0)
 			return (1);
 		exit(ft_one_child_content(cmd, env, envp));
 	}
-	waitpid(child, &status, 0);
+	else
+	{
+		signal(SIGINT, SIGIGN);
+		waitpid(child, &status, 0);
+		sig_setup_mini();
+	}
 	free_tab(envp);
 	if (WIFSIGNALED(status))
 		return (128 + WTERMSIG(status));
