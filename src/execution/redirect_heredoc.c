@@ -68,7 +68,7 @@ int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_env *env)
 	if (child == 0)
 	{
 		close_pipes(hd_pipe, 1, 0);
-		setup_signals_herdoc();
+		setup_signals_heredoc();
 		if (ft_write_pipe(hd_pipe[1], red->file[0], env) == -1)
 			exit (1);
 		close_pipes(hd_pipe, 0, 1);
