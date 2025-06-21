@@ -106,7 +106,6 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 		else 
 		{
 			signal(SIGINT, SIG_IGN);
-			code = wait_all_children(exec);
 			sig_setup_mini();	
 		}
 		cur = cur->next;
@@ -114,6 +113,7 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 	sig_set_to_ignore();
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (1);
+	code = wait_all_children(exec);
 	return (code);
 }
 
