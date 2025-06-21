@@ -56,7 +56,7 @@ int	exec_one_child(t_cmd *cmd, t_env *env)
 	}
 	else
 	{
-		signal(SIGINT, SIGIGN);
+		signal(SIGINT, SIG_IGN);
 		waitpid(child, &status, 0);
 		sig_setup_mini();
 	}
