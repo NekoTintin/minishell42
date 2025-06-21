@@ -52,10 +52,9 @@ int	mini_loop(t_minishell *mini)
 			if ((mini->lexer = mi_make_lexer(mini->line)) == NULL)
 				return (EXIT_FAILURE);
 			mini_code_error(code_error, mini->lexer, mini->env);
-			if ((mini->parse = mi_make_parse(mini->parse, mini->lexer)) == NULL)
-				return (EXIT_FAILURE);
-			if ((code_error = exec_main(mini->parse, mini->env, mini)) == -1)
-				return (EXIT_FAILURE);
+			if ((mini->parse = mi_make_parse(mini->parse, mini->lexer)) != NULL)
+				if ((code_error = exec_main(mini->parse, mini->env, mini)) == -1)
+					return (EXIT_FAILURE);
 			free(mini->line);
 			mini->line = NULL;
 			free_all_parser(mini->parse);
