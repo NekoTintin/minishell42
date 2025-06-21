@@ -59,7 +59,7 @@ static int	valid_pipe(t_lexer *lexer)
 	curr = lexer->header;
 	while (curr != NULL)
 	{
-		if ((curr = valid_skip_space(curr)) == NULL)
+		if (curr->type == PIPE && (curr = valid_skip_space(curr)) == NULL)
 			return (1);
 		if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
 			return (1);
