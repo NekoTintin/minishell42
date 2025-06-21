@@ -63,7 +63,6 @@ int	exec_one_child(t_cmd *cmd, t_exec *exec)
 		waitpid(child, &status, 0);
 		sig_setup_mini();
 	}
-	free_tab(envp);
 	if (WIFSIGNALED(status))
 		return (128 + WTERMSIG(status));
 	return (WEXITSTATUS(status));
