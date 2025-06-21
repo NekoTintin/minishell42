@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/19 11:49:39 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:59:19 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@ int	exec_builtin_solo(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 	fd_out = dup(STDOUT_FILENO);
 	if (fd_in < 0 || fd_out < 0)
 		return (ft_print_errors("bash: dup2", 0), 1);
-	if (ft_redirects(cmd, fd_in, fd_out, exec->env) != 0)
+	if (ft_redirects(cmd, fd_in, fd_out, exec) != 0)
 	{
 		exec_restore_stdfd(fd_in, fd_out);
 		return (1);
+	}
+	if (is_builtin(cmd->argument[0]) == 7)
+	{
+		exec_restore_stdfd(fd_in, fd_out);
+		mini_exit(cmd->argument, parse, exec);
 	}
 	code = exec_builtin(cmd, parse, exec, type);
 	exec_restore_stdfd(fd_in, fd_out);
@@ -36,9 +41,17 @@ int	exec_builtin_pipeline(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 {
 	int		code;
 
+	if (is_builtin(cmd->argument[0]) == 7)
+	{
+		ft_free_env(exec->env);
+		clear_history();
+		if (mini_exit_for_children(cmd->argument, parse, exec) == 0)
+			return (0);
+	}
 	code = exec_builtin(cmd, parse, exec, type);
 	free_all_parser(parse);
 	ft_free_env(exec->env);
+	free(exec->mini);
 	free_exec(exec);
 	clear_history();
 	return (code);

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:27 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/18 19:43:55 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:23:25 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	exit_contain_char(char *arg)
 	int		idx;
 
 	idx = 0;
+	if (arg[idx] == '+' || arg[idx] == '-')
+		idx++;
+	if (!arg[idx])
+		return (1);
 	while (arg[idx])
 	{
 		if (arg[idx] < '0' || arg[idx] > '9')
@@ -43,6 +47,34 @@ int	exit_check_errors(char **args)
 	return (0);
 }
 
+int	mini_exit_for_children(char **args, t_parser *parse, t_exec *exec)
+{
+	char	**tablo;
+	int		ret;
+
+	tablo = rm_whitespace_tab(args);
+	if (!tablo)
+	{
+		perror("malloc");
+		exit (1);
+	}
+	ret = 0;
+	if (tablo[1])
+	{
+		ret = exit_check_errors(tablo);
+		if (ret != 0)
+		{
+			free_tab(tablo);
+			exit (ret);
+		}
+		ret = atoi(tablo[1]) % 256;
+	}
+	free_tab(tablo);
+	free_all_parser(parse);
+	free_exec(exec);
+	exit(ret);
+}
+
 int	mini_exit(char **args, t_parser *parse, t_exec *exec)
 {
 	char	**tablo;
@@ -52,17 +84,18 @@ int	mini_exit(char **args, t_parser *parse, t_exec *exec)
 	if (!tablo)
 		return (perror("malloc"), 1);
 	ft_putstr_fd("exit\n", 1);
+	ret = 0;
 	if (args[1])
 	{
 		ret = exit_check_errors(tablo);
-		free_tab(tablo);
 		if (ret != 0)
-			return (ret);
-		ret = atoi(args[1]) % 256;
-		exec_quit(parse, exec);
-		exit(ret);
+		{
+			free_tab(tablo);
+			exit (ret);
+		}
+		ret = atoi(tablo[1]) % 256;
 	}
 	free_tab(tablo);
 	exec_quit(parse, exec);
-	exit(0);
+	exit(ret);
 }

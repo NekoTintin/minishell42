@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:19:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/04 02:46:23 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:22:09 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	**pipe_tab_init(int size)
 	return (tablo);
 }
 
-t_exec	*exec_init(int child, t_cmd *top, t_env *env)
+t_exec	*exec_init(int child, t_cmd *top, t_env *env, t_minishell *mini)
 {
 	t_exec		*exec;
 
@@ -99,6 +99,7 @@ t_exec	*exec_init(int child, t_cmd *top, t_env *env)
 		return (NULL);
 	exec->nb_child = child;
 	exec->env = env;
+	exec->mini = mini;
 	exec->top = ft_create_pipeline(child, top, exec);
 	if (!exec->top)
 		return (free(exec), NULL);

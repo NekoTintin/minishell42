@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/19 11:41:37 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:58:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	exec_cmd(t_pipeline *pl, t_parser *parse, t_exec *exec)
 	char	**envp;
 	int		builtin_type;
 
+	builtin_type = is_builtin(pl->cmd->argument[0]);
+	if (builtin_type > 0)
+		return (exec_builtin_pipeline(pl->cmd, parse, exec, builtin_type));
 	ntab = rm_whitespace_tab(pl->cmd->argument);
 	if (!ntab)
 		return (perror("malloc"), 1);
 	free_tab(pl->cmd->argument);
 	pl->cmd->argument = ntab;
-	builtin_type = is_builtin(ntab[0]);
-	if (builtin_type > 0)
-		return (exec_builtin_pipeline(pl->cmd, parse, exec, builtin_type));
 	code = ft_find_in_path(&pl->cmd->argument[0], exec->env);
 	if (code != 0)
 		return (free_tab(ntab), code);
@@ -51,16 +51,11 @@ int	child_process(t_pipeline *pl, t_exec *exec, t_parser *parse)
 	if (pl->id < exec->nb_child - 1)
 		if (dup2(exec->pipe_tab[pl->id][1], STDOUT_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
-	if (ft_redirects(pl->cmd, STDIN_FILENO, STDOUT_FILENO, exec->env) != 0)
+	if (ft_redirects(pl->cmd, STDIN_FILENO, STDOUT_FILENO, exec) != 0)
 		exit(1);
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (ft_print_errors("pipes", 0), 1);
 	code = exec_cmd(pl, parse, exec);
-	if (code != 0)
-	{
-		ft_print_errors("exec_cmd", code);
-		return (code);
-	}
 	return (code);
 }
 
@@ -104,7 +99,6 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 			return (ft_print_errors("fork", 0), 1);
 		if (cur->pid == 0)
 		{
-
 			sig_setup_defaut();
 			code = child_process(cur, exec, parse);
 			exit(code);
@@ -117,12 +111,13 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 		}
 		cur = cur->next;
 	}
+	sig_set_to_ignore();
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (1);
 	return (code);
 }
 
-int	exec_main(t_parser *parse, t_env *env)
+int	exec_main(t_parser *parse, t_env *env, t_minishell *mini)
 {
 	t_exec	*exec;
 	int		code;
@@ -138,9 +133,12 @@ int	exec_main(t_parser *parse, t_env *env)
 		exec->nb_child = 1;
 		exec->env = env;
 		exec->top = NULL;
-		return (exec_one(parse->top, parse, exec));
+		exec->mini = mini;
+		code = exec_one(parse->top, parse, exec);
+		free_exec(exec);
+		return (code);
 	}
-	exec = exec_init(parse->size, parse->top, env);
+	exec = exec_init(parse->size, parse->top, env, mini);
 	if (!exec)
 		return (1);
 	code = exec_main_loop(parse, exec);

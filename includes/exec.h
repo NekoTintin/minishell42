@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/19 10:59:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:08:55 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct s_pipeline	t_pipeline;
 typedef struct s_env		t_env;
+typedef struct s_minishell	t_minishell;
 
 typedef struct s_exec
 {
@@ -24,6 +25,7 @@ typedef struct s_exec
 	t_pipeline	*top;
 	t_env		*env;
 	int			**pipe_tab;
+	t_minishell	*mini;
 }	t_exec;
 
 typedef struct s_pipeline
@@ -44,7 +46,7 @@ int			exec_builtin(t_cmd *cmd, t_parser *parse,
 int			exec_builtin_pipeline(t_cmd *cmd, t_parser *parse,
 				t_exec *exec, int type);
 // exec.c //
-int			exec_main(t_parser *parser, t_env *env);
+int			exec_main(t_parser *parser, t_env *env, t_minishell *mini);
 
 // structs_init.c //
 void		free_exec(t_exec *exec);
@@ -54,7 +56,7 @@ t_pipeline	*ft_create_pipeline(int nb, t_cmd *cmd, t_exec *exec);
 // exec_init.c //
 void		free_int_tab(int **tablo, int size);
 int			close_all_pipes(int **tablo, int size);
-t_exec		*exec_init(int child, t_cmd *cmd, t_env *env);
+t_exec		*exec_init(int child, t_cmd *cmd, t_env *env, t_minishell *mini);
 
 // exec_utils.c //
 char		**rm_whitespace_tab(char **tablo);
@@ -68,7 +70,7 @@ int			check_exec(char *exec);
 
 // redirect.c //
 int			search_redirect(t_cmd *cmd, t_token_type type);
-int			ft_redirects(t_cmd *cmd, int p1, int p2, t_env *env);
+int			ft_redirects(t_cmd *cmd, int p1, int p2, t_exec *exec);
 
 // env.c //
 t_env		*ft_create_tenv(char **envp);
@@ -82,18 +84,23 @@ int			exec_one(t_cmd *cmd, t_parser *parse, t_exec *exec);
 int			ft_find_in_path(char **file, t_env *env);
 
 // redirect_heredoc.c //
-int			exec_heredoc(t_redirect *red, t_env *env);
+int			exec_heredoc(t_redirect *red, t_exec *exec);
 
-// replace_env_var.c //
-char		*replace_var(char *str, t_env *env);
+// redirect_utils.c //
+void		free_heredoc(t_exec *exec);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);
 void		mini_echo(char **args);
 int			mini_env(t_env *env);
 int			mini_exit(char **args, t_parser *parse, t_exec *exec);
+int			mini_exit_for_children(char **args, t_parser *parse, t_exec *exec);
 int			mini_export(char **argument, t_env *env);
 int			mini_pwd(void);
 int			mini_unset(char **args, t_env *env);
+
+// signals.c //
+void		sig_set_to_default(void);
+void		sig_set_to_ignore(void);
 
 #endif

@@ -6,64 +6,48 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:05 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/19 10:59:39 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:08:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/exec.h"
 
-int	skip_spaces(char **tablo)
+int	no_newline(char *str)
 {
 	int	i;
-	int	j;
 
-	i = 0;
-	while (tablo[i])
-	{
-		j = 0;
-		while (tablo[i][j] == ' ')
-			j++;
-		if (tablo[i][j] != '\0')
-			break ;
+	if (!str || str[0] != '-' || str[1] != 'n')
+		return (0);
+	i = 2;
+	while (str[i] == 'n')
 		i++;
-	}
-	return (i);
-}
-
-int	echo_check_args(char **arg)
-{
-	int		i;
-	int		j;
-
-	i = skip_spaces(arg);
-	if (!arg[i])
-		return (1);
-	if (arg[i][0] != '-' || arg[i][1] != 'n')
-		return (1);
-	j = 2;
-	while (arg[i][j] == 'n')
-		j++;
-	if (arg[i][j] != '\0')
-		return (1);
-	return (0);
+	return (str[i] == '\0');
 }
 
 void	mini_echo(char **args)
 {
-	int		idx;
-	int		new_line;
+	char		**ntab;
+	int			nl;
+	int			idx;
+	int			first;
 
-	if (!args[1])
+	ntab = rm_whitespace_tab(args + 1);
+	if (!ntab || !*ntab)
 		return ;
-	new_line = echo_check_args(args + 1);
-	idx = 1;
-	if (new_line == 0)
-		idx = skip_spaces(args) + 1;
-	while (args[idx])
+	nl = no_newline(ntab[0]);
+	idx = 0;
+	if (nl)
+		idx++;
+	first = 0;
+	while (ntab[idx])
 	{
-		ft_putstr_fd(args[idx], 1);
+		if (first > 0)
+			write(1, " ", 1);
+		ft_putstr_fd(ntab[idx], 1);
+		first++;
 		idx++;
 	}
-	if (new_line == 1)
-		ft_putstr_fd("\n", 1);
+	if (nl == 0)
+		write(1, "\n", 1);
+	free_tab(ntab);
 }
