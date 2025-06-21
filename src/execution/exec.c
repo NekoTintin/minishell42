@@ -103,11 +103,6 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 			code = child_process(cur, exec, parse);
 			exit(code);
 		}
-		else 
-		{
-			signal(SIGINT, SIG_IGN);
-			sig_setup_mini();	
-		}
 		cur = cur->next;
 	}
 	sig_set_to_ignore();
