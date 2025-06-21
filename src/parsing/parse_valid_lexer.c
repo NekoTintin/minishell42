@@ -82,7 +82,7 @@ int	valid_redirect(t_lexer *lexer)
 		{
 			if (node->next == NULL)
 				return (1);
-			while (node != NULL)
+			while (node != NULL && node->next != NULL)
 			{
 				node = node->next;
 				if (node->type == WORD)
