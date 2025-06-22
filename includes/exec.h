@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/20 18:08:55 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:48:13 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ typedef struct s_pipeline
 	int			id;
 	pid_t		pid;
 	t_cmd		*cmd;
+	int			*heredoc_pipe;
 	t_pipeline	*next;
 	t_exec		*exec;
 }	t_pipeline;
 
 // builtins.c //
-int			exec_builtin_solo(t_cmd *cmd, t_parser *parse,
+int			exec_builtin_solo(t_pipeline *pl, t_parser *parse,
 				t_exec *exec, int type);
 int			is_builtin(char *cmd);
 int			exec_builtin(t_cmd *cmd, t_parser *parse,
@@ -67,10 +68,11 @@ void		exec_quit(t_parser *parse, t_exec *exec);
 int			file_read(char *file);
 int			file_write(char *file, t_token_type type);
 int			check_exec(char *exec);
+void		free_res(t_exec *exec);
 
 // redirect.c //
-int			search_redirect(t_cmd *cmd, t_token_type type);
-int			ft_redirects(t_cmd *cmd, int p1, int p2, t_exec *exec);
+int			search_red(t_cmd *cmd, t_token_type type);
+int			ft_redirects(t_pipeline *pl, int p1, int p2);
 
 // env.c //
 t_env		*ft_create_tenv(char **envp);
@@ -83,8 +85,11 @@ int			exec_one(t_cmd *cmd, t_parser *parse, t_exec *exec);
 // find_in_path.c //
 int			ft_find_in_path(char **file, t_env *env);
 
+// redirect_heredoc_pipeline.c //
+int			exec_prepare_heredoc(t_exec *exec);
+
 // redirect_heredoc.c //
-int			exec_heredoc(t_redirect *red, t_exec *exec);
+int			exec_heredoc(t_redirect *red, int hd_pipes[2], t_exec *exec);
 
 // redirect_utils.c //
 void		free_heredoc(t_exec *exec);

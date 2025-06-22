@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/20 18:12:16 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:33:08 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	ft_write_pipe(int fd, char *delim)
 	return (1);
 }
 
-int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_exec *exec)
+int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2],
+		t_exec *exec)
 {
 	pid_t		child;
 	int			status;
@@ -79,18 +80,13 @@ int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2], t_exec *exec)
 	close_pipes(hd_pipe, 0, 1);
 	if (waitpid(child, &status, 0) == -1)
 		return (ft_print_errors("waitpid", 0), 1);
-	if (WIFSIGNALED(status))
-		return (1);
-	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-		return (1);
 	sig_setup_mini();
-	return (0);
+	return (WIFSIGNALED(status)
+		|| (WIFEXITED(status) && WEXITSTATUS(status) != 0));
 }
 
-int	exec_heredoc(t_redirect *red, t_exec *exec)
+int	exec_heredoc(t_redirect *red, int hd_pipe[2], t_exec *exec)
 {
-	int			hd_pipe[2];
-
 	if (pipe(hd_pipe) == -1)
 		return (ft_print_errors("pipe", 0), 1);
 	if (exec_heredoc_readline(red, hd_pipe, exec) != 0)
@@ -100,6 +96,5 @@ int	exec_heredoc(t_redirect *red, t_exec *exec)
 		close_pipes(hd_pipe, 1, 0);
 		return (ft_print_errors("dup2", 0), 1);
 	}
-	close_pipes(hd_pipe, 1, 0);
 	return (0);
 }

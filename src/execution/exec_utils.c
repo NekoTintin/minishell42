@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:30:38 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/18 19:39:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:12:35 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int	exec_restore_stdfd(int fd_in, int fd_out)
 	if (dup2(fd_out, STDOUT_FILENO) == -1)
 		return (ft_print_errors("dup2", 0), 1);
 	close(fd_in);
+	fd_in = -1;
 	close(fd_out);
+	fd_out = -1;
 	return (code);
 }
 

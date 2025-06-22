@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/20 17:58:51 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:47:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,15 @@ int	child_process(t_pipeline *pl, t_exec *exec, t_parser *parse)
 	if (pl->id < exec->nb_child - 1)
 		if (dup2(exec->pipe_tab[pl->id][1], STDOUT_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
-	if (ft_redirects(pl->cmd, STDIN_FILENO, STDOUT_FILENO, exec) != 0)
+	if (ft_redirects(pl, STDIN_FILENO, STDOUT_FILENO) != 0)
 		exit(1);
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (ft_print_errors("pipes", 0), 1);
 	code = exec_cmd(pl, parse, exec);
+	ft_free_env(exec->env);
+	free(exec->mini);
+	free_exec(exec);
+	clear_history();
 	return (code);
 }
 
@@ -127,7 +131,6 @@ int	exec_main(t_parser *parse, t_env *env, t_minishell *mini)
 		exec->pipe_tab = NULL;
 		exec->nb_child = 1;
 		exec->env = env;
-		exec->top = NULL;
 		exec->mini = mini;
 		code = exec_one(parse->top, parse, exec);
 		free_exec(exec);
