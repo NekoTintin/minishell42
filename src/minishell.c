@@ -112,9 +112,11 @@ void	mini_code_error(int code, t_lexer *lexer, t_env *env)
 {
 	t_token	*curr;
 	char	*value;
+	bool	in_squote;
 
 	curr = lexer->header;
 	value = NULL;
+	in_squote = false;
 	while (curr != NULL)
 	{
 		if (curr->type == VAR_ENV && \
@@ -123,7 +125,7 @@ void	mini_code_error(int code, t_lexer *lexer, t_env *env)
 			free(curr->value);
 			curr->value = ft_itoa(code);
 		}
-		if (curr->type == VAR_ENV && \
+		if (curr->type == VAR_ENV && in_squote == false &&\
 			curr->value[1] != '?' && ft_strlen(curr->value) > 2)
 		{
 			value = strdup(ft_env_get_value(env, &curr->value[1]));
@@ -133,6 +135,8 @@ void	mini_code_error(int code, t_lexer *lexer, t_env *env)
 			curr->value = ft_strdup(value);
 			free(value);
 		}
+		if (curr->type == S_QUOTE)
+			in_squote = true;
 		curr = curr->next;
 	}
 }
