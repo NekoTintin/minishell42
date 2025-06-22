@@ -135,7 +135,7 @@ void	mini_code_error(int code, t_lexer *lexer, t_env *env)
 			curr->value = ft_strdup(value);
 			free(value);
 		}
-		if (curr->type == S_QUOTE)
+		if (curr->type == S_QUOTES)
 			in_squote = true;
 		curr = curr->next;
 	}
