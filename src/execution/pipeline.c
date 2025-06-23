@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:33:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 12:35:15 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:33:57 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,6 @@ void	pipeline_free(t_pipeline *top)
 	while (cur)
 	{
 		next = cur->next;
-		if (cur->heredoc_pipe)
-		{
-			if (cur->heredoc_pipe[0] != -1)
-				close(cur->heredoc_pipe[0]);
-			if (cur->heredoc_pipe[1] != -1)
-				close(cur->heredoc_pipe[1]);
-			free(cur->heredoc_pipe);
-		}
 		free(cur);
 		cur = next;
 	}
@@ -77,9 +69,6 @@ t_pipeline	*pipeline_init(int nb, t_cmd *top_cmd, t_exec *exec)
 		cur_pl->cmd = cur_cmd;
 		cur_pl->pid = -1;
 		cur_pl->exec = exec;
-		cur_pl->heredoc_pipe = ft_calloc(2, sizeof(int));
-		if (!cur_pl->heredoc_pipe)
-			return (NULL);
 		if (nb == 1)
 			return (top_pl);
 		cur_pl->next = ft_calloc(1, sizeof(t_pipeline));

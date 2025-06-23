@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 23:08:48 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/17 19:52:48 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:50:24 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,23 @@ static int	ft_absolute(char **file)
 	return (0);
 }
 
+int	str_contains_only_whitespace(char *str)
+{
+	int		i;
+
+	if (!str || !*str)
+		return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'
+			&& str[i] != '\r' && str[i] != '\v' && str[i] != '\f')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_find_in_path(char **file, t_env *env)
 {
 	int			code;
@@ -82,7 +99,10 @@ int	ft_find_in_path(char **file, t_env *env)
 			return (free_tab(splited), code);
 		idx++;
 	}
-	ft_putstr_fd(*file, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	if (str_contains_only_whitespace(*file) == 0)
+	{
+		ft_putstr_fd(*file, STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	}
 	return (free_tab(splited), 127);
 }

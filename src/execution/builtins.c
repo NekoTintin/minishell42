@@ -6,13 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/22 19:47:36 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:39:06 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exec_builtin_solo(t_pipeline *pl, t_parser *parse, t_exec *exec, int type)
+int	exec_builtin_solo(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 {
 	int		fd_in;
 	int		fd_out;
@@ -22,17 +22,17 @@ int	exec_builtin_solo(t_pipeline *pl, t_parser *parse, t_exec *exec, int type)
 	fd_out = dup(STDOUT_FILENO);
 	if (fd_in < 0 || fd_out < 0)
 		return (ft_print_errors("bash: dup2", 0), 1);
-	if (ft_redirects(pl, fd_in, fd_out) != 0)
+	if (ft_redirects(cmd, fd_in, fd_out) != 0)
 	{
 		exec_restore_stdfd(fd_in, fd_out);
 		return (1);
 	}
-	if (is_builtin(pl->cmd->argument[0]) == 7)
+	if (is_builtin(cmd->argument[0]) == 7)
 	{
 		exec_restore_stdfd(fd_in, fd_out);
-		mini_exit(pl->cmd->argument, parse, exec);
+		mini_exit(cmd->argument, parse, exec);
 	}
-	code = exec_builtin(pl->cmd, parse, exec, type);
+	code = exec_builtin(cmd, parse, exec, type);
 	exec_restore_stdfd(fd_in, fd_out);
 	return (code);
 }

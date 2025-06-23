@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:01:22 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 13:08:43 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:36:59 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_redirect
 {
 	t_token_type	type;
 	char			**file;
+	char			*heredoc;
 	t_redirect		*next;
 }	t_redirect;
 

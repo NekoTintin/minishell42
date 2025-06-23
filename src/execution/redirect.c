@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/22 19:32:48 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:37:05 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ int	exec_redir_infile(t_redirect *red, int fd)
 	return (0);
 }
 
-int	exec_redirect_input(t_pipeline *pl)
+int	exec_redirect_input(t_cmd *cmd)
 {
 	t_redirect	*cur;
 	int			code;
 
 	code = 0;
-	cur = pl->cmd->redirect;
+	cur = cmd->redirect;
 	while (cur)
 	{
 		if (cur->type == REDIRECT_IN)
@@ -88,24 +88,18 @@ int	exec_redirect_input(t_pipeline *pl)
 			if (code != 0)
 				return (code);
 		}
-		else if (cur->type == HEREDOC)
-		{
-			code = exec_redir_infile(cur, pl->heredoc_pipe[0]);
-			if (code != 0)
-				return (code);
-		}
 		cur = cur->next;
 	}
 	return (code);
 }
 
-int	ft_redirects(t_pipeline *pl, int p1, int p2)
+int	ft_redirects(t_cmd *cmd, int p1, int p2)
 {
 	int		return_code;
 
-	if (search_red(pl->cmd, REDIRECT_IN) || search_red(pl->cmd, HEREDOC))
+	if (search_red(cmd, REDIRECT_IN))
 	{
-		return_code = exec_redirect_input(pl);
+		return_code = exec_redirect_input(cmd);
 		if (return_code != 0)
 			return (return_code);
 	}
@@ -114,9 +108,9 @@ int	ft_redirects(t_pipeline *pl, int p1, int p2)
 		if (dup2(p1, STDIN_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
 	}
-	if (search_red(pl->cmd, REDIRECT_OUT) || search_red(pl->cmd, APPEND))
+	if (search_red(cmd, REDIRECT_OUT) || search_red(cmd, APPEND))
 	{
-		return_code = exec_redirect_output(pl->cmd);
+		return_code = exec_redirect_output(cmd);
 		if (return_code != 0)
 			return (return_code);
 	}

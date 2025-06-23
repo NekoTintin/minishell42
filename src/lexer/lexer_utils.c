@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <bchallat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 21:48:04 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/02/25 15:29:35 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:08:21 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 
 static int	lx_test_c(char *c)
 {
-	if (*c == '>' || *c == '|' || *c == '<' \
+	if (*c == '>' || *c == '|' || *c == '<'
 		|| *c == 32 || *c == 36 || *c == 39 || *c == 34)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/06/22 19:49:29 by qupollet         ###   ########.fr        #
+#    Updated: 2025/06/23 17:09:38 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,11 +68,9 @@ SRC	=	minishell.c \
 		execution/file_management.c \
 		execution/find_in_path.c \
 		execution/pipeline.c \
-		execution/redirect_heredoc_pipeline.c \
 		execution/redirect_heredoc.c \
 		execution/redirect.c \
 		execution/redirect_utils.c \
-		execution/signals.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}

@@ -6,29 +6,13 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 12:42:04 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:04:58 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	close_pipes(int hd_pipe[2], int p1, int p2)
-{
-	if (p1 == 1 && hd_pipe[0] != -1)
-	{
-		if (close(hd_pipe[0]) == -1)
-			perror("bash: close");
-		hd_pipe[0] = -1;
-	}
-	if (p2 == 1 && hd_pipe[1] != -1)
-	{
-		if (close(hd_pipe[1]) == -1)
-			perror("bash: close");
-		hd_pipe[1] = -1;
-	}
-}
-
-int	ft_write_pipe(int fd, char *delim)
+int	ft_write_fd(int fd, char *delim)
 {
 	char		*input;
 	char		*new;
@@ -57,44 +41,63 @@ int	ft_write_pipe(int fd, char *delim)
 	return (1);
 }
 
-int	exec_heredoc_readline(t_redirect *red, int hd_pipe[2],
-		t_exec *exec)
+int	exec_heredoc_loop(t_redirect *red, int counter)
 {
-	pid_t		child;
-	int			status;
+	int			fd;
+	int			code;
+	static int	heredoc_count;
 
-	child = fork();
-	if (child < 0)
-		return (perror("bash: fork"), 1);
-	if (child == 0)
+	fd = heredoc_file(red);
+	if (fd == -1)
+		return (1);
+	code = ft_write_fd(fd, red->file[0]);
+	close(fd);
+	heredoc_count++;
+	if (heredoc_count < counter)
 	{
-		close_pipes(hd_pipe, 1, 0);
-		setup_signals_heredoc();
-		if (ft_write_pipe(hd_pipe[1], red->file[0]) == -1)
-			exit (1);
-		close_pipes(hd_pipe, 0, 1);
-		free_heredoc(exec);
-		exit (0);
+		if (unlink(red->heredoc) == -1)
+			return (free(red->heredoc), ft_print_errors(red->heredoc, 126), 1);
+		free(red->heredoc);
 	}
-	signal(SIGINT, SIG_IGN);
-	close_pipes(hd_pipe, 0, 1);
-	if (waitpid(child, &status, 0) == -1)
-		return (ft_print_errors("waitpid", 0), 1);
-	sig_setup_mini();
-	return (WIFSIGNALED(status)
-		|| (WIFEXITED(status) && WEXITSTATUS(status) != 0));
+	if (code != 0)
+		return (code);
+	return (0);
 }
 
-int	exec_heredoc(t_redirect *red, int hd_pipe[2], t_exec *exec)
+int	heredoc_number(t_redirect *red)
 {
-	if (pipe(hd_pipe) == -1)
-		return (ft_print_errors("pipe", 0), 1);
-	if (exec_heredoc_readline(red, hd_pipe, exec) != 0)
-		return (close_pipes(hd_pipe, 1, 0), 1);
-	if (dup2(hd_pipe[0], STDIN_FILENO) == -1)
+	int			counter;
+	t_redirect	*cur;
+
+	cur = red;
+	counter = 0;
+	while (cur)
 	{
-		close_pipes(hd_pipe, 1, 0);
-		return (ft_print_errors("dup2", 0), 1);
+		if (cur->type == HEREDOC)
+			counter++;
+		cur = cur->next;
+	}
+	return (counter);
+}
+
+int	exec_heredoc(t_cmd *cmd)
+{
+	t_redirect		*red;
+	int				code;
+	int				counter;
+
+	code = 0;
+	red = cmd->redirect;
+	counter = heredoc_number(red);
+	while (red)
+	{
+		if (red->type == HEREDOC)
+		{
+			code = exec_heredoc_loop(red, counter);
+			if (code != 0)
+				return (code);
+		}
+		red = red->next;
 	}
 	return (0);
 }

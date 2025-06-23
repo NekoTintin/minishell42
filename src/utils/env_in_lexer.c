@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_in_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:04:53 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/23 12:04:55 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/06/23 12:47:49 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 
 	curr = lexer->header;
 	value = NULL;
+	(void)value;
 	in_squote = false;
 	while (curr != NULL)
 	{
