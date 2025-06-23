@@ -6,28 +6,23 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:53:34 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/22 17:42:00 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:36:36 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int			mini_loop(t_minishell *mini);
-t_minishell		*mini_init(char **envp);
-void			mini_free(t_minishell *mini);
-void			mini_code_error(int code, t_lexer *lexer, t_env *env);
-
-
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*mini;
 
 	if (argc != 1 || argv[1] != NULL || envp == NULL)
-		return (EXIT_FAILURE);	
-	if ((mini = mini_init(envp)) == NULL)
 		return (EXIT_FAILURE);
-
+	mini = mini_init(envp);
+	if (mini == NULL)
+		return (EXIT_FAILURE);
 	sig_setup_mini();
 	mini_loop(mini);
 	mini_free(mini);
@@ -49,61 +44,11 @@ int	mini_loop(t_minishell *mini)
 			free(mini->line);
 		else
 		{
-			if ((mini->lexer = mi_make_lexer(mini->line)) == NULL)
+			if (mini_exec_line(mini, &code_error) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
-			free(mini->line);
-			get_val_tenv(code_error, mini->lexer, mini->env);
-			if ((mini->parse = mi_make_parse(mini->parse, mini->lexer)) != NULL)
-				if ((code_error = exec_main(mini->parse, mini->env, mini)) == -1)
-					return (EXIT_FAILURE);
-			mini->line = NULL;
-			free_all_parser(mini->parse);
-			mini->parse = NULL;
 		}
 	}
 	rl_clear_history();
 	free(mini->line);
 	return (EXIT_SUCCESS);
 }
-
-void	mini_readline(t_minishell *mini)
-{
-	mini->line = readline("minishell$");
-	/*if ()
-	{
-		
-	}*/
-	if (mini->line == NULL)
-	{
-		write(1, "exit\n", 5);
-		mini_free(mini);
-		exit(0);
-	}
-}
-
-t_minishell	*mini_init(char **envp)
-{
-	t_minishell	*mini;
-
-	mini = (t_minishell *)malloc(sizeof(t_minishell));
-	mini->line = NULL;
-	mini->lexer = NULL;
-	mini->parse = NULL;
-	mini->env = ft_create_tenv(envp);
-	if (mini->env == NULL)
-		return (NULL);
-	mini->status = true;
-	return (mini);
-}
-
-void	mini_free(t_minishell *mini)
-{
-	if (mini->parse != NULL)
-		free_all_parser(mini->parse);
-	if (mini->env != NULL)
-		ft_free_env(mini->env);
-	free(mini); 
-}
-
-
-
