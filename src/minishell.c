@@ -52,7 +52,7 @@ int	mini_loop(t_minishell *mini)
 			if ((mini->lexer = mi_make_lexer(mini->line)) == NULL)
 				return (EXIT_FAILURE);
 			free(mini->line);
-			mini_code_error(code_error, mini->lexer, mini->env);
+			get_val_tenv(code_error, mini->lexer, mini->env);
 			if ((mini->parse = mi_make_parse(mini->parse, mini->lexer)) != NULL)
 				if ((code_error = exec_main(mini->parse, mini->env, mini)) == -1)
 					return (EXIT_FAILURE);
@@ -106,37 +106,4 @@ void	mini_free(t_minishell *mini)
 }
 
 
-/* ************************************************************** */
 
-void	mini_code_error(int code, t_lexer *lexer, t_env *env)
-{
-	t_token	*curr;
-	char	*value;
-	bool	in_squote;
-
-	curr = lexer->header;
-	value = NULL;
-	in_squote = false;
-	while (curr != NULL)
-	{
-		if (curr->type == VAR_ENV && \
-			curr->value[1] == '?' && ft_strlen(curr->value) == 2)
-		{
-			free(curr->value);
-			curr->value = ft_itoa(code);
-		}
-		if (curr->type == VAR_ENV && in_squote == false &&\
-			curr->value[1] != '?' && ft_strlen(curr->value) > 2)
-		{
-			value = strdup(ft_env_get_value(env, &curr->value[1]));
-			if (value == NULL)
-				return ;
-			free(curr->value);
-			curr->value = ft_strdup(value);
-			free(value);
-		}
-		if (curr->type == S_QUOTES)
-			in_squote = true;
-		curr = curr->next;
-	}
-}
