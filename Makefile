@@ -34,8 +34,8 @@ NAME = minishell
 #===========================================================#
 
 SRC	=	minishell.c \
-		signal.c \
-		env_in_lexer.c \
+		utils/signal.c \
+		utils/env_in_lexer.c \
 		env/env_func.c \
 		env/env_utils.c \
 		env/env_init.c \
@@ -119,7 +119,7 @@ ${OBJDIR}:
 	@mkdir -p ${OBJDIR}/parsing
 	@mkdir -p ${OBJDIR}/signal
 	@mkdir -p ${OBJDIR}/testeur
-	@mkdir -p ${OBJDIR}/util
+	@mkdir -p ${OBJDIR}/utils
 	@mkdir -p ${OBJDIR}/execution
 	@mkdir -p ${OBJDIR}/execution/builtin
 	@mkdir -p ${OBJDIR}/env

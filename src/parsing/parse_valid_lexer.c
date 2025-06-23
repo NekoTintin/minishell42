@@ -59,7 +59,8 @@ static int	valid_pipe(t_lexer *lexer)
 	curr = lexer->header;
 	while (curr != NULL)
 	{
-		curr = valid_skip_space(curr);
+		if (curr->type == PIPE)
+			curr = valid_skip_space(curr);
 		if (curr == NULL)
 			return (1);
 		if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
@@ -100,7 +101,7 @@ int	valid_redirect(t_lexer *lexer)
 
 t_token	*valid_skip_space(t_token *node)
 {
-	while (node->type == WHITESPACE)
+	while (node != NULL && node->type == WHITESPACE)
 	{
 		if (node->next == NULL)
 			return (NULL);

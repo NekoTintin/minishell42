@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 bool	sigle_cote(t_token *curr, bool squote);
 void	tenv_error_code(t_token *curr, int code);
