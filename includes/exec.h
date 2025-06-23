@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 16:52:03 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:10:22 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ int			heredoc_file(t_redirect *red);
 int			check_exec(char *exec);
 
 // redirect.c //
-int			search_red(t_cmd *cmd, t_token_type type);
 int			ft_redirects(t_cmd *cmd, int p1, int p2);
+
+// redirect_utils.c //
+int			search_red(t_cmd *cmd, t_token_type type);
 
 // env.c //
 t_env		*ft_create_tenv(char **envp);
@@ -87,9 +89,6 @@ int			ft_find_in_path(char **file, t_env *env);
 // redirect_heredoc.c //
 int			exec_heredoc(t_cmd *cmd);
 
-// redirect_utils.c //
-void		free_heredoc(t_exec *exec);
-
 // builtins //
 int			mini_cd(char **args, t_env *env);
 void		mini_echo(char **args);
@@ -99,9 +98,5 @@ int			mini_exit_for_children(char **args, t_parser *parse, t_exec *exec);
 int			mini_export(char **argument, t_env *env);
 int			mini_pwd(void);
 int			mini_unset(char **args, t_env *env);
-
-// signals.c //
-void		sig_set_to_default(void);
-void		sig_set_to_ignore(void);
 
 #endif

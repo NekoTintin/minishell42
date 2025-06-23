@@ -5,25 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 17:05:03 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/20 18:13:41 by qupollet         ###   ########.fr       */
+/*   Created: 2025/06/23 17:53:30 by qupollet          #+#    #+#             */
+/*   Updated: 2025/06/23 18:10:17 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_heredoc(t_exec *exec)
+int	search_red(t_cmd *cmd, t_token_type type)
 {
-	if (!exec)
-		return ;
-	if (exec->mini->parse)
-		free_all_parser(exec->mini->parse);
-	free(exec->mini);
-	if (exec->env)
+	t_redirect	*cur;
+
+	cur = cmd->redirect;
+	while (cur)
 	{
-		ft_free_env(exec->env);
-		exec->env = NULL;
+		if (cur->type == type)
+			return (1);
+		cur = cur->next;
 	}
-	free_exec(exec);
-	clear_history();
+	return (0);
 }

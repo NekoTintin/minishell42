@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 17:11:45 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:01:16 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 	t_pipeline	*cur;
 	int			code;
 
-	code = 0;
 	cur = exec->top;
 	while (cur)
 	{
