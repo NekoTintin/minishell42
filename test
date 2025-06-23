@@ -1,4 +1,3 @@
-		execution/builtin/mini_echo.c \
 	@echo  "$(GREEN)[OK]       	🛠️ $(YELLOW)Compaling ... $(BLUE)$<"
 	@echo  "$(GREEN)[..]       	🛠️ $(YELLOW)MAKE	libft ...$(BLUE)libft/libft.a\n"
 	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	.exe ... $(BLUE)Minishell\n"

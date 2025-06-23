@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 20:34:36 by qupollet          #+#    #+#             */
-/*   Updated: 2025/05/27 21:21:19 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:11:55 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_free_env(t_env *top)
 {
 	t_env	*tmp;
 
+	if (!top)
+		return ;
 	while (top)
 	{
 		tmp = top;
