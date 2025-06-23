@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:33:00 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/22 19:52:22 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 12:35:15 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void	pipeline_free(t_pipeline *top)
 	while (cur)
 	{
 		next = cur->next;
+		if (cur->heredoc_pipe)
+		{
+			if (cur->heredoc_pipe[0] != -1)
+				close(cur->heredoc_pipe[0]);
+			if (cur->heredoc_pipe[1] != -1)
+				close(cur->heredoc_pipe[1]);
+			free(cur->heredoc_pipe);
+		}
 		free(cur);
 		cur = next;
 	}
