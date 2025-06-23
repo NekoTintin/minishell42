@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/20 17:27:30 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:52:33 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@
 
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
+	char				*key;
+	char				*value;
+	struct s_env		*next;
+}	t_env;
 
 typedef struct s_minishell
 {
@@ -52,8 +52,7 @@ typedef struct s_minishell
 	t_parser	*parse;
 	t_env		*env;
 	bool		status;
-}					t_minishell;
-
+}	t_minishell;
 
 void	get_val_tenv(int code, t_lexer *lexer, t_env *env);
 
@@ -69,29 +68,29 @@ void	handle_sigint_heredoc(int sig);
 
 /* *************************************************** */
 // functions in pwd.c
-char		*ft_pwd(void);
+char	*ft_pwd(void);
 
 // functions in pars_utils.c
-char		*ft_get_from_env(char *env_var, char **envp);
+char	*ft_get_from_env(char *env_var, char **envp);
 
 // functions in env_init.c
-t_env		*ft_create_tenv(char **envp);
-void		ft_free_env(t_env *top);
+t_env	*ft_create_tenv(char **envp);
+void	ft_free_env(t_env *top);
 
 // functions in env_func.c
-int			ft_add_to_env(t_env *top, char *key, char *val);
-char		*ft_env_get_value(t_env *env, char *key);
-char		**ft_env_to_tab(t_env *env);
-int			env_remove(t_env **env, char *key);
+int		ft_add_to_env(t_env *top, char *key, char *val);
+char	*ft_env_get_value(t_env *env, char *key);
+char	**ft_env_to_tab(t_env *env);
+int		env_remove(t_env **env, char *key);
 
 // functions in env_utils.c
-int			exec_env_size(t_env *env);
-void		free_tab(char **tablo);
+int		exec_env_size(t_env *env);
+void	free_tab(char **tablo);
 
 // !!!fonc for export !!!
-void		print_env_array(char **var_env);
-char		**cp_array_env(char **envp, int length);
-int			ft_arrlen(char **array);
-void		free_array(char **array);
+void	print_env_array(char **var_env);
+char	**cp_array_env(char **envp, int length);
+int		ft_arrlen(char **array);
+void	free_array(char **array);
 
 #endif

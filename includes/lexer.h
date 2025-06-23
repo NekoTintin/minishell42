@@ -6,16 +6,15 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:57:23 by unbuntu           #+#    #+#             */
-/*   Updated: 2025/05/26 12:12:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:45:13 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#include "minishell.h"
+# include "minishell.h"
 
-// Déclaration anticipée de `t_tokenization`
 typedef struct s_token	t_token;
 
 typedef enum e_token_type
@@ -35,10 +34,10 @@ typedef enum e_token_type
 
 typedef struct s_token
 {
-	int		index;
-	char		*value;
+	int				index;
+	char			*value;
 	t_token_type	type;
-	t_token		*next;
+	t_token			*next;
 }	t_token;
 
 typedef struct s_lexer

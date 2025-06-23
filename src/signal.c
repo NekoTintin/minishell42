@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int		g_sig = 0;
+int	g_sig = 0;
 
 void	sig_setup_mini(void)
 {
