@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 18:11:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:57:08 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,28 +117,22 @@ int	exec_loop_redirect(t_cmd *cmd)
 
 int	ft_redirects(t_cmd *cmd, int p1, int p2)
 {
-	t_cmd		*cur;
 	int			code;
 
-	cur = cmd;
-	while (cur)
+	code = exec_loop_redirect(cmd);
+	if (code != 0)
+		return (code);
+	if (!search_red(cmd, REDIRECT_IN) && !search_red(cmd, HEREDOC)
+		&& p1 != STDIN_FILENO)
 	{
-		code = exec_loop_redirect(cur);
-		if (code != 0)
-			return (code);
-		if (!search_red(cmd, REDIRECT_IN) && !search_red(cmd, HEREDOC)
-			&& p1 != STDIN_FILENO)
-		{
-			if (dup2(p1, STDIN_FILENO) == -1)
-				return (ft_print_errors("dup2", 0), 1);
-		}
-		if (!search_red(cmd, REDIRECT_OUT) && !search_red(cmd, APPEND)
-			&& p2 != STDOUT_FILENO)
-		{
-			if (dup2(p2, STDOUT_FILENO) == -1)
-				return (ft_print_errors("dup2", 0), 1);
-		}
-		cur = cur->next;
+		if (dup2(p1, STDIN_FILENO) == -1)
+			return (ft_print_errors("dup2", 0), 1);
+	}
+	if (!search_red(cmd, REDIRECT_OUT) && !search_red(cmd, APPEND)
+		&& p2 != STDOUT_FILENO)
+	{
+		if (dup2(p2, STDOUT_FILENO) == -1)
+			return (ft_print_errors("dup2", 0), 1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 17:04:58 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:31:54 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	exec_heredoc_loop(t_redirect *red, int counter)
 	code = ft_write_fd(fd, red->file[0]);
 	close(fd);
 	heredoc_count++;
+	printf("counter: %d | heredoc_count: %d\n", counter, heredoc_count);
 	if (heredoc_count < counter)
 	{
 		if (unlink(red->heredoc) == -1)
-			return (free(red->heredoc), ft_print_errors(red->heredoc, 126), 1);
-		free(red->heredoc);
+			return (ft_print_errors(red->heredoc, 126), 1);
 	}
 	if (code != 0)
 		return (code);

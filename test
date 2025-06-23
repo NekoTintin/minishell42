@@ -1,0 +1,7 @@
+		execution/builtin/mini_echo.c \
+	@echo  "$(GREEN)[OK]       	🛠️ $(YELLOW)Compaling ... $(BLUE)$<"
+	@echo  "$(GREEN)[..]       	🛠️ $(YELLOW)MAKE	libft ...$(BLUE)libft/libft.a\n"
+	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	.exe ... $(BLUE)Minishell\n"
+	@echo "$(RED)🧹 Delete	file obj P_S"
+	@echo "$(RED)🧹 Delete	all	file obj P_S"
+	@echo "${GREEN}[->]${YELLOW}		📂 Creating directory ${OBJ_DIR}...$(BLUE)	(object)$(RESET)\n"
