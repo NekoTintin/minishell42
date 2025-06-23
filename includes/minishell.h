@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 15:28:14 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:03:20 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_minishell
 void			get_val_tenv(int code, t_lexer *lexer, t_env *env);
 t_minishell		*mini_init(char **envp);
 void			mini_free(t_minishell *mini);
-int			mini_exec_line(t_minishell *mini, int *code_error);
+int				mini_exec_line(t_minishell *mini, int *code_error);
 
 /* *************************************************** */
 

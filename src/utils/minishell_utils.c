@@ -6,7 +6,7 @@
 /*   By: bchallat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:21:26 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/23 15:21:27 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:04:23 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	mini_exec_line(t_minishell *mini, int *code_error)
 		if (*code_error == -1)
 			return (EXIT_FAILURE);
 	}
+	else
+		*code_error = 1;
 	mini->line = NULL;
 	free_all_parser(mini->parse);
 	mini->parse = NULL;
