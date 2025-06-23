@@ -113,6 +113,7 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (1);
 	code = wait_all_children(exec);
+	sig_setup_mini();
 	return (code);
 }
 
