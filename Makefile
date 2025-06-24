@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/06/23 17:56:36 by qupollet         ###   ########.fr        #
+#    Updated: 2025/06/24 20:52:22 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,6 @@ SRC	=	testeur/lib_test_lexer.c \
 		parsing/parse_ast_redir_utils.c \
 		parsing/parse_ast_redirect.c \
 		parsing/parse_ast.c \
-		execution/builtin/builtin_utils.c \
 		execution/builtin/mini_cd.c \
 		execution/builtin/mini_echo.c \
 		execution/builtin/mini_env.c \
