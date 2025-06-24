@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:27 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/20 17:23:25 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:49:57 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	exit_check_errors(char **args)
 		ft_putstr_fd("bash: exit: ", 2);
 		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(" : numeric argument required\n", 2);
-		return (255);
+		return (2);
 	}
 	if (args[2])
 	{
@@ -47,7 +47,7 @@ int	exit_check_errors(char **args)
 	return (0);
 }
 
-int	mini_exit_for_children(char **args, t_parser *parse, t_exec *exec)
+int	mini_exit_for_children(char **args)
 {
 	char	**tablo;
 	int		ret;
@@ -65,14 +65,12 @@ int	mini_exit_for_children(char **args, t_parser *parse, t_exec *exec)
 		if (ret != 0)
 		{
 			free_tab(tablo);
-			exit (ret);
+			return (ret);
 		}
 		ret = atoi(tablo[1]) % 256;
 	}
 	free_tab(tablo);
-	free_all_parser(parse);
-	free_exec(exec);
-	exit(ret);
+	return (ret);
 }
 
 int	mini_exit(char **args, t_parser *parse, t_exec *exec)
@@ -91,6 +89,7 @@ int	mini_exit(char **args, t_parser *parse, t_exec *exec)
 		if (ret != 0)
 		{
 			free_tab(tablo);
+			exec_quit(parse, exec);
 			exit (ret);
 		}
 		ret = atoi(tablo[1]) % 256;

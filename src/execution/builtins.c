@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:57:18 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 19:23:04 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:02:42 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	exec_builtin_solo(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 	if (is_builtin(cmd->argument[0]) == 7)
 	{
 		exec_restore_stdfd(fd_in, fd_out);
-		mini_exit(cmd->argument, parse, exec);
+		code = mini_exit(cmd->argument, parse, exec);
+		return (code);
 	}
 	code = exec_builtin(cmd, parse, exec, type);
 	exec_restore_stdfd(fd_in, fd_out);
@@ -43,12 +44,11 @@ int	exec_builtin_pipeline(t_cmd *cmd, t_parser *parse, t_exec *exec, int type)
 
 	if (is_builtin(cmd->argument[0]) == 7)
 	{
-		ft_free_env(exec->env);
-		clear_history();
-		if (mini_exit_for_children(cmd->argument, parse, exec) == 0)
-			return (0);
+		code = mini_exit_for_children(cmd->argument);
+		return (code);
 	}
-	code = exec_builtin(cmd, parse, exec, type);
+	else
+		code = exec_builtin(cmd, parse, exec, type);
 	return (code);
 }
 
@@ -89,7 +89,7 @@ int	exec_builtin(t_cmd *cmd, t_parser *parse, t_exec *exec, int builtin_code)
 		return (mini_unset(cmd->argument, exec->env));
 	else if (builtin_code == 6)
 		return (mini_env(exec->env));
-	else if (builtin_code == 7)
+	else if (builtin_code == 9)
 		return (mini_exit(cmd->argument, parse, exec));
 	return (127);
 }

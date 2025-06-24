@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 14:15:28 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:46:20 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			mini_cd(char **args, t_env *env);
 void		mini_echo(char **args);
 int			mini_env(t_env *env);
 int			mini_exit(char **args, t_parser *parse, t_exec *exec);
-int			mini_exit_for_children(char **args, t_parser *parse, t_exec *exec);
+int			mini_exit_for_children(char **args);
 int			mini_export(char **argument, t_env *env);
 int			mini_pwd(void);
 int			mini_unset(char **args, t_env *env);
