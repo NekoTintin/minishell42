@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 14:05:36 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 20:46:55 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int	exec_one_child(t_cmd *cmd, t_exec *exec)
 	{
 		sig_setup_defaut();
 		if (ft_redirects(cmd, STDIN_FILENO, STDOUT_FILENO) != 0)
-			exit (1);
+		{
+			fr(cmd, exec);
+			exit(1);
+		}
 		exit(ft_one_child_content(cmd, exec));
 	}
 	else

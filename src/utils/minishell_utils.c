@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:21:26 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/23 17:04:23 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:45:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	mini_exec_line(t_minishell *mini, int *code_error)
 	free(mini->line);
 	get_val_tenv(*code_error, mini->lexer, mini->env);
 	mini->parse = mi_make_parse(mini->parse, mini->lexer);
+	if (mini->parse == NULL)
+		*code_error = 2;
 	if (mini->parse != NULL)
 	{
 		*code_error = exec_main(mini->parse, mini->env, mini);
