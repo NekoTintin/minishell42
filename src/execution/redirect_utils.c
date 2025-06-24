@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:53:30 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 14:00:21 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:19:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,20 @@ int	search_red(t_cmd *cmd, t_token_type type)
 
 void	free_heredoc(t_cmd *top)
 {
-	if (top->heredoc)
+	t_cmd		*cur;
+
+	if (!top)
+		return ;
+	cur = top;
+	while (cur)
 	{
-		if (unlink(top->heredoc) == -1)
-			perror("unlink");
-		free(top->heredoc);
-		top->heredoc = NULL;
+		if (cur->heredoc)
+		{
+			if (unlink(cur->heredoc) == -1)
+				perror("unlink");
+			free(cur->heredoc);
+			cur->heredoc = NULL;
+		}
+		cur = cur->next;
 	}
 }

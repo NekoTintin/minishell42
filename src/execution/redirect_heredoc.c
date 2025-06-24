@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 13:49:23 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:15:50 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,27 @@ int	exec_heredoc(t_cmd *cmd)
 				return (code);
 		}
 		red = red->next;
+	}
+	return (0);
+}
+
+int	pipeline_read_all_heredoc(t_cmd *cmd)
+{
+	t_cmd			*cur;
+	int				code;
+
+	if (!cmd)
+		return (1);
+	cur = cmd;
+	while (cur)
+	{
+		code = exec_heredoc(cur);
+		if (code != 0)
+		{
+			ft_print_errors("heredoc", code);
+			return (code);
+		}
+		cur = cur->next;
 	}
 	return (0);
 }
