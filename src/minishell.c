@@ -36,6 +36,8 @@ int	mini_loop(t_minishell *mini)
 	code_error = 0;
 	while (mini->status == true)
 	{
+		if (code_error == 130)
+			printf("\n");
 		mini->line = readline("Minishell$ ");
 		add_history(mini->line);
 		if (mini->line == NULL)

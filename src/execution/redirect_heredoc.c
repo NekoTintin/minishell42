@@ -20,12 +20,12 @@ int	ft_write_fd(int fd, char *delim)
 	while (1)
 	{
 		input = readline("> ");
-		if (!input)
+		if (!g_sig && !input)
 			return (0);
-		if (ft_strlen(input) == 0)
-		{
+		if (g_sig) {
+			g_sig = 0;
 			free(input);
-			continue ;
+			return (130);
 		}
 		if (ft_strncmp(input, delim, ft_strlen(delim)) == 0
 			&& ft_strlen(input) == ft_strlen(delim))
