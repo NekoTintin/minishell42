@@ -65,16 +65,7 @@ void	tenv_varenv(t_token *curr, t_env *env, bool squote)
 	char	*value;
 
 	value = NULL;
-	if (squote == true)
-	{
-		value = ft_strdup(&curr->value[1]);
-		if (value == NULL)
-			return ;
-		free(curr->value);
-		curr->value = ft_strdup(value);
-		free(value);
-	}
-	else
+	if (squote == false)
 	{
 		value = ft_strdup(ft_env_get_value(env, &curr->value[1]));
 		if (value == NULL)
