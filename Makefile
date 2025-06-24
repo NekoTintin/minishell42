@@ -75,7 +75,6 @@ SRC	=	testeur/lib_test_lexer.c \
 		execution/redirect_heredoc.c \
 		execution/redirect.c \
 		execution/redirect_utils.c \
-		execution/signals.c \
 
 SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
