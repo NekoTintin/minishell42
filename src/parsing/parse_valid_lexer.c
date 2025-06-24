@@ -53,22 +53,21 @@ static int	valid_quote(t_lexer *lexer)
 static int	valid_pipe(t_lexer *lexer)
 {
 	t_token	*curr;
-	t_token	*prev;
+	bool	pipe;
 
-	prev = NULL;
+	pipe = false;
 	curr = lexer->header;
 	while (curr != NULL)
 	{
-		if (curr->type == PIPE)
-			curr = valid_skip_space(curr);
-		if (curr == NULL || curr->type == PIPE)
+		if (curr->type == PIPE && pipe == true)
 			return (printf("%s %s »\n", ERORR, curr->value));
-		if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
-			return (printf("%s %s »\n", ERORR, curr->value));
-		if (curr->type == PIPE && curr->next->type == PIPE)
-			return (printf("%s %s »\n", ERORR, curr->value));
-		prev = curr;
+		if (curr->type == PIPE && pipe == false)
+			pipe = true;
+		if (curr->type != PIPE && curr->type != WHITESPACE)
+			pipe = false;
 		curr = curr->next;
+		if (curr == NULL && pipe == true)
+			return (printf("%s»\n", ERORR));
 	}
 	return (0);
 }
