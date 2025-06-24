@@ -6,19 +6,19 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 20:46:55 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 22:03:15 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	fr(t_cmd *cmd, t_exec *exec)
+static void	fr(t_exec *exec)
 {
 	ft_free_env(exec->env);
+	free_all_parser(exec->mini->parse);
 	free(exec->mini);
 	free_exec(exec);
 	clear_history();
-	free_heredoc(cmd);
 }
 
 int	ft_one_child_content(t_cmd *cmd, t_exec *exec)
@@ -29,25 +29,36 @@ int	ft_one_child_content(t_cmd *cmd, t_exec *exec)
 
 	envp = ft_env_to_tab(exec->env);
 	if (!envp)
-		return (fr(cmd, exec), perror("malloc"), 1);
+		return (fr(exec), perror("malloc"), 1);
 	ntab = rm_whitespace_tab(cmd->argument);
 	if (!ntab)
-		return (fr(cmd, exec), perror("malloc"), 1);
+		return (fr(exec), perror("malloc"), 1);
 	free_tab(cmd->argument);
 	cmd->argument = ntab;
 	code = ft_find_in_path(&cmd->argument[0], exec->env);
 	if (code != 0)
-		return (fr(cmd, exec), free_tab(envp), free_tab(ntab), code);
+		return (fr(exec), free_tab(envp), free_tab(ntab), code);
 	code = check_exec(cmd->argument[0]);
 	if (code != 0)
-		return (fr(cmd, exec), free_tab(envp), free_tab(ntab), code);
+		return (fr(exec), free_tab(envp), free_tab(ntab), code);
 	if (execve(ntab[0], ntab, envp) == -1)
 	{
 		ft_print_errors("execve", 126);
-		return (fr(cmd, exec), free_tab(ntab), free_tab(envp), 126);
+		return (fr(exec), free_tab(ntab), free_tab(envp), 126);
 	}
-	fr(cmd, exec);
+	fr(exec);
 	return (1);
+}
+
+void	exec_one_content_child(t_cmd *cmd, t_exec *exec)
+{
+	sig_setup_defaut();
+	if (ft_redirects(cmd, STDIN_FILENO, STDOUT_FILENO) != 0)
+	{
+		fr(exec);
+		exit(1);
+	}
+	exit(ft_one_child_content(cmd, exec));
 }
 
 int	exec_one_child(t_cmd *cmd, t_exec *exec)
@@ -61,15 +72,7 @@ int	exec_one_child(t_cmd *cmd, t_exec *exec)
 	if (child < 0)
 		return (ft_print_errors("fork", 0), 1);
 	else if (child == 0)
-	{
-		sig_setup_defaut();
-		if (ft_redirects(cmd, STDIN_FILENO, STDOUT_FILENO) != 0)
-		{
-			fr(cmd, exec);
-			exit(1);
-		}
-		exit(ft_one_child_content(cmd, exec));
-	}
+		exec_one_content_child(cmd, exec);
 	else
 	{
 		signal(SIGINT, SIG_IGN);

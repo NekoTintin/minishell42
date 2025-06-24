@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 16:46:20 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 22:38:20 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define EXEC_H
 
 # include "minishell.h"
+
+# ifndef LLG_MAX
+#  define LLG_MAX 9223372036854775807LL
+# endif
 
 typedef struct s_pipeline	t_pipeline;
 typedef struct s_env		t_env;

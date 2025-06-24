@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 16:59:55 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 22:04:52 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	child_process(t_pipeline *pl, t_exec *exec, t_parser *parse)
 {
 	int			code;
 
+	code = 0;
 	if (pl->id > 0)
 		if (dup2(exec->pipe_tab[pl->id - 1][0], STDIN_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
@@ -52,10 +53,11 @@ int	child_process(t_pipeline *pl, t_exec *exec, t_parser *parse)
 		if (dup2(exec->pipe_tab[pl->id][1], STDOUT_FILENO) == -1)
 			return (ft_print_errors("dup2", 0), 1);
 	if (ft_redirects(pl->cmd, STDIN_FILENO, STDOUT_FILENO) != 0)
-		exit(1);
+		code = 1;
 	if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
 		return (ft_print_errors("pipes", 0), 1);
-	code = exec_cmd(pl, parse, exec);
+	if (code == 0)
+		code = exec_cmd(pl, parse, exec);
 	ft_free_env(exec->env);
 	free(exec->mini);
 	free_exec(exec);

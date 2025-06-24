@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:30:38 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/22 17:12:35 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 23:02:30 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	exec_quit(t_parser *parse, t_exec *exec)
 		free_all_parser(parse);
 	if (exec->env)
 		ft_free_env(exec->env);
+	if (exec->mini)
+		free(exec->mini);
 	if (exec)
 		free_exec(exec);
 	clear_history();

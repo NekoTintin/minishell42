@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 18:27:33 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 20:39:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 23:36:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,51 +45,65 @@ void	mini_export_split(char *str, char **key, char **val)
 	}
 }
 
-int	mini_export_foreach(char **tablo, char **key, char **val, int idx)
+int	mini_export_content(t_env *env, char *str)
 {
-	if (!mini_export_is_valid(tablo[idx]))
-	{
-		ft_putstr_fd("bash: export: `", 2);
-		ft_putstr_fd(tablo[idx], 2);
-		ft_putstr_fd("': not a valid identifier\n", 2);
-		idx++;
-		return (5);
-	}
-	mini_export_split(tablo[idx], key, val);
+	char		*key;
+	char		*val;
+	int			ret;
+
+	key = NULL;
+	val = NULL;
+	ret = 0;
+	mini_export_split(str, &key, &val);
 	if (!key)
+	{
+		if (!val)
+			free(val);
 		return (perror("malloc"), EXIT_FAILURE);
-	return (0);
+	}
+	if (ft_add_to_env(env, key, val) != 0)
+	{
+		ft_print_errors("export", 0);
+		ret = EXIT_FAILURE;
+	}
+	free(key);
+	free(val);
+	return (ret);
 }
 
-int	mini_export(char **argument, t_env *env)
+void	mini_export_print(char *str, int *ret)
+{
+	ft_putstr_fd("bash: export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	*ret = EXIT_FAILURE;
+}
+
+int	mini_export(char **args, t_env *env)
 {
 	char	**tablo;
 	int		idx;
-	char	*key;
-	char	*val;
 	int		code;
+	int		ret;
 
-	tablo = rm_whitespace_tab(argument);
+	tablo = rm_whitespace_tab(args);
 	if (!tablo)
 		return (perror("malloc"), EXIT_FAILURE);
 	if (!tablo[1])
 		return (0);
 	idx = 1;
+	ret = 0;
 	while (tablo[idx])
 	{
-		code = mini_export_foreach(tablo, &key, &val, idx);
-		if (code == 5)
+		if (!mini_export_is_valid(tablo[idx]))
+			mini_export_print(tablo[idx], &ret);
+		else
 		{
-			idx++;
-			continue ;
+			code = mini_export_content(env, tablo[idx]);
+			if (code != 0)
+				ret = code;
 		}
-		else if (code == 1)
-			return (free_tab(tablo), EXIT_FAILURE);
-		if (ft_add_to_env(env, key, val) != 0)
-			ft_print_errors("export", 0);
-		free(key);
-		free(val);
 		idx++;
 	}
-	return (free_tab(tablo), 0);
+	return (free_tab(tablo), ret);
 }
