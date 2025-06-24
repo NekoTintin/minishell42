@@ -18,6 +18,7 @@
 void		print_mi_lexer(t_lexer *lexer);
 char		*print_enum(int nb);
 void		test_mi_lexer(char *string);
+void		test_print_lexer(t_lexer *lexer);
 
 void		test_mi_parse(t_lexer *lexer, char *string);
 void		print_parse(t_parser *parse);

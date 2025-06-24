@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "parsing.h"
 # include "exec.h"
+# include "../src/testeur/testeur.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -32,7 +33,6 @@
 # include <fcntl.h>
 # include <term.h>
 # include <errno.h>
-//# include <linux/limits.h>
 # include <stdbool.h>
 
 # define ERR_ARG "minishell don't need arguments. Use './minishell' instead."

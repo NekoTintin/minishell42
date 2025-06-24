@@ -29,12 +29,13 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 	in_squote = false;
 	while (curr != NULL)
 	{
-		if (curr->type == VAR_ENV && \
-			curr->value[1] == '?' && ft_strlen(curr->value) == 2)
-			tenv_error_code(curr, code);
+
 		if (curr->type == VAR_ENV && \
 			curr->value[1] != '?' && ft_strlen(curr->value) > 2)
 			tenv_varenv(curr, env, in_squote);
+		if (curr->type == VAR_ENV && \
+			curr->value[1] == '?' && ft_strlen(curr->value) == 2)
+			tenv_error_code(curr, code);
 		in_squote = sigle_cote(curr, in_squote);
 		curr = curr->next;
 	}
@@ -51,8 +52,13 @@ bool	sigle_cote(t_token *curr, bool squote)
 
 void	tenv_error_code(t_token *curr, int code)
 {
+	char	*value;
+
+	value = NULL;
+	value = ft_itoa(code);
 	free(curr->value);
-	curr->value = ft_itoa(code);
+	curr->value = ft_strdup(value);
+	free(value);
 }
 
 void	tenv_varenv(t_token *curr, t_env *env, bool squote)
