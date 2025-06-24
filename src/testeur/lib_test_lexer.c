@@ -31,6 +31,16 @@ void     test_mi_lexer(char *string)
     ll_free_lexer(lexer);
 }
 
+void	test_print_lexer(t_lexer *lexer)
+{
+	t_token *curr = lexer->header;
+	while(curr != NULL)
+	{
+		printf("[%s, %s]\n", curr->value, print_enum(curr->type));
+		curr = curr->next;
+	}
+}
+
 char     *print_enum(int nb)
 {
     if (nb == 0)

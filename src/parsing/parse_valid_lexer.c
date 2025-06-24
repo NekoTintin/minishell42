@@ -6,7 +6,7 @@
 /*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:38:35 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/05 15:18:25 by benoitchallat    ###   ########.fr       */
+/*   Updated: 2025/06/23 17:32:41 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ int	valid_redirect(t_lexer *lexer)
 			while (node != NULL)
 			{
 				node = node->next;
-				if (node->type == WORD)
-					break ;
 				if (node == NULL || node_is_redirect(node))
 					return (1);
+				if (node->type == WORD)
+					break ;
 			}
 		}
 		else
