@@ -33,9 +33,7 @@ NAME = minishell
 #						sources								#
 #===========================================================#
 
-SRC	=	testeur/lib_test_lexer.c \
-		testeur/lib_test_parsing.c \
-		minishell.c \
+SRC	=	minishell.c \
 		utils/signal.c \
 		utils/env_in_lexer.c \
 		utils/minishell_utils.c \
