@@ -29,7 +29,6 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 	in_squote = false;
 	while (curr != NULL)
 	{
-
 		if (curr->type == VAR_ENV && \
 			curr->value[1] != '?' && ft_strlen(curr->value) > 2)
 			tenv_varenv(curr, env, in_squote);
