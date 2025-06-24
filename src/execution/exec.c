@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 19:18:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:01:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	child_process(t_pipeline *pl, t_exec *exec, t_parser *parse)
 	ft_free_env(exec->env);
 	free(exec->mini);
 	free_exec(exec);
+	free_heredoc(pl->cmd);
 	free_all_parser(parse);
 	clear_history();
 	return (code);
@@ -95,6 +96,9 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 	t_pipeline	*cur;
 	int			code;
 
+	code = exec_heredoc(parse->top);
+	if (code != 0)
+		return (code);
 	cur = exec->top;
 	while (cur)
 	{

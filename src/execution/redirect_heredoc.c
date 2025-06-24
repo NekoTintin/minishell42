@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 18:50:20 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 18:31:54 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:49:23 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	ft_write_fd(int fd, char *delim)
 		input = readline("> ");
 		if (!g_sig && !input)
 			return (0);
-		if (g_sig) {
+		if (g_sig)
+		{
 			g_sig = 0;
-			free(input);
-			return (130);
+			return (free(input), 130);
 		}
 		if (ft_strncmp(input, delim, ft_strlen(delim)) == 0
 			&& ft_strlen(input) == ft_strlen(delim))
@@ -41,59 +41,33 @@ int	ft_write_fd(int fd, char *delim)
 	return (1);
 }
 
-int	exec_heredoc_loop(t_redirect *red, int counter)
+int	exec_heredoc_loop(t_cmd *cmd, t_redirect *red)
 {
-	int			fd;
-	int			code;
-	static int	heredoc_count;
+	int					fd;
+	int					code;
 
-	fd = heredoc_file(red);
+	fd = heredoc_file(cmd);
 	if (fd == -1)
 		return (1);
 	code = ft_write_fd(fd, red->file[0]);
 	close(fd);
-	heredoc_count++;
-	printf("counter: %d | heredoc_count: %d\n", counter, heredoc_count);
-	if (heredoc_count < counter)
-	{
-		if (unlink(red->heredoc) == -1)
-			return (ft_print_errors(red->heredoc, 126), 1);
-	}
 	if (code != 0)
 		return (code);
 	return (0);
-}
-
-int	heredoc_number(t_redirect *red)
-{
-	int			counter;
-	t_redirect	*cur;
-
-	cur = red;
-	counter = 0;
-	while (cur)
-	{
-		if (cur->type == HEREDOC)
-			counter++;
-		cur = cur->next;
-	}
-	return (counter);
 }
 
 int	exec_heredoc(t_cmd *cmd)
 {
 	t_redirect		*red;
 	int				code;
-	int				counter;
 
 	code = 0;
 	red = cmd->redirect;
-	counter = heredoc_number(red);
 	while (red)
 	{
 		if (red->type == HEREDOC)
 		{
-			code = exec_heredoc_loop(red, counter);
+			code = exec_heredoc_loop(cmd, red);
 			if (code != 0)
 				return (code);
 		}

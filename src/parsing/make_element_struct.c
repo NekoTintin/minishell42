@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_element_struct.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 16:00:34 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/04 16:39:15 by benoitchallat    ###   ########.fr       */
+/*   Created: 2025/03/03 16:00:34 by benoitchall       #+#    #+#             */
+/*   Updated: 2025/06/24 13:42:35 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_cmd	*parse_make_command(t_cmd *cmd)
 	if (cmd == NULL)
 		return (NULL);
 	cmd->argument = NULL;
+	cmd->heredoc = NULL;
 	cmd->redirect = NULL;
 	cmd->next = NULL;
 	return (cmd);

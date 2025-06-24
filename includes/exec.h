@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 18:10:22 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:00:31 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ typedef struct s_minishell	t_minishell;
 
 typedef struct s_exec
 {
-	int			nb_child;
-	t_pipeline	*top;
-	t_env		*env;
-	int			**pipe_tab;
-	t_minishell	*mini;
+	int				nb_child;
+	t_pipeline		*top;
+	t_env			*env;
+	int				**pipe_tab;
+	t_minishell		*mini;
 }	t_exec;
 
 typedef struct s_pipeline
@@ -66,7 +66,7 @@ void		exec_quit(t_parser *parse, t_exec *exec);
 // file_management.c //
 int			file_read(char *file);
 int			file_write(char *file, t_token_type type);
-int			heredoc_file(t_redirect *red);
+int			heredoc_file(t_cmd *cmd);
 int			check_exec(char *exec);
 
 // redirect.c //
@@ -74,6 +74,7 @@ int			ft_redirects(t_cmd *cmd, int p1, int p2);
 
 // redirect_utils.c //
 int			search_red(t_cmd *cmd, t_token_type type);
+void		free_heredoc(t_cmd *top);
 
 // env.c //
 t_env		*ft_create_tenv(char **envp);

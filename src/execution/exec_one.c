@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 17:25:41 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:05:36 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,11 @@
 
 static void	fr(t_cmd *cmd, t_exec *exec)
 {
-	t_redirect	*red;
-
 	ft_free_env(exec->env);
 	free(exec->mini);
 	free_exec(exec);
 	clear_history();
-	red = cmd->redirect;
-	while (red)
-	{
-		if (red->heredoc)
-		{
-			if (unlink(red->heredoc) == -1)
-				ft_print_errors(red->heredoc, 126);
-			free(red->heredoc);
-		}
-	}
+	free_heredoc(cmd);
 }
 
 int	ft_one_child_content(t_cmd *cmd, t_exec *exec)
@@ -99,8 +88,16 @@ int	exec_one(t_cmd *cmd, t_parser *parse, t_exec *exec)
 		return (code);
 	builtin = is_builtin(cmd->argument[0]);
 	if (builtin > 0)
-		return (exec_builtin_solo(cmd, parse, exec, builtin));
+	{
+		code = exec_builtin_solo(cmd, parse, exec, builtin);
+		free_heredoc(cmd);
+		return (code);
+	}
 	else
-		return (exec_one_child(cmd, exec));
+	{
+		code = exec_one_child(cmd, exec);
+		free_heredoc(cmd);
+		return (code);
+	}
 	return (0);
 }

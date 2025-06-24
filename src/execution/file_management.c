@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:50:34 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 18:37:17 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:45:10 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,26 @@ int	file_write(char *file, t_token_type type)
 	return (fd);
 }
 
-int	heredoc_file(t_redirect *red)
+int	heredoc_file(t_cmd *cmd)
 {
 	int					fd;
 	static int			count;
 	char				*nb;
 
-	nb = ft_itoa(count);
-	if (!nb)
-		return (ft_print_errors("malloc", 1), -1);
-	red->heredoc = ft_strjoin("/tmp/.heredoc_", nb);
-	free(nb);
-	if (!red->heredoc)
-		return (ft_print_errors("malloc", 1), -1);
-	fd = open(red->heredoc, O_WRONLY | O_CREAT | O_TRUNC, 0744);
+	if (cmd->heredoc == NULL)
+	{
+		nb = ft_itoa(count);
+		if (!nb)
+			return (ft_print_errors("malloc", 1), -1);
+		cmd->heredoc = ft_strjoin("/tmp/.heredoc_", nb);
+		free(nb);
+		if (!cmd->heredoc)
+			return (ft_print_errors("malloc", 1), -1);
+		count++;
+	}
+	fd = open(cmd->heredoc, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		return (ft_print_errors(red->heredoc, 126), -1);
-	count++;
+		return (ft_print_errors(cmd->heredoc, 126), -1);
 	return (fd);
 }
 

@@ -6,18 +6,18 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:17:11 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/23 19:04:45 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:55:57 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exec_redir_infile(t_redirect *red, int is_heredoc)
+int	exec_redir_infile(t_redirect *red, char *heredoc_path)
 {
 	int			fd;
 
-	if (is_heredoc)
-		fd = open(red->heredoc, O_RDONLY);
+	if (heredoc_path)
+		fd = open(heredoc_path, O_RDONLY);
 	else
 		fd = open(red->file[0], O_RDONLY);
 	if (fd < 0)
@@ -74,13 +74,13 @@ int	exec_redirect_input(t_cmd *cmd)
 	{
 		if (cur->type == REDIRECT_IN)
 		{
-			code = exec_redir_infile(cur, 0);
+			code = exec_redir_infile(cur, cmd->heredoc);
 			if (code != 0)
 				return (code);
 		}
 		if (cur->type == HEREDOC)
 		{
-			code = exec_redir_infile(cur, 1);
+			code = exec_redir_infile(cur, cmd->heredoc);
 			if (code != 0)
 				return (code);
 		}
