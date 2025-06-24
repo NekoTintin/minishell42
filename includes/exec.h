@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 22:38:20 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 00:16:04 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			ft_redirects(t_cmd *cmd, int p1, int p2);
 // redirect_utils.c //
 int			search_red(t_cmd *cmd, t_token_type type);
 void		free_heredoc(t_cmd *top);
+int			redir_prepare(t_parser *parse, t_exec *exec);
 
 // env.c //
 t_env		*ft_create_tenv(char **envp);

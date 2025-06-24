@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 22:04:52 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 00:16:29 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 	t_pipeline	*cur;
 	int			code;
 
-	code = pipeline_read_all_heredoc(parse->top);
+	code = redir_prepare(parse, exec);
 	if (code != 0)
-		return (code);
+		return (1);
 	cur = exec->top;
 	while (cur)
 	{
