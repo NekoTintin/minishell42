@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:53:30 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/25 00:14:36 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 00:29:15 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	redir_verifs(t_pipeline *pl)
 	return (ret);
 }
 
+// A tester avec le heredoc, je ne suis pas sûr si
+// il faut fermer les pipes en cas d'échec
 int	redir_prepare(t_parser *parse, t_exec *exec)
 {
 	int			code;
@@ -103,9 +105,17 @@ int	redir_prepare(t_parser *parse, t_exec *exec)
 	code = 0;
 	code = pipeline_read_all_heredoc(parse->top);
 	if (code != 0)
+	{
+		if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
+			return (1);
 		return (code);
+	}
 	code = redir_verifs(exec->top);
 	if (code != 0)
+	{
+		if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
+			return (1);
 		return (code);
+	}
 	return (code);
 }
