@@ -41,6 +41,7 @@ void	free_all_command(t_cmd *cmd)
 				free_array(curr_f->argument);
 			if (curr_f->redirect != NULL)
 				free_all_redirect(curr_f->redirect);
+			free(curr_f->heredoc);
 			free(curr_f);
 		}
 	}

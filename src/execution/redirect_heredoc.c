@@ -89,7 +89,8 @@ int	pipeline_read_all_heredoc(t_cmd *cmd)
 		code = exec_heredoc(cur);
 		if (code != 0)
 		{
-			ft_print_errors("heredoc", code);
+			if (code != 130)
+				ft_print_errors("heredoc", code);
 			return (code);
 		}
 		cur = cur->next;

@@ -64,7 +64,7 @@ void	exec_one_content_child(t_cmd *cmd, t_exec *exec)
 int	exec_one_child(t_cmd *cmd, t_exec *exec)
 {
 	pid_t	child;
-	int		status;
+	int		status = 0;
 
 	if (ft_find_in_path(&cmd->argument[0], exec->env) != 0)
 		return (127);
@@ -102,6 +102,10 @@ int	exec_one(t_cmd *cmd, t_parser *parse, t_exec *exec)
 	else
 	{
 		code = exec_one_child(cmd, exec);
+		if (code == 130)
+			write(2, "\n", 1);
+		if (code == 131)
+			write(2, "Quit(core dumped)\n", 18);
 		free_heredoc(cmd);
 		return (code);
 	}

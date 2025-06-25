@@ -13,6 +13,7 @@
 #include "../includes/minishell.h"
 
 int			mini_loop(t_minishell *mini);
+bool		mini_is_empty(char *str);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -36,16 +37,14 @@ int	mini_loop(t_minishell *mini)
 	code_error = 0;
 	while (mini->status == true)
 	{
-		if (code_error == 130)
-			printf("\n");
 		mini->line = readline("Minishell$ ");
-		add_history(mini->line);
 		if (mini->line == NULL)
 			return (free(mini->line), rl_clear_history(), EXIT_SUCCESS);
-		else if (mini->line[0] == '\0')
+		else if (mini_is_empty(mini->line))
 			free(mini->line);
 		else
 		{
+			add_history(mini->line);
 			if (mini_exec_line(mini, &code_error) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
@@ -53,4 +52,18 @@ int	mini_loop(t_minishell *mini)
 	rl_clear_history();
 	free(mini->line);
 	return (EXIT_SUCCESS);
+}
+
+bool	mini_is_empty(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != 32 && str[i] != 9)
+			return(false);
+		i++;
+	}
+	return (true);
 }
