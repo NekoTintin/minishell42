@@ -33,7 +33,10 @@ void	mini_echo(char **args)
 
 	ntab = rm_whitespace_tab(args + 1);
 	if (!ntab || !*ntab)
+	{
+		free(ntab);
 		return ;
+	}
 	nl = no_newline(ntab[0]);
 	idx = 0;
 	if (nl)
