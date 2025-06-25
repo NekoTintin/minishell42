@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+void    print_lexer(t_lexer *lexer);
+t_lexer		*join_quote(t_lexer *lexer);
+t_token		*find_join(t_token *curr, t_token_type type);
 
 t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 {
@@ -18,7 +21,10 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 		return (ll_free_lexer(lexer), NULL);
 	else
 	{
+		print_lexer(lexer);
 		lexer = parse_conc_quote(lexer);
+		lexer = join_quote(lexer);
+		print_lexer(lexer);
 		if (lexer == NULL)
 			return (ll_free_lexer(lexer), NULL);
 		parse = parse_make_parser(parse);
@@ -30,4 +36,55 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 	}
 	ll_free_lexer(lexer);
 	return (parse);
+}
+
+t_lexer		*join_quote(t_lexer *lexer)
+{
+	char	*join;   
+	t_token	*curr;
+	t_token *node;
+	
+	join =NULL;
+	node = NULL;
+	curr = lexer->header;
+	while (curr != NULL)
+	{
+		if (curr->type == S_QUOTES || curr->type == D_QUOTES)
+		{
+			node = curr->next;
+			curr = find_join(curr, curr->type);
+			if (curr == NULL)
+				break ;
+			printf("<>\n");
+			if (curr->type == WORD || curr->type == VAR_ENV)
+			{
+				join = ft_strjoin(node->value, curr->value);
+				free(node->value);
+				node->value = ft_strdup(join);
+				free(curr->value);
+				printf("%s\n", node->value);
+				node->next = curr->next;
+			}
+		}
+		curr = curr->next;
+	}
+	return (lexer);
+}
+
+t_token		*find_join(t_token *curr, t_token_type type)
+{
+	int compt;
+
+	compt = 0;
+	while (curr != NULL)
+	{
+		if ((curr->type == WORD || curr->type == VAR_ENV) && compt == 3)
+			return (curr);
+		if (curr->type == type)
+			compt++;
+		if (compt == 4)
+			return (curr);
+		curr = curr->next;
+	}
+	return (NULL);
 }

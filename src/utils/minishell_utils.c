@@ -63,6 +63,7 @@ int	mini_exec_line(t_minishell *mini, int *code_error)
 		*code_error = 2;
 	else if (mini->parse != NULL)
 	{
+		print_parse(mini->parse);
 		*code_error = exec_main(mini->parse, mini->env, mini);
 		if (*code_error == -1)
 			return (EXIT_FAILURE);
