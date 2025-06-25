@@ -15,6 +15,8 @@
 
 # include "minishell.h"
 
+# define ERORR "bash: erreur de syntaxe près du symbole inattendu «"
+
 typedef struct s_cmd		t_cmd;
 typedef struct s_redirect	t_redirect;
 

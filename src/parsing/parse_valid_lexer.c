@@ -53,22 +53,21 @@ static int	valid_quote(t_lexer *lexer)
 static int	valid_pipe(t_lexer *lexer)
 {
 	t_token	*curr;
-	t_token	*prev;
+	bool	pipe;
 
-	prev = NULL;
+	pipe = false;
 	curr = lexer->header;
 	while (curr != NULL)
 	{
-		if (curr->type == PIPE)
-			curr = valid_skip_space(curr);
-		if (curr == NULL)
-			return (1);
-		if (curr->type == PIPE && (prev == NULL || curr->next == NULL))
-			return (1);
-		if (curr->type == PIPE && curr->next->type == PIPE)
-			return (1);
-		prev = curr;
+		if (curr->type == PIPE && pipe == true)
+			return (printf("%s %s »\n", ERORR, curr->value));
+		if (curr->type == PIPE && pipe == false)
+			pipe = true;
+		if (curr->type != PIPE && curr->type != WHITESPACE)
+			pipe = false;
 		curr = curr->next;
+		if (curr == NULL && pipe == true)
+			return (printf("%s»\n", ERORR));
 	}
 	return (0);
 }
@@ -83,12 +82,14 @@ int	valid_redirect(t_lexer *lexer)
 		if (node_is_redirect(node))
 		{
 			if (node->next == NULL)
-				return (1);
+				return (printf("%s»\n", ERORR));
 			while (node != NULL)
 			{
 				node = node->next;
-				if (node == NULL || node_is_redirect(node))
-					return (1);
+				if (node == NULL)
+					return (printf("%s»\n", ERORR));
+				if (node_is_redirect(node))
+					return (printf("%s %s »\n", ERORR, node->value));
 				if (node->type == WORD)
 					break ;
 			}

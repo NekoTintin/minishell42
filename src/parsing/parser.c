@@ -15,10 +15,7 @@
 t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 {
 	if (lexer == NULL || lexer->header == NULL || parsing_valid_lexer(lexer))
-	{
-		printf("ERROR_COMMAND_NOT_VALID \n");
 		return (ll_free_lexer(lexer), NULL);
-	}
 	else
 	{
 		lexer = parse_conc_quote(lexer);
