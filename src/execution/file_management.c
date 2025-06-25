@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:50:34 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 13:45:10 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:03:08 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	file_read(char *file)
 
 	fd = open(file, O_RDONLY, 0644);
 	if (fd == -1)
-		ft_print_errors(file, 126);
+		ft_print_errors(file, 0);
 	return (fd);
 }
 

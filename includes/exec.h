@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/25 00:16:04 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:49:07 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int			ft_find_in_path(char **file, t_env *env);
 // redirect_heredoc.c //
 int			exec_heredoc(t_cmd *cmd);
 int			pipeline_read_all_heredoc(t_cmd *cmd);
+
+// utils.c //
+void		print_code(int code);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);

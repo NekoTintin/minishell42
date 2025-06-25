@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/25 00:16:29 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 13:48:37 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	wait_all_children(t_exec *exec)
 			code = WEXITSTATUS(status);
 		cur = cur->next;
 	}
+	print_code(code);
+	sig_setup_mini();
 	return (code);
 }
 
@@ -118,11 +120,6 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 		return (1);
 	signal(SIGINT, SIG_IGN);
 	code = wait_all_children(exec);
-	if (code == 130)
-		write(2, "\n", 1);
-	if (code == 131)
-		write(2, "Quit(core dumped)\n", 18);
-	sig_setup_mini();
 	return (code);
 }
 
@@ -131,7 +128,7 @@ int	exec_main(t_parser *parse, t_env *env, t_minishell *mini)
 	t_exec	*exec;
 	int		code;
 
-	if (!parse || !parse->top || !parse->top->argument[0])
+	if (!parse || !parse->top)
 		return (1);
 	if (parse->size == 1)
 	{

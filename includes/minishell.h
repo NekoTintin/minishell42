@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:08:17 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 22:35:56 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:58:46 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,9 @@ int				mini_exec_line(t_minishell *mini, int *code_error);
 extern int	g_sig;
 
 void			sig_setup_mini(void);
-void			handle_sigint(int sig);
 void			sig_setup_defaut(void);
-void			setup_signals_heredoc(void);
-void			handle_sigint_heredoc(int sig);
 
 /* *************************************************** */
-// functions in pwd.c
-char			*ft_pwd(void);
-
-// functions in pars_utils.c
-char			*ft_get_from_env(char *env_var, char **envp);
 
 // functions in env_init.c
 t_env			*ft_create_tenv(char **envp);
@@ -88,11 +80,5 @@ int				env_remove(t_env **env, char *key);
 // functions in env_utils.c
 int				exec_env_size(t_env *env);
 void			free_tab(char **tablo);
-
-// !!!fonc for export !!!
-void			print_env_array(char **var_env);
-char			**cp_array_env(char **envp, int length);
-int				ft_arrlen(char **array);
-void			free_array(char **array);
 
 #endif

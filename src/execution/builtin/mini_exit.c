@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:27 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/24 23:02:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 13:22:16 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	mini_exit_for_children(char **args)
 		perror("malloc");
 		exit (1);
 	}
-	ft_putstr_fd("exit\n", 2);
 	ret = 0;
 	value = 0;
 	if (tablo[1])
