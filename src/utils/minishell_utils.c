@@ -61,7 +61,7 @@ int	mini_exec_line(t_minishell *mini, int *code_error)
 	mini->parse = mi_make_parse(mini->parse, mini->lexer);
 	if (mini->parse == NULL)
 		*code_error = 2;
-	if (mini->parse != NULL)
+	else if (mini->parse != NULL)
 	{
 		*code_error = exec_main(mini->parse, mini->env, mini);
 		if (*code_error == -1)

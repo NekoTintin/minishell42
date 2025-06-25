@@ -47,10 +47,17 @@ t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd)
 	index = 0;
 	while (node->type != PIPE)
 	{
-		if (node->type == WORD || node->type == VAR_ENV
-			|| node->type == WHITESPACE)
+		if (node->type == WHITESPACE && index != 0)
 		{
-			cmd->argument[index++] = parse_simple_cmd(node);
+			if (node->value[0] != '\0')
+				cmd->argument[index++] = parse_simple_cmd(node);
+			if (cmd == NULL)
+				return (NULL);
+		}
+		if (node->type == WORD || node->type == VAR_ENV)
+		{
+			if (node->value[0] != '\0')
+				cmd->argument[index++] = parse_simple_cmd(node);
 			if (cmd == NULL)
 				return (NULL);
 		}
@@ -70,7 +77,6 @@ t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd)
 char	*parse_simple_cmd(t_token *node)
 {
 	char	*args;
-
 	if (node->type == WORD || node->type == WHITESPACE
 		|| node->type == VAR_ENV)
 	{

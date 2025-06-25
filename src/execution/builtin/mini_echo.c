@@ -26,8 +26,8 @@ int	no_newline(char *str)
 
 static void	mini_echo_loop(int *first, int *idx, char **ntab)
 {
-	if (*first > 0)
-		write(1, " ", 1);
+	//if (*first > 0)
+		//write(1, " ", 1);
 	ft_putstr_fd(ntab[*idx], 1);
 	*idx += 1;
 	*first += 1;
@@ -52,7 +52,11 @@ void	mini_echo(char **args)
 		idx++;
 	first = 0;
 	while (ntab[idx])
+	{
 		mini_echo_loop(&first, &idx, ntab);
+		if (ntab[idx] != NULL)
+			write(1, " ", 1);
+	}
 	if (nl == 0)
 		write(1, "\n", 1);
 	free_tab(ntab);
