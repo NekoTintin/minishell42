@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:04:53 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/24 17:10:21 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:54:11 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 	in_squote = false;
 	while (curr != NULL)
 	{
-		if (curr->type == VAR_ENV && \
-			curr->value[1] != '?' && ft_strlen(curr->value) > 2)
+		if (curr->type == VAR_ENV && curr->value[1] != '?'
+			&& ft_strlen(curr->value) > 2)
 			tenv_varenv(curr, env, in_squote);
-		if (curr->type == VAR_ENV && curr->value != NULL && \
-			curr->value[1] == '?' && ft_strlen(curr->value) == 2)
+		if (curr->type == VAR_ENV && curr->value != NULL
+			&& curr->value[1] == '?' && ft_strlen(curr->value) == 2)
 			tenv_error_code(curr, code);
 		in_squote = sigle_cote(curr, in_squote);
 		curr = curr->next;

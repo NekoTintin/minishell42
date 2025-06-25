@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ast_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 09:14:46 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/03/05 09:38:10 by benoitchallat    ###   ########.fr       */
+/*   Created: 2025/03/04 09:14:46 by benoitchall       #+#    #+#             */
+/*   Updated: 2025/06/25 12:53:22 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	node_is_redirect(t_token *node)
 	t_token_type	type;
 
 	type = node->type;
-	if (type == REDIRECT_IN || type == REDIRECT_OUT \
+	if (type == REDIRECT_IN || type == REDIRECT_OUT
 		|| type == APPEND || type == HEREDOC)
 		return (1);
 	return (0);
@@ -46,7 +46,7 @@ int	node_is_ascii(t_token *node)
 	t_token_type	type;
 
 	type = node->type;
-	if (type == D_QUOTES || type == S_QUOTES \
+	if (type == D_QUOTES || type == S_QUOTES
 		|| type == WHITESPACE || type == WORD || type == VAR_ENV)
 		return (1);
 	return (0);

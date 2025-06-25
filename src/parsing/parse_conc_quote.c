@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_quote.c                                       :+:      :+:    :+:   */
+/*   parse_conc_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benoitchallat <benoitchallat@student.42.fr +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 10:20:04 by benoitchallat     #+#    #+#             */
-/*   Updated: 2025/02/28 14:17:04 by benoitchallat    ###   ########.fr       */
+/*   Created: 2025/02/28 10:20:04 by benoitchall       #+#    #+#             */
+/*   Updated: 2025/06/25 12:52:53 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char			*make_value_in_quote(char *value, t_token *q_node);
 static t_token		*make_new_quote(t_token *node);
-static t_token		*loop_value(char **value, t_token *q_node, \
-					t_token *node, t_token *f_node);
+static t_token		*loop_value(char **value, t_token *q_node,
+						t_token *node, t_token *f_node);
 
 t_lexer	*parse_conc_quote(t_lexer *lexer)
 {
@@ -59,7 +59,7 @@ static t_token	*make_new_quote(t_token *node)
 	return (free(value), q_node);
 }
 
-static t_token	*loop_value(char **value, t_token *q_node, \
+static t_token	*loop_value(char **value, t_token *q_node,
 				t_token *node, t_token *f_node)
 {
 	while (q_node->type != node->type)

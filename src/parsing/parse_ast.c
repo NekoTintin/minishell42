@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:23:23 by benoitchall       #+#    #+#             */
-/*   Updated: 2025/06/10 13:45:44 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:52:28 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd)
 	index = 0;
 	while (node->type != PIPE)
 	{
-		if (node->type == WORD || node->type == VAR_ENV \
+		if (node->type == WORD || node->type == VAR_ENV
 			|| node->type == WHITESPACE)
 		{
 			cmd->argument[index++] = parse_simple_cmd(node);
@@ -71,7 +71,7 @@ char	*parse_simple_cmd(t_token *node)
 {
 	char	*args;
 
-	if (node->type == WORD || node->type == WHITESPACE \
+	if (node->type == WORD || node->type == WHITESPACE
 		|| node->type == VAR_ENV)
 	{
 		args = ft_strdup(node->value);
