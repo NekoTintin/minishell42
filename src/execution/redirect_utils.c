@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 17:53:30 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/25 00:29:15 by qupollet         ###   ########.fr       */
+/*   Created: 2025/06/06 17:05:03 by qupollet          #+#    #+#             */
+/*   Updated: 2025/06/25 14:02:26 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ int	ft_check_redir_file(char *file, t_token_type type)
 	return (0);
 }
 
-int	redir_verifs(t_pipeline *pl)
+int	redir_verifs(t_cmd *cmd)
 {
 	t_cmd		*cur;
 	t_redirect	*red;
 	int			code;
 	int			ret;
 
-	cur = pl->cmd;
+	cur = cmd;
 	code = 0;
 	ret = 0;
 	while (cur)
@@ -106,15 +106,17 @@ int	redir_prepare(t_parser *parse, t_exec *exec)
 	code = pipeline_read_all_heredoc(parse->top);
 	if (code != 0)
 	{
-		if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
-			return (1);
+		if (exec->pipe_tab)
+			if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
+				return (1);
 		return (code);
 	}
-	code = redir_verifs(exec->top);
+	code = redir_verifs(parse->top);
 	if (code != 0)
 	{
-		if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
-			return (1);
+		if (exec->pipe_tab)
+			if (close_all_pipes(exec->pipe_tab, exec->nb_child - 1) != 0)
+				return (1);
 		return (code);
 	}
 	return (code);

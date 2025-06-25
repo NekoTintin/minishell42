@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:50:51 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/25 12:50:32 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 13:48:37 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	exec_main(t_parser *parse, t_env *env, t_minishell *mini)
 	t_exec	*exec;
 	int		code;
 
-	if (!parse || !parse->top || !parse->top->argument[0])
+	if (!parse || !parse->top)
 		return (1);
 	if (parse->size == 1)
 	{
