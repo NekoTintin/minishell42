@@ -19,8 +19,7 @@ static int	ft_replace_env(t_env *top, char *key, char *val)
 	cur = top;
 	while (cur)
 	{
-		if (ft_strncmp(cur->key, key, ft_strlen(cur->key)) == 0
-			&& cur->key[ft_strlen(cur->key)] == '\0')
+		if (ft_strncmp(cur->key, key, ft_strlen(cur->key) + 1) == 0)
 		{
 			free(cur->value);
 			cur->value = ft_strdup(val);
@@ -65,8 +64,7 @@ char	*ft_env_get_value(t_env *env, char *key)
 	value = NULL;
 	while (cur)
 	{
-		if (ft_strncmp(cur->key, key, ft_strlen(cur->key)) == 0
-			&& cur->key[ft_strlen(cur->key)] == '\0')
+		if (ft_strncmp(cur->key, key, ft_strlen(cur->key) + 1) == 0)
 			value = cur->value;
 		cur = cur->next;
 	}
@@ -111,8 +109,7 @@ int	env_remove(t_env **env, char *key)
 	prev = NULL;
 	while (cur)
 	{
-		if (ft_strncmp(cur->key, key, ft_strlen(cur->key)) == 0
-			&& cur->key[ft_strlen(cur->key)] == '\0')
+		if (ft_strncmp(cur->key, key, ft_strlen(cur->key) + 1) == 0)
 		{
 			if (!prev)
 				*env = cur->next;
