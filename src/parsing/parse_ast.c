@@ -47,14 +47,14 @@ t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd)
 	index = 0;
 	while (node->type != PIPE)
 	{
-		if (node->type == WHITESPACE && index != 0)
+		/*if (node->type == WHITESPACE && index != 0)
 		{
 			if (node->value[0] != '\0')
 				cmd->argument[index++] = parse_simple_cmd(node);
 			if (cmd == NULL)
 				return (NULL);
-		}
-		if (node->type == WORD || node->type == VAR_ENV)
+		}*/
+		if (node->type == WORD || node->type == VAR_ENV || node->type == WHITESPACE)
 		{
 			if (node->value[0] != '\0')
 				cmd->argument[index++] = parse_simple_cmd(node);

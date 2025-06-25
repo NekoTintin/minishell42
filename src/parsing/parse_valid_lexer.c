@@ -46,7 +46,7 @@ static int	valid_quote(t_lexer *lexer)
 		curr = curr->next;
 	}
 	if (d_quote != 0 || s_quote != 0)
-		return(printf("syntax error near quote\n"));
+		return (printf("syntax error near quote\n"));
 	return (0);
 }
 
