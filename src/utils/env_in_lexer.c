@@ -33,7 +33,7 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 		if (curr->type == VAR_ENV && curr->value[1] != '?'
 			&& ft_strlen(curr->value) > 2)
 			tenv_varenv(curr, env, in_squote);
-		if (curr->type == VAR_ENV && curr->value != NULL
+		else if (curr->type == VAR_ENV && curr->value != NULL
 			&& curr->value[1] == '?' && ft_strlen(curr->value) == 2)
 			tenv_error_code(curr, code);
 		in_squote = sigle_cote(curr, in_squote);
