@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:05 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/19 16:08:51 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:28:49 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ int	no_newline(char *str)
 	while (str[i] == 'n')
 		i++;
 	return (str[i] == '\0');
+}
+
+static void	mini_echo_loop(int *first, int *idx, char **ntab)
+{
+	if (*first > 0)
+		write(1, " ", 1);
+	ft_putstr_fd(ntab[*idx], 1);
+	*idx += 1;
+	*first += 1;
 }
 
 void	mini_echo(char **args)
@@ -43,13 +52,7 @@ void	mini_echo(char **args)
 		idx++;
 	first = 0;
 	while (ntab[idx])
-	{
-		if (first > 0)
-			write(1, " ", 1);
-		ft_putstr_fd(ntab[idx], 1);
-		first++;
-		idx++;
-	}
+		mini_echo_loop(&first, &idx, ntab);
 	if (nl == 0)
 		write(1, "\n", 1);
 	free_tab(ntab);
