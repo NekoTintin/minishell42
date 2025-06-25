@@ -40,6 +40,11 @@ int	mini_loop(t_minishell *mini)
 		mini->line = readline("Minishell$ ");
 		if (mini->line == NULL)
 			return (free(mini->line), rl_clear_history(), EXIT_SUCCESS);
+		else if (mini->line[0] == '\0')
+		{
+			code_error = 130;
+			free(mini->line);
+		}
 		else if (mini_is_empty(mini->line))
 			free(mini->line);
 		else
