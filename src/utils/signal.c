@@ -30,7 +30,6 @@ int	event(void)
 void	sig_setup_mini(void)
 {
 	g_sig = 0;
-
 	rl_event_hook = event;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);

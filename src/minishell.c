@@ -62,7 +62,7 @@ bool	mini_is_empty(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] != 32 && str[i] != 9)
-			return(false);
+			return (false);
 		i++;
 	}
 	return (true);

@@ -119,7 +119,7 @@ int	exec_main_loop(t_parser *parse, t_exec *exec)
 	signal(SIGINT, SIG_IGN);
 	code = wait_all_children(exec);
 	if (code == 130)
-			write(2, "\n", 1);
+		write(2, "\n", 1);
 	if (code == 131)
 		write(2, "Quit(core dumped)\n", 18);
 	sig_setup_mini();
