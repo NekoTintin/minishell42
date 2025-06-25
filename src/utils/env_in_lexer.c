@@ -12,9 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-bool	sigle_cote(t_token *curr, bool squote);
+bool	sigle_cote(t_token *curr, bool squote, bool dquote);
 void	tenv_error_code(t_token *curr, int code);
 void	tenv_varenv(t_token *curr, t_env *env, bool squote);
+bool	double_cote(t_token *curr, bool dquote);
 
 /* ************************************************************** */
 
@@ -22,32 +23,44 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 {
 	char	*value;
 	bool	in_squote;
+	bool	i_dquote;
 	t_token	*curr;
 
 	curr = lexer->header;
 	value = NULL;
 	(void)value;
 	in_squote = false;
+	i_dquote = false;
 	while (curr != NULL)
 	{
 		if (curr->type == VAR_ENV && curr->value[1] != '?'
-			&& ft_strlen(curr->value) > 2)
+			&& ft_strlen(curr->value) >= 2)
 			tenv_varenv(curr, env, in_squote);
 		else if (curr->type == VAR_ENV && curr->value != NULL
 			&& curr->value[1] == '?' && ft_strlen(curr->value) == 2)
 			tenv_error_code(curr, code);
-		in_squote = sigle_cote(curr, in_squote);
+		i_dquote = double_cote(curr, i_dquote);
+		in_squote = sigle_cote(curr, in_squote, i_dquote);
 		curr = curr->next;
 	}
 }
 
-bool	sigle_cote(t_token *curr, bool squote)
+bool	sigle_cote(t_token *curr, bool squote, bool dquote)
 {
-	if (curr->type == S_QUOTES && squote == false)
+	if (curr->type == S_QUOTES && squote == false && dquote == false)
 		return (true);
 	if (curr->type == S_QUOTES && squote == true)
 		return (false);
 	return (squote);
+}
+
+bool	double_cote(t_token *curr, bool dquote)
+{
+	if (curr->type == D_QUOTES && dquote == false)
+		return (true);
+	if (curr->type == D_QUOTES && dquote == true)
+		return (false);
+	return (dquote);
 }
 
 void	tenv_error_code(t_token *curr, int code)
