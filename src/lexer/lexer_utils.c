@@ -89,7 +89,8 @@ static int	lx_find_length(char *str, int index, int length)
 	else if (str[index] == 36)
 	{
 		length = 1;
-		while (!lx_test_c(&str[index + length]) && str[index + length] != '\0')
+		while (!lx_test_c(&str[index + length]) && \
+				str[index + length] != '\0' && ft_isalpha(str[index + length]))
 			length++;
 		return (length);
 	}
