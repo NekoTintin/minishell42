@@ -70,6 +70,7 @@ t_token	*loop_parse_cmd(t_token *node, t_cmd *cmd)
 char	*parse_simple_cmd(t_token *node)
 {
 	char	*args;
+
 	if (node->type == WORD || node->type == WHITESPACE
 		|| node->type == VAR_ENV)
 	{

@@ -26,8 +26,6 @@ int	no_newline(char *str)
 
 static void	mini_echo_loop(int *first, int *idx, char **ntab)
 {
-	//if (*first > 0)
-		//write(1, " ", 1);
 	ft_putstr_fd(ntab[*idx], 1);
 	*idx += 1;
 	*first += 1;
