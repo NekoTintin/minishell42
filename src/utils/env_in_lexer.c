@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:04:53 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/25 12:54:11 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:04:48 by bchallat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 	bool	in_squote;
 	bool	i_dquote;
 	t_token	*curr;
-	int 	index;
+	int		index;
 
 	curr = lexer->header;
 	in_squote = false;
@@ -66,7 +66,7 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 				curr->value = tenv_varenv(curr->value, env, in_squote, index);
 				index = 0;
 			}
-			else if(curr->value[index] == 36 && curr->value[index + 1] == 63)
+			else if (curr->value[index] == 36 && curr->value[index + 1] == 63)
 			{
 				curr->value = tenv_error_code(curr->value, code, index);
 				index = 0;
@@ -116,7 +116,7 @@ char	*tenv_error_code(char *str, int code, int index)
 	free(join);
 	free(str);
 	index = 0;
-	return(join2);
+	return (join2);
 }
 /* **************************************************************** *
 void	tenv_varenv(t_token *curr, t_env *env, bool squote)
@@ -139,20 +139,20 @@ void	tenv_varenv(t_token *curr, t_env *env, bool squote)
 	}
 }
 * ********************************************************************** */
+
 char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
 {
 	char	*value;
 	char	*befor;
 	char	*after;
-	char 	*key;
+	char	*key;
 	char	*join;
 	char	*join2;
 
 	key = env_strextra(str, index);
-	value = ft_strdup(ft_env_get_value(env,&key[1]));
+	value = ft_strdup(ft_env_get_value(env, &key[1]));
 	befor = ft_strndup(str, index);
 	after = ft_strndup(&str[index + ft_strlen(key)], ft_strlen(str) - (index + ft_strlen(key)));
-
 	if (squote == false)
 	{
 		if (value == NULL)
@@ -162,7 +162,7 @@ char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
 			free(str);
 			free(key);
 			index = 0;
-			return(befor);
+			return (befor);
 		}
 		join = ft_strjoin(befor, value);
 		join2 = ft_strjoin(join, after);
@@ -175,19 +175,19 @@ char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
 		index = 0;
 		return (join2);
 	}
-	return(str);
+	return (str);
 }
 
 char	*ft_strndup(char *str, unsigned int n)
 {
-	char	*dup;
+	char			*dup;
 	unsigned int	d;
 
 	d = 0;
 	dup = (char *)malloc(sizeof(char) * (n + 1));
 	if (str == NULL || dup == NULL)
 		return (NULL);
-	while(d != n)
+	while (d != n)
 	{
 		dup[d] = str[d];
 		d++;
@@ -198,18 +198,18 @@ char	*ft_strndup(char *str, unsigned int n)
 
 char	*env_strextra(char *str, unsigned int n)
 {
-	char	*key;
+	char			*key;
 	unsigned int	len;
-	int		i;
+	int				i;
 
 	len = n + 1;
-	while(str[len] != '\0' && (ft_isalpha(str[len]) || str[len] == '_'))
+	while (str[len] != '\0' && (ft_isalpha(str[len]) || str[len] == '_'))
 		len++;
 	key = (char *)malloc(sizeof(char) * (len - n) + 1);
 	if (str == NULL || key == NULL)
 		return (NULL);
-	i = 0; 
-	while(len > i + n)
+	i = 0;
+	while (len > i + n)
 	{
 		key[i] = str[i + n];
 		i++;
