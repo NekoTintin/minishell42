@@ -14,6 +14,7 @@
 
 t_lexer		*join_quote(t_lexer *lexer);
 t_token		*find_join(t_token *curr, t_token_type type);
+t_token		*conc_quote(t_token *curr, t_lexer *lexer);
 
 t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 {
@@ -36,40 +37,6 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 	return (parse);
 }
 
-t_lexer	*join_quote(t_lexer *lexer)
-{
-	char	*join;
-	t_token	*curr;
-	t_token	*node;
-
-	join = NULL;
-	node = NULL;
-	curr = lexer->header;
-	while (curr != NULL)
-	{
-		if (curr->type == S_QUOTES || curr->type == D_QUOTES)
-		{
-			node = curr->next;
-			curr = find_join(curr, curr->type);
-			if (curr == NULL)
-				break ;
-			if (curr->type == WORD || curr->type == VAR_ENV)
-			{
-				join = ft_strjoin(node->value, curr->value);
-				free(node->value);
-				node->value = ft_strdup(join);
-				node->next = curr->next;
-				curr = lexer->header;
-			}
-		}
-		else
-		{
-			curr = curr->next;
-		}
-	}
-	return (lexer);
-}
-
 t_token	*find_join(t_token *curr, t_token_type type)
 {
 	int	compt;
@@ -84,6 +51,65 @@ t_token	*find_join(t_token *curr, t_token_type type)
 		if (compt == 4 || curr->type == WHITESPACE)
 			return (curr);
 		curr = curr->next;
+	}
+	return (NULL);
+}
+
+t_lexer	*join_quote(t_lexer *lexer)
+{
+	t_token	*curr;
+
+	curr = lexer->header;
+	while (curr != NULL)
+	{
+		if (curr->type == S_QUOTES || curr->type == D_QUOTES)
+			curr = conc_quote(curr, lexer);
+		else
+			curr = curr->next;
+	}
+	return (lexer);
+}
+/*	******* dont'n free ******	*/
+
+void	free_node_void(t_token *node)
+{
+	t_token	*delet;
+	t_token	*new;
+
+	delet = node;
+	new = node->next;
+	free(delet->value);
+	free(delet);
+	delet = new;
+	new = new->next;
+	free(delet->value);
+	free(delet);
+	delet = new;
+}
+
+t_token	*conc_quote(t_token *curr, t_lexer *lexer)
+{
+	char	*join;
+	t_token	*node;
+
+	if (curr->type == S_QUOTES || curr->type == D_QUOTES)
+	{
+		node = curr->next;
+		curr = find_join(curr, curr->type);
+		if (curr == NULL)
+			return (NULL);
+		if (curr->type == WORD || curr->type == VAR_ENV)
+		{
+			join = ft_strjoin(node->value, curr->value);
+			free(node->value);
+			node->value = ft_strdup(join);
+			free_node_void(node->next);
+			node->next = curr->next;
+			free(curr->value);
+			free(curr);
+			free(join);
+			return (lexer->header);
+		}
 	}
 	return (NULL);
 }

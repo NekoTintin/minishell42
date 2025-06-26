@@ -82,4 +82,17 @@ int				env_remove(t_env **env, char *key);
 int				exec_env_size(t_env *env);
 void			free_tab(char **tablo);
 
+/* ************************************************* */
+
+bool			sigle_cote(t_token *curr, bool squote, bool dquote);
+char			*tenv_error_code(char *str, int code, int index);
+char			*tenv_varenv(char *str, t_env *env, bool squote, int index);
+bool			double_cote(t_token *curr, bool dquote);
+char			*ft_strndup(char *str, unsigned int n);
+char			*env_strextra(char *str, unsigned int n);
+t_token			*loop_expand(t_token *curr, bool in_squote, \
+					int code, t_env *envp);
+
+/* ************************************************** */
+
 #endif
