@@ -53,18 +53,19 @@ t_lexer		*join_quote(t_lexer *lexer)
 			curr = find_join(curr, curr->type);
 			if (curr == NULL)
 				break ;
-			printf("<>\n");
 			if (curr->type == WORD || curr->type == VAR_ENV)
 			{
 				join = ft_strjoin(node->value, curr->value);
 				free(node->value);
 				node->value = ft_strdup(join);
-				free(curr->value);
-				printf("%s\n", node->value);
 				node->next = curr->next;
+				curr = lexer->header;
 			}
 		}
-		curr = curr->next;
+		else
+		{
+			curr = curr->next;
+		}
 	}
 	return (lexer);
 }
