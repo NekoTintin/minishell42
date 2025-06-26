@@ -32,10 +32,12 @@ t_token	*parse_redirection_list(t_token *node, t_cmd *cmd)
 }
 
 t_token	*parse_redirection(t_token *node, t_redirect *redirect)
-{
-	if (redirect->type == HEREDOC)
-		return (parse_redirection_herdoc(node, redirect));
+{	
 	redirect->file = (char **)malloc(sizeof(char *) * 2);
+	if (redirect->file == NULL)
+		return (NULL);
+	if (redirect->type == HEREDOC)
+		redirect->file[0] = ft_strdup(node->value);
 	if (redirect->type == REDIRECT_IN)
 		redirect->file[0] = ft_strdup(node->value);
 	if (redirect->type == REDIRECT_OUT)
