@@ -38,14 +38,10 @@ t_token	*loop_expand(t_token *curr, bool in_squote, int code, t_env *env)
 	while (curr->value[index] != '\0')
 	{
 		if (curr->value[index] == 36 && curr->value[index + 1] != '?')
-		{
 			curr->value = tenv_varenv(curr->value, env, in_squote, index);
-			index = 0;
-		}
 		else if (curr->value[index] == 36 && curr->value[index + 1] == 63)
 			curr->value = tenv_error_code(curr->value, code, index);
-		else
-			index++;
+		index++;
 	}
 	return (curr);
 }

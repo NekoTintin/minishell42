@@ -35,22 +35,14 @@ char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
 
 	key = env_strextra(str, index);
 	value = ft_strdup(ft_env_get_value(env, &key[1]));
-	if (squote == false && value == NULL)
-	{
-		index = 0;
-		free(str);
-		free(value);
-		free(key);
-		return (ft_strndup(str, index));
-	}
 	befor = ft_strndup(str, index);
 	after = ft_strndup(&str[index + ft_strlen(key)], \
-				ft_strlen(str) - (index + ft_strlen(key)));
+			ft_strlen(str) - (index + ft_strlen(key)));
+	index = 0;
 	if (squote == false)
 	{
-		free(str);
-		free(key);
-		index = 0;
+		if (value == NULL)
+			return (befor);
 		return (return_join(value, befor, after));
 	}
 	return (str);
@@ -95,3 +87,47 @@ char	*env_strextra(char *str, unsigned int n)
 	key[i] = 0x0;
 	return (key);
 }
+
+/*char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
+{
+	char	*value;
+	char	*befor;
+	char	*after;
+	char 	*key;
+	char	*join;
+	char	*join2;
+	key = env_strextra(str, index);
+	value = ft_strdup(ft_env_get_value(env,&key[1]));
+	printf("%s \n", value);
+	befor = ft_strndup(str, index);
+	printf("%s \n", befor);
+	after = ft_strndup(&str[index + ft_strlen(key)], \
+			ft_strlen(str) - (index + ft_strlen(key)));
+	if (squote == false)
+	{
+		if (value == NULL)
+		{
+			free(after);
+			free(value);
+			free(str);
+			free(key);
+			index = 0;
+			return(befor);
+		}
+		join = ft_strjoin(befor, value);
+		printf("%s \n", join);
+		join2 = ft_strjoin(join, after);
+		printf("%s \n", join2);
+		free(join);
+		free(after);
+		free(befor);
+		free(value);
+		free(str);
+		free(key);
+		index = 0;
+		return (join2);
+	}
+	printf("<%d> \n", index);
+	index = 0;
+	return(str);
+}*/
