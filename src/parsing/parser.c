@@ -80,7 +80,7 @@ t_token		*find_join(t_token *curr, t_token_type type)
 			return (curr);
 		if (curr->type == type)
 			compt++;
-		if (compt == 4)
+		if (compt == 4 || curr->type == WHITESPACE)
 			return (curr);
 		curr = curr->next;
 	}
