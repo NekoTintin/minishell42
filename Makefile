@@ -38,6 +38,7 @@ SRC	=	minishell.c \
 		testeur/lib_test_parsing.c \
 		utils/signal.c \
 		utils/env_in_lexer.c \
+		utils/tenv_varenv.c \
 		utils/minishell_utils.c \
 		env/env_func.c \
 		env/env_utils.c \
