@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-void    print_lexer(t_lexer *lexer);
+
 t_lexer		*join_quote(t_lexer *lexer);
 t_token		*find_join(t_token *curr, t_token_type type);
 
@@ -36,13 +36,13 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 	return (parse);
 }
 
-t_lexer		*join_quote(t_lexer *lexer)
+t_lexer	*join_quote(t_lexer *lexer)
 {
-	char	*join;   
+	char	*join;
 	t_token	*curr;
-	t_token *node;
-	
-	join =NULL;
+	t_token	*node;
+
+	join = NULL;
 	node = NULL;
 	curr = lexer->header;
 	while (curr != NULL)
@@ -70,9 +70,9 @@ t_lexer		*join_quote(t_lexer *lexer)
 	return (lexer);
 }
 
-t_token		*find_join(t_token *curr, t_token_type type)
+t_token	*find_join(t_token *curr, t_token_type type)
 {
-	int compt;
+	int	compt;
 
 	compt = 0;
 	while (curr != NULL)
