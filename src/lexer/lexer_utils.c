@@ -90,7 +90,7 @@ static int	lx_find_length(char *str, int index, int length)
 	{
 		length = 1;
 		while (!lx_test_c(&str[index + length]) && \
-				str[index + length] != '\0' && ft_isalpha(str[index + length]))
+				str[index + length] != '\0')
 			length++;
 		return (length);
 	}
