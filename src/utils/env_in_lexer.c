@@ -13,11 +13,12 @@
 #include "../../includes/minishell.h"
 
 bool	sigle_cote(t_token *curr, bool squote, bool dquote);
-void	tenv_error_code(t_token *curr, int code);
+char	*tenv_error_code(char *str, int code, int index);
 void	tenv_varenv(t_token *curr, t_env *env, bool squote);
 bool	double_cote(t_token *curr, bool dquote);
+char	*ft_strndup(char *str, unsigned int n);
 
-/* ************************************************************** */
+/* ************************************************************** *
 
 void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 {
@@ -28,7 +29,6 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 
 	curr = lexer->header;
 	value = NULL;
-	(void)value;
 	in_squote = false;
 	i_dquote = false;
 	while (curr != NULL)
@@ -39,6 +39,36 @@ void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
 		else if (curr->type == VAR_ENV && curr->value != NULL
 			&& curr->value[1] == '?' && ft_strlen(curr->value) == 2)
 			tenv_error_code(curr, code);
+		i_dquote = double_cote(curr, i_dquote);
+		in_squote = sigle_cote(curr, in_squote, i_dquote);
+		curr = curr->next;
+	}
+}
+* ******************************************************************* */
+void	get_val_tenv(int code, t_lexer *lexer, t_env *env)
+{
+	bool	in_squote;
+	bool	i_dquote;
+	t_token	*curr;
+	int 	index;
+
+	curr = lexer->header;
+	in_squote = false;
+	i_dquote = false;
+	while (curr != NULL)
+	{
+		index = 0;
+		while (curr->value[index] != '\0')
+		{
+		/*	if (curr->value[index] == 36 && curr->value[index + 1] != '?')
+				curr->value = tenv_varenv(curr, env, in_squote);*/
+			if (curr->type == VAR_ENV && curr->value[1] != '?'
+			&& ft_strlen(curr->value) >= 2)
+				tenv_varenv(curr, env, in_squote);
+			if (curr->value[index] == 36 && curr->value[index + 1] == 63)
+				curr->value = tenv_error_code(curr->value, code, index);
+			index++;
+		}	
 		i_dquote = double_cote(curr, i_dquote);
 		in_squote = sigle_cote(curr, in_squote, i_dquote);
 		curr = curr->next;
@@ -63,15 +93,26 @@ bool	double_cote(t_token *curr, bool dquote)
 	return (dquote);
 }
 
-void	tenv_error_code(t_token *curr, int code)
+char	*tenv_error_code(char *str, int code, int index)
 {
 	char	*value;
+	char	*befor;
+	char	*after;
+	char	*join;
+	char	*join2;
 
-	value = NULL;
 	value = ft_itoa(code);
-	free(curr->value);
-	curr->value = ft_strdup(value);
+	befor = ft_strndup(str, index);
+	after = ft_strndup(&str[index + 2], ft_strlen(str) - (index + 2));
+	join = ft_strjoin(befor, value);
+	join2 = ft_strjoin(join, after);
 	free(value);
+	free(befor);
+	free(after);
+	free(join);
+	free(str);
+	index = 0;
+	return(join2);
 }
 
 void	tenv_varenv(t_token *curr, t_env *env, bool squote)
@@ -92,4 +133,22 @@ void	tenv_varenv(t_token *curr, t_env *env, bool squote)
 		curr->value = ft_strdup(value);
 		free(value);
 	}
+}
+
+char	*ft_strndup(char *str, unsigned int n)
+{
+	char	*dup;
+	unsigned int	d;
+
+	d = 0;
+	dup = (char *)malloc(sizeof(char) * n + 1);
+	if (str == NULL || dup == NULL)
+		return (NULL);
+	while(d != n)
+	{
+		dup[d] = str[d];
+		d++;
+	}
+	dup[d] = 0x0;
+	return (dup);
 }

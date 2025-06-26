@@ -68,7 +68,7 @@ static t_lexer	*lx_dup_str(char *dup_str, t_lexer *lexer)
 static int	lx_test_c(char *c)
 {
 	if (*c == '>' || *c == '|' || *c == '<'
-		|| *c == 32 || *c == 36 || *c == 39 || *c == 34)
+		|| *c == 32 || *c == 39 || *c == 34)// || *c == 36 )
 		return (1);
 	return (0);
 }
@@ -86,14 +86,14 @@ static int	lx_find_length(char *str, int index, int length)
 		length = 1;
 		return (length);
 	}
-	else if (str[index] == 36)
+	/*else if (str[index] == 36)
 	{
 		length = 1;
 		while (!lx_test_c(&str[index + length]) && \
 				str[index + length] != '\0')
 			length++;
 		return (length);
-	}
+	}*/
 	while (str[index + length] != '\0' && !lx_test_c(&str[index + length]))
 		length++;
 	return (length);
