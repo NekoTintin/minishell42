@@ -12,6 +12,14 @@
 
 #include "../../includes/minishell.h"
 
+void	free_vavenv(char *key, char *value, char *befor, char *after)
+{
+	free(key);
+	free(value);
+	free(befor);
+	free(after);
+}
+
 char	*return_join(char *value, char *befor, char *after)
 {
 	char	*join;
@@ -42,9 +50,17 @@ char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
 	if (squote == false)
 	{
 		if (value == NULL)
+		{
+			free(key);
+			free(value);
+			free(after);
+			free(str);
 			return (befor);
+		}
+		free(key);
 		return (return_join(value, befor, after));
 	}
+	free_vavenv(key, value, befor, after);
 	return (str);
 }
 

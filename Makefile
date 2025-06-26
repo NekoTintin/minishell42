@@ -92,7 +92,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo  "$(GREEN)[..]       	🛠️ $(YELLOW)MAKE	libft ...$(BLUE)libft/libft.a\n"
 	@make -C libft/ > /dev/null
-	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	.exe ... $(BLUE)Minishell\n"
+	@echo  "$(GREEN)[OK]       	✅ $(YELLOW)CREATED	.exe ... $(BLUE)Minishell\n$(RESET)"
 	@$(CCFLAG) -g3 $(OBJS) $(LIBFT) $(LIBS) -o $(NAME)
 
 clean:
