@@ -88,7 +88,8 @@ char	*env_strextra(char *str, unsigned int n)
 	int				i;
 
 	len = n + 1;
-	while (str[len] != '\0' && (ft_isalpha(str[len]) || str[len] == '_'))
+	while (str[len] != '\0' && \
+		(ft_isalpha(str[len]) || str[len] == '_' || ft_isdigit(str[len])))
 		len++;
 	key = (char *)malloc(sizeof(char) * (len - n) + 1);
 	if (str == NULL || key == NULL)
