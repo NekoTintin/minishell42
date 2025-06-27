@@ -78,7 +78,7 @@ SRCS = ${addprefix ${SRCDIR}/, ${SRC}}
 OBJS = ${addprefix ${OBJDIR}/, $(SRC:.c=.o)}
 
 object/%.o:src/%.c | $(OBJDIR)
-	@echo  "$(GREEN)[OK]       	🛠️ $(YELLOW)Compaling ... $(BLUE)$<"
+	@echo  "$(GREEN)[OK]       	🛠️ $(YELLOW)Compling ... $(BLUE)$<"
 	@$(CCFLAG) -c $< -o $@
 
 #===========================================================#
