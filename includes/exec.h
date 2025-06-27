@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:44:37 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/25 12:49:07 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:41:23 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int			pipeline_read_all_heredoc(t_cmd *cmd);
 
 // utils.c //
 void		print_code(int code);
+int			ft_check_find_in_path_path(t_env *env, char **file);
 
 // builtins //
 int			mini_cd(char **args, t_env *env);

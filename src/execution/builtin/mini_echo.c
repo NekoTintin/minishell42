@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:05 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/25 14:28:49 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:02:24 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	mini_echo(char **args)
 	ntab = rm_whitespace_tab(args + 1);
 	if (!ntab || !*ntab)
 	{
+		write(1, "\n", 1);
 		free(ntab);
 		return ;
 	}
