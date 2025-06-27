@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/25 13:54:23 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:51:48 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_one_child_content(t_cmd *cmd, t_exec *exec)
 	if (execve(ntab[0], ntab, envp) == -1)
 	{
 		ft_print_errors("execve", 126);
-		return (fr(exec), free_tab(ntab), free_tab(envp), 126);
+		return (fr(exec), free_tab(envp), 126);
 	}
 	fr(exec);
 	return (1);

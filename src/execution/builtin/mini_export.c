@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 18:27:33 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/24 23:36:02 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:50:55 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ int	mini_export_content(t_env *env, char *str)
 	}
 	if (ft_add_to_env(env, key, val) != 0)
 	{
-		ft_print_errors("export", 0);
+		write(2, "bash: export: cannot add ", 26);
+		write(2, key, ft_strlen(key));
+		write(2, " to env\n", 9);
 		ret = EXIT_FAILURE;
 	}
 	free(key);
