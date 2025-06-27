@@ -12,21 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/*void	mini_readline(t_minishell *mini)
-{
-	mini->line = readline("minishell$");
-	if ()
-	{
-		
-	}
-	if (mini->line == NULL)
-	{
-		write(1, "exit\n", 5);
-		mini_free(mini);
-		exit(0);
-	}
-}*/
-
 t_minishell	*mini_init(char **envp)
 {
 	t_minishell	*mini;
@@ -48,6 +33,9 @@ void	mini_free(t_minishell *mini)
 		free_all_parser(mini->parse);
 	if (mini->env != NULL)
 		ft_free_env(mini->env);
+	if (mini->line != NULL)
+		free(mini->line);
+	rl_clear_history();
 	free (mini);
 }
 
