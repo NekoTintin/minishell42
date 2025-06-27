@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:05 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/27 13:02:24 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:35:02 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ static void	mini_echo_loop(int *first, int *idx, char **ntab)
 	*first += 1;
 }
 
+static	void	print_nline(char ***ntab)
+{
+	write(1, "\n", 1);
+	free_tab(*ntab);
+}
+
 void	mini_echo(char **args)
 {
 	char		**ntab;
@@ -41,8 +47,7 @@ void	mini_echo(char **args)
 	ntab = rm_whitespace_tab(args + 1);
 	if (!ntab || !*ntab)
 	{
-		write(1, "\n", 1);
-		free(ntab);
+		print_nline(&ntab);
 		return ;
 	}
 	nl = no_newline(ntab[0]);
