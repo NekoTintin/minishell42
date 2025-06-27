@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 23:08:48 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/27 12:44:03 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:20:55 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	ft_find_in_path(char **file, t_env *env)
 			return (free_tab(splited), code);
 		idx++;
 	}
-	if (str_contains_only_whitespace(*file) == 0)
-		return (free_tab(splited), ft_print_errors(*file, 127), 0);
+	ft_print_errors(*file, 127);
 	return (free_tab(splited), 127);
 }

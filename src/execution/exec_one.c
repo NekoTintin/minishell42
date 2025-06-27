@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:33:43 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/27 13:51:48 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:19:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ int	ft_one_child_content(t_cmd *cmd, t_exec *exec)
 		return (fr(exec), perror("malloc"), 1);
 	free_tab(cmd->argument);
 	cmd->argument = ntab;
-	code = ft_find_in_path(&cmd->argument[0], exec->env);
-	if (code != 0)
-		return (fr(exec), free_tab(envp), free_tab(ntab), code);
 	code = check_exec(cmd->argument[0]);
 	if (code != 0)
 		return (fr(exec), free_tab(envp), free_tab(ntab), code);
