@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:36:49 by bchallat          #+#    #+#             */
-/*   Updated: 2025/03/14 14:11:13 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:51:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	mini_pwd(void)
 
 	if (getcwd(buffer, sizeof(buffer)) == NULL)
 	{
-		ft_putstr_fd("pwd: error retrieving current directory", 2);
+		ft_putstr_fd("pwd: error retrieving current directory: ", 2);
 		perror("getcwd: cannot access parent directories");
 		return (1);
 	}

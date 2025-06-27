@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 22:01:23 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/17 20:14:45 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:49:56 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_add_to_env(t_env *top, char *key, char *val)
 	t_env	*cur;
 	t_env	*new_node;
 
+	if (!top)
+		return (1);
 	if (ft_env_get_value(top, key) != NULL)
 		return (ft_replace_env(top, key, val));
 	cur = top;
@@ -48,7 +50,10 @@ int	ft_add_to_env(t_env *top, char *key, char *val)
 	new_node->key = ft_strdup(key);
 	if (!new_node->key)
 		return (free(new_node), 1);
-	new_node->value = ft_strdup(val);
+	if (!val)
+		new_node->value = ft_strdup("");
+	else
+		new_node->value = ft_strdup(val);
 	if (!new_node->value)
 		return (free(new_node->key), free(new_node), 1);
 	cur->next = new_node;
