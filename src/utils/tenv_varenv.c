@@ -46,18 +46,17 @@ char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
 	befor = ft_strndup(str, index);
 	after = ft_strndup(&str[index + ft_strlen(key)], \
 			ft_strlen(str) - (index + ft_strlen(key)));
-	index = 0;
+	index = -1;
 	if (squote == false)
 	{
 		if (value == NULL)
 		{
-			free(key);
-			free(value);
-			free(after);
-			free(str);
+			free_vavenv(key, value, after, str);
 			return (befor);
 		}
 		free(key);
+		free(str);
+		index = 0;
 		return (return_join(value, befor, after));
 	}
 	free_vavenv(key, value, befor, after);
