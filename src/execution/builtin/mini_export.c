@@ -12,6 +12,8 @@
 
 #include "../../../includes/minishell.h"
 
+char	**m_exp_tab(char **arg);
+
 int	mini_export_is_valid(const char *str)
 {
 	int	i;
@@ -88,7 +90,8 @@ int	mini_export(char **args, t_env *env)
 	int		code;
 	int		ret;
 
-	tablo = rm_whitespace_tab(args);
+	//tablo = rm_whitespace_tab(args); // make_tab(args);
+	tablo =  m_exp_tab(args);
 	if (!tablo)
 		return (perror("malloc"), EXIT_FAILURE);
 	if (!tablo[1])
@@ -108,4 +111,67 @@ int	mini_export(char **args, t_env *env)
 		idx++;
 	}
 	return (free_tab(tablo), ret);
+}
+
+char    **copy_tab(char **src)
+{
+    int     i;
+    char    **copy;
+
+    if (!src)
+        return (NULL);
+
+    // Compter le nombre de chaînes dans src
+    i = 0;
+    while (src[i])
+        i++;
+
+    // Allouer le tableau + NULL final
+    copy = malloc(sizeof(char *) * (i + 1));
+    if (!copy)
+        return (NULL);
+
+    // Copier chaque chaîne
+    i = 0;
+    while (src[i])
+    {
+        copy[i] = ft_strdup(src[i]);
+        if (!copy[i])
+        {
+            // Libération en cas d'erreur
+            while (--i >= 0)
+                free(copy[i]);
+            free(copy);
+            return (NULL);
+        }
+        i++;
+    }
+    copy[i] = NULL;
+    return (copy);
+}
+
+char	**m_exp_tab(char **args)
+{
+	char	*join;
+	char	**array;
+
+	join = NULL;
+	array = NULL;
+	if(args[1][ft_strlen(args[1]) - 1] != '=')
+		return (copy_tab(args));
+	join = ft_strjoin(args[1],args[2]);
+	if (join == NULL)
+		return(NULL);
+	array = (char **)malloc(sizeof(char *) * 3);
+	if (array == NULL)
+		return (free(join),NULL);
+	array[0] = ft_strdup(args[0]);
+	if (array[0]== NULL)
+		return(free(array),free(join),NULL);
+	array[1] = ft_strdup(join);
+	if (array[1] == NULL)
+		return (free(array),free(join),NULL);
+	array[2] = NULL;
+	return (free(join),array);
+
 }
