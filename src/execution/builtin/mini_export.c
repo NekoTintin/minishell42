@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 18:27:33 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/27 13:50:55 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:24:51 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	mini_export(char **args, t_env *env)
 	int		code;
 	int		ret;
 
-	tablo = rm_whitespace_tab(args);
+	tablo = m_exp_tab(args);
 	if (!tablo)
 		return (perror("malloc"), EXIT_FAILURE);
 	if (!tablo[1])
