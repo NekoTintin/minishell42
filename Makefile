@@ -6,7 +6,7 @@
 #    By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 18:38:59 by bchallat          #+#    #+#              #
-#    Updated: 2025/06/25 12:51:03 by qupollet         ###   ########.fr        #
+#    Updated: 2025/06/28 17:34:15 by qupollet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC	=	minishell.c \
 		execution/builtin/mini_env.c \
 		execution/builtin/mini_exit.c \
 		execution/builtin/mini_export.c \
+		execution/builtin/mini_export_utils.c \
 		execution/builtin/mini_pwd.c \
 		execution/builtin/mini_unset.c \
 		execution/builtins.c \
