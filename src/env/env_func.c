@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 22:01:23 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/27 13:49:56 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:28:44 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ static int	ft_replace_env(t_env *top, char *key, char *val)
 	cur = top;
 	while (cur)
 	{
-		if (ft_strncmp(cur->key, key, ft_strlen(cur->key) + 1) == 0)
+		if (ft_strncmp(cur->key, key, ft_strlen(cur->key) + 1) == 0
+			&& ft_strlen(cur->key) == ft_strlen(key))
 		{
 			free(cur->value);
-			cur->value = ft_strdup(val);
+			if (!val)
+				cur->value = ft_strdup("");
+			else
+				cur->value = ft_strdup(val);
 			if (!cur->value)
 				return (1);
 			return (0);
@@ -39,8 +43,10 @@ int	ft_add_to_env(t_env *top, char *key, char *val)
 
 	if (!top)
 		return (1);
+	printf("before get value\n");
 	if (ft_env_get_value(top, key) != NULL)
 		return (ft_replace_env(top, key, val));
+	printf("after get value\n");
 	cur = top;
 	while (cur->next)
 		cur = cur->next;
@@ -48,6 +54,7 @@ int	ft_add_to_env(t_env *top, char *key, char *val)
 	if (!new_node)
 		return (1);
 	new_node->key = ft_strdup(key);
+	printf("ICI\n");
 	if (!new_node->key)
 		return (free(new_node), 1);
 	if (!val)

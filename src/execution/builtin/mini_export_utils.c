@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:23:46 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/28 17:30:33 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:05:36 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ char	**m_exp_tab(char **args)
 
 	join = NULL;
 	array = NULL;
-	if (args[1][ft_strlen(args[1]) - 1] != '=')
+	if (args[1][ft_strlen(args[1]) - 1] != '='
+		|| args[2] == NULL)
 		return (copy_tab(args));
 	join = ft_strjoin(args[1], args[2]);
 	if (join == NULL)

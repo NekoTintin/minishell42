@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 18:27:33 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/28 17:24:51 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:09:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	mini_export_content(t_env *env, char *str)
 			free(val);
 		return (perror("malloc"), EXIT_FAILURE);
 	}
+	printf("Adding key: %s, value: %s\n", key, val);
 	if (ft_add_to_env(env, key, val) != 0)
 	{
 		write(2, "bash: export: cannot add ", 26);
@@ -81,6 +82,21 @@ void	mini_export_print(char *str, int *ret)
 	*ret = EXIT_FAILURE;
 }
 
+void	print_tablo(char **tablo)
+{
+	int	i;
+
+	if (!tablo)
+		return ;
+	i = 0;
+	while (tablo[i])
+	{
+		ft_putstr_fd(tablo[i], 1);
+		ft_putchar_fd('\n', 1);
+		i++;
+	}
+}
+
 int	mini_export(char **args, t_env *env)
 {
 	char	**tablo;
@@ -90,9 +106,7 @@ int	mini_export(char **args, t_env *env)
 
 	tablo = m_exp_tab(args);
 	if (!tablo)
-		return (perror("malloc"), EXIT_FAILURE);
-	if (!tablo[1])
-		return (0);
+		return (EXIT_FAILURE);
 	idx = 1;
 	ret = 0;
 	while (tablo[idx])
