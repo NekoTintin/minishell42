@@ -15,6 +15,10 @@
 t_lexer		*join_quote(t_lexer *lexer);
 t_token		*find_join(t_token *curr, t_token_type type);
 t_token		*conc_quote(t_token *curr, t_lexer *lexer);
+t_lexer		*ll_delet_type(t_lexer *lexer, t_token_type type);
+t_token	*conc_node_word(t_token *curr, t_lexer *lexer);
+t_lexer	*conc_word(t_lexer *lexer);
+t_token	*ll_delet_token(t_token *node);
 
 t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 {
@@ -23,7 +27,10 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 	else
 	{
 		lexer = parse_conc_quote(lexer);
-		lexer = join_quote(lexer);
+		lexer = ll_delet_type(lexer, S_QUOTES);
+		lexer = ll_delet_type(lexer, D_QUOTES);
+		lexer = conc_word(lexer);
+		//lexer = join_quote(lexer);
 		if (lexer == NULL)
 			return (ll_free_lexer(lexer), NULL);
 		parse = parse_make_parser(parse);
@@ -34,82 +41,78 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 			return (ll_free_lexer(lexer), NULL);
 	}
 	ll_free_lexer(lexer);
+	print_parse(parse);
 	return (parse);
 }
 
-t_token	*find_join(t_token *curr, t_token_type type)
+t_lexer	*ll_delet_type(t_lexer *lexer, t_token_type type)
 {
-	int	compt;
+	t_token	*delete;
 
-	compt = 0;
-	while (curr != NULL)
+	delete = lexer->header;
+	while (delete->next != NULL)
 	{
-		if ((curr->type == WORD || curr->type == VAR_ENV) && compt == 3)
-			return (curr);
-		if (curr->type == type)
-			compt++;
-		if (compt == 4 || curr->type == WHITESPACE)
-			return (curr);
-		curr = curr->next;
+		if (delete->next->type == type)
+			delete = ll_delet_token(delete);
+		else
+			delete = delete->next;
 	}
-	return (NULL);
+	return (lexer);
 }
 
-t_lexer	*join_quote(t_lexer *lexer)
+t_token	*ll_delet_token(t_token *node)
+{
+	t_token	*buffer;
+
+	buffer = NULL;
+	if (node == NULL || node->next == NULL)
+		return (NULL);
+	buffer = node->next;
+	node->next = node->next->next;
+	free(buffer->value);
+	free(buffer);
+	return(node);
+}
+
+t_lexer	*conc_word(t_lexer *lexer)
 {
 	t_token	*curr;
 
 	curr = lexer->header;
 	while (curr != NULL)
 	{
-		if (curr->type == S_QUOTES || curr->type == D_QUOTES)
-			curr = conc_quote(curr, lexer);
+		if (curr->type == WHITESPACE && \
+			curr->next != NULL && curr->next->type == WORD)
+			curr = conc_node_word(curr, lexer);
 		else
 			curr = curr->next;
 	}
 	return (lexer);
 }
-/*	******* dont'n free ******	*/
-
-void	free_node_void(t_token *node)
-{
-	t_token	*delet;
-	t_token	*new;
-
-	delet = node;
-	new = node->next;
-	free(delet->value);
-	free(delet);
-	delet = new;
-	new = new->next;
-	free(delet->value);
-	free(delet);
-	delet = new;
-}
-
-t_token	*conc_quote(t_token *curr, t_lexer *lexer)
-{
+t_token	*conc_node_word(t_token *curr, t_lexer *lexer)
+{	
 	char	*join;
 	t_token	*node;
 
-	if (curr->type == S_QUOTES || curr->type == D_QUOTES)
+	if (curr->type == WHITESPACE && curr->next != NULL)
 	{
-		node = curr->next;
-		curr = find_join(curr, curr->type);
-		if (curr == NULL)
+		node = curr->next; // ici mon mot;
+		if (curr->next->next == NULL || curr->next->next->type != WORD)
+			return (curr->next);
+		curr = curr->next->next;
+		join = ft_strjoin(node->value, curr->value);
+		if (join == NULL)
 			return (NULL);
-		if (curr->type == WORD || curr->type == VAR_ENV)
-		{
-			join = ft_strjoin(node->value, curr->value);
-			free(node->value);
-			node->value = ft_strdup(join);
-			free_node_void(node->next);
-			node->next = curr->next;
-			free(curr->value);
-			free(curr);
-			free(join);
-			return (lexer->header);
-		}
+		free(node->value);
+		node->value = ft_strdup(join);
+		if (node->value == NULL)
+			return (NULL);
+		node->next = curr->next;
+		free(curr->value);
+		free(curr);
+		free(join);
+		return (lexer->header);
 	}
-	return (curr);
+	return (curr->next);
 }
+
