@@ -85,29 +85,27 @@ void	mini_export_print(char *str, int *ret)
 
 int	mini_export(char **args, t_env *env)
 {
-	char	**tablo;
 	int		idx;
 	int		code;
 	int		ret;
 
-	tablo = m_exp_tab(args);
-	if (!tablo)
+	if (!args)
 		return (perror("malloc"), EXIT_FAILURE);
-	if (!tablo[1])
+	if (!args[1])
 		return (0);
 	idx = 1;
 	ret = 0;
-	while (tablo[idx])
+	while (args[idx])
 	{
-		if (!mini_export_is_valid(tablo[idx]))
-			mini_export_print(tablo[idx], &ret);
+		if (!mini_export_is_valid(args[idx]))
+			mini_export_print(args[idx], &ret);
 		else
 		{
-			code = mini_export_content(env, tablo[idx]);
+			code = mini_export_content(env, args[idx]);
 			if (code != 0)
 				ret = code;
 		}
 		idx++;
 	}
-	return (free_tab(tablo), ret);
+	return (ret);
 }

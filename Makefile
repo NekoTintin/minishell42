@@ -61,7 +61,6 @@ SRC	=	minishell.c \
 		execution/builtin/mini_env.c \
 		execution/builtin/mini_exit.c \
 		execution/builtin/mini_export.c \
-		execution/builtin/mini_export_utils.c \
 		execution/builtin/mini_pwd.c \
 		execution/builtin/mini_unset.c \
 		execution/builtins.c \
