@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 22:01:23 by qupollet          #+#    #+#             */
-/*   Updated: 2025/06/27 13:49:56 by qupollet         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:44:05 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ static int	ft_replace_env(t_env *top, char *key, char *val)
 	cur = top;
 	while (cur)
 	{
-		if (ft_strncmp(cur->key, key, ft_strlen(cur->key) + 1) == 0)
+		if (ft_strncmp(cur->key, key, ft_strlen(cur->key) + 1) == 0
+			&& ft_strlen(cur->key) == ft_strlen(key))
 		{
 			free(cur->value);
-			cur->value = ft_strdup(val);
+			if (!val)
+				cur->value = ft_strdup("");
+			else
+				cur->value = ft_strdup(val);
 			if (!cur->value)
 				return (1);
 			return (0);
