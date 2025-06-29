@@ -111,5 +111,5 @@ t_token	*conc_quote(t_token *curr, t_lexer *lexer)
 			return (lexer->header);
 		}
 	}
-	return (NULL);
+	return (curr);
 }
