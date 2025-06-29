@@ -12,10 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-t_lexer		*join_quote(t_lexer *lexer);
-t_token		*find_join(t_token *curr, t_token_type type);
-t_token		*conc_quote(t_token *curr, t_lexer *lexer);
-t_lexer		*ll_delet_type(t_lexer *lexer, t_token_type type);
+t_lexer	*ll_delet_type(t_lexer *lexer, t_token_type type);
 t_token	*conc_node_word(t_token *curr, t_lexer *lexer);
 t_lexer	*conc_word(t_lexer *lexer);
 t_token	*ll_delet_token(t_token *node);
@@ -30,7 +27,6 @@ t_parser	*mi_make_parse(t_parser *parse, t_lexer *lexer)
 		lexer = ll_delet_type(lexer, S_QUOTES);
 		lexer = ll_delet_type(lexer, D_QUOTES);
 		lexer = conc_word(lexer);
-		//lexer = join_quote(lexer);
 		if (lexer == NULL)
 			return (ll_free_lexer(lexer), NULL);
 		parse = parse_make_parser(parse);
@@ -71,7 +67,7 @@ t_token	*ll_delet_token(t_token *node)
 	node->next = node->next->next;
 	free(buffer->value);
 	free(buffer);
-	return(node);
+	return (node);
 }
 
 t_lexer	*conc_word(t_lexer *lexer)
@@ -89,6 +85,7 @@ t_lexer	*conc_word(t_lexer *lexer)
 	}
 	return (lexer);
 }
+
 t_token	*conc_node_word(t_token *curr, t_lexer *lexer)
 {	
 	char	*join;
@@ -96,7 +93,7 @@ t_token	*conc_node_word(t_token *curr, t_lexer *lexer)
 
 	if (curr->type == WHITESPACE && curr->next != NULL)
 	{
-		node = curr->next; // ici mon mot;
+		node = curr->next;
 		if (curr->next->next == NULL || curr->next->next->type != WORD)
 			return (curr->next);
 		curr = curr->next->next;
@@ -115,4 +112,3 @@ t_token	*conc_node_word(t_token *curr, t_lexer *lexer)
 	}
 	return (curr->next);
 }
-
