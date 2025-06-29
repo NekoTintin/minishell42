@@ -34,8 +34,6 @@ NAME = minishell
 #===========================================================#
 
 SRC	=	minishell.c \
-		testeur/lib_test_lexer.c \
-		testeur/lib_test_parsing.c \
 		utils/signal.c \
 		utils/env_in_lexer.c \
 		utils/tenv_varenv.c \
