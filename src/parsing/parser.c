@@ -44,6 +44,9 @@ t_token	*find_join(t_token *curr, t_token_type type)
 	compt = 0;
 	while (curr != NULL)
 	{
+		if ((curr->type == WORD || curr->type == VAR_ENV) && \
+			compt < 3 && compt != 1)
+			return (NULL);
 		if ((curr->type == WORD || curr->type == VAR_ENV) && compt == 3)
 			return (curr);
 		if (curr->type == type)
@@ -80,10 +83,12 @@ void	free_node_void(t_token *node)
 	new = node->next;
 	free(delet->value);
 	free(delet);
+	delet = NULL;
 	delet = new;
 	new = new->next;
 	free(delet->value);
 	free(delet);
+	delet = NULL;
 	delet = new;
 }
 
@@ -104,6 +109,8 @@ t_token	*conc_quote(t_token *curr, t_lexer *lexer)
 			free(node->value);
 			node->value = ft_strdup(join);
 			free_node_void(node->next);
+			if (curr == NULL || curr->value == NULL)
+				return (NULL);
 			node->next = curr->next;
 			free(curr->value);
 			free(curr);
