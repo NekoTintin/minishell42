@@ -6,7 +6,7 @@
 /*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:04:53 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/26 14:04:48 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:15:29 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ t_token	*loop_expand(t_token *curr, bool in_squote, int code, t_env *env)
 	index = 0;
 	while (curr->value[index] != '\0')
 	{
-		if (curr->value[index] == 36 && \
-			curr->value[index + 1] != '\0' && curr->value[index + 1] != '?')
+		if (curr->value[index] == 36 && !in_squote
+			&& curr->value[index + 1] != '\0' && curr->value[index + 1] != '?')
 			curr->value = tenv_varenv(curr->value, env, in_squote, index);
-		if (curr->value == NULL || curr->value[0] == '\0' || \
-			curr->value[index] == '\0')
+		if (curr->value == NULL || curr->value[0] == '\0'
+			|| curr->value[index] == '\0')
 			return (curr);
-		else if (curr->value[index] == 36 && curr->value[index + 1] == 63)
+		else if (!in_squote
+			&& curr->value[index] == 36 && curr->value[index + 1] == 63)
 			curr->value = tenv_error_code(curr->value, code, index);
 		index++;
 	}

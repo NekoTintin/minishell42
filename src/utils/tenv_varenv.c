@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tenv_varenv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchallat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: qupollet <qupollet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:39:16 by bchallat          #+#    #+#             */
-/*   Updated: 2025/06/26 15:39:24 by bchallat         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:11:01 by qupollet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*tenv_varenv(char *str, t_env *env, bool squote, int index)
 	key = env_strextra(str, index);
 	value = ft_strdup(ft_env_get_value(env, &key[1]));
 	befor = ft_strndup(str, index);
-	after = ft_strndup(&str[index + ft_strlen(key)], \
+	after = ft_strndup(&str[index + ft_strlen(key)],
 			ft_strlen(str) - (index + ft_strlen(key)));
 	index = -1;
 	if (squote == false)
@@ -88,8 +88,8 @@ char	*env_strextra(char *str, unsigned int n)
 	int				i;
 
 	len = n + 1;
-	while (str[len] != '\0' && \
-		(ft_isalpha(str[len]) || str[len] == '_' || ft_isdigit(str[len])))
+	while (str[len] != '\0'
+		&& (ft_isalpha(str[len]) || str[len] == '_' || ft_isdigit(str[len])))
 		len++;
 	key = (char *)malloc(sizeof(char) * (len - n) + 1);
 	if (str == NULL || key == NULL)
@@ -117,7 +117,7 @@ char	*env_strextra(char *str, unsigned int n)
 	printf("%s \n", value);
 	befor = ft_strndup(str, index);
 	printf("%s \n", befor);
-	after = ft_strndup(&str[index + ft_strlen(key)], \
+	after = ft_strndup(&str[index + ft_strlen(key)],
 			ft_strlen(str) - (index + ft_strlen(key)));
 	if (squote == false)
 	{
